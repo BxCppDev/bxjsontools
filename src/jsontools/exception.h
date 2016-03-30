@@ -49,6 +49,6 @@ namespace jsontools {
 
   };
 
-}
+} // end of namespace jsontools
 
 #endif // JSONTOOLS_EXCEPTION_H

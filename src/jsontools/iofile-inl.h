@@ -1,5 +1,8 @@
 // -*- mode: c++; -*-
 
+// This project:
+#include <jsontools/exception.h>
+
 namespace jsontools {
 
   template<typename T>
@@ -9,19 +12,19 @@ namespace jsontools {
     node_value node(root, false, false);
     std::ifstream ifs(file_);
     if (ifs.fail()) {
-      throw exception("Opening file failed");
+      throw ::jsontools::exception("Opening file failed");
     }
     std::stringstream strStream;
     strStream << ifs.rdbuf();
     Json::Reader reader;
     if (not reader.parse(strStream.str(), root)) {
-      throw exception("Parsing file failed: " + reader.getFormattedErrorMessages());
+      throw ::jsontools::exception("Parsing file failed: " + reader.getFormattedErrorMessages());
     }
     try {
       node % data_;
     } catch(const wrong_type & type) {
       reader.pushError(type.get_value(), type.what(), type.get_value());
-      throw exception("Parsing failed: "+ reader.getFormattedErrorMessages());
+      throw ::jsontools::exception("Parsing failed: "+ reader.getFormattedErrorMessages());
     }
     return;
   }
@@ -36,12 +39,12 @@ namespace jsontools {
     std::string jsonString = jsonWriter.write(root);
     std::ofstream oFile(file_);
     if (oFile.fail()) {
-      throw exception("Opening file failed");
+      throw ::jsontools::exception("Opening file failed");
     }
     oFile << jsonString;
     oFile.close();
     if (oFile.fail()) {
-      throw exception("Writing to file failed");
+      throw ::jsontools::exception("Writing to file failed");
     }
     return;
   }

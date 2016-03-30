@@ -22,16 +22,23 @@ set(Jsontools_VERSION "${Jsontools_VERSION_MAJOR}.${Jsontools_VERSION_MINOR}.${J
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
 
-set(Jsontools_HEADERS
+set(Jsoncpp_HEADERS
   src/json/json-forwards.h
   src/json/json.h
+  )
+
+set(Jsontools_HEADERS
   src/jsontools/core.h
   src/jsontools/exception.h
   src/jsontools/node.h
+  src/jsontools/node-inl.h
   src/jsontools/base_type_converters.h
   src/jsontools/std_type_converters.h
   src/jsontools/serdes.h
   src/jsontools/iofile.h
+  src/jsontools/iofile-inl.h
+  src/jsontools/i_jsonizable.h
+  src/jsontools/jsontools.h
   src/jsontools/testing/test.h
   )
 
@@ -40,15 +47,32 @@ set(Jsontools_PRIVATE_HEADERS
 
 set(Jsontools_SOURCES
   src/jsontools/testing/test.cc
+  src/jsontools/i_jsonizable.cc
   src/jsontools/exception.cc
   src/jsontools/node.cc
   src/json/jsoncpp.cpp
   )
 
-# - define amalgamation macro for Jsoncpp
+install( FILES
+  ${Jsontools_HEADERS}
+  DESTINATION ${CMAKE_INSTALL_PREFIX}/include/jsontools
+  PERMISSIONS OWNER_READ
+  GROUP_READ
+  WORLD_READ
+  )
+
+install( FILES
+  ${Jsoncpp_HEADERS}
+  DESTINATION ${CMAKE_INSTALL_PREFIX}/include/json
+  PERMISSIONS OWNER_READ
+  GROUP_READ
+  WORLD_READ
+  )
+
 add_definitions(-std=c++11)
 
 add_library(jsontools SHARED
+  ${Jsoncpp_HEADERS}
   ${Jsontools_HEADERS}
   ${Jsontools_PRIVATE_HEADERS}
   ${Jsontools_SOURCES}
