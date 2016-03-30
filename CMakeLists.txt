@@ -55,15 +55,46 @@ add_library(jsontools SHARED
   )
 
 install( FILES
-         ${PROJECT_BINARY_DIR}/libjsontools${CMAKE_SHARED_LIBRARY_SUFFIX}
-         DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-         PERMISSIONS OWNER_READ OWNER_EXECUTE
-         GROUP_READ GROUP_EXECUTE
-         WORLD_READ WORLD_EXECUTE
-       )
+  ${PROJECT_BINARY_DIR}/libjsontools${CMAKE_SHARED_LIBRARY_SUFFIX}
+  DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+  PERMISSIONS OWNER_READ OWNER_EXECUTE
+  GROUP_READ GROUP_EXECUTE
+  WORLD_READ WORLD_EXECUTE
+  )
 
-add_executable(test_jsontools_0 src/jsontools/testing/test_jsontools_0.cxx)
+option(BAYEUX_ENABLE_TESTING "Build unit testing system for Bayeux/jsontools" ON)
+if(BAYEUX_ENABLE_TESTING)
+  enable_testing()
+endif()
 
-target_link_libraries(test_jsontools_0 jsontools)
+set(jsontools_TESTS
+  src/jsontools/testing/test_jsontools_0.cxx
+  )
+
+if(BAYEUX_ENABLE_TESTING)
+  foreach(_testsource ${jsontools_TESTS})
+    set(_jsontools_TEST_ENVIRONMENT
+      # "BXJSONTOOLS_RESOURCE_FILES_DIR=${PROJECT_SOURCE_DIR}/resources"
+      )
+    get_filename_component(_testname "${_testsource}" NAME_WE)
+    set(_testname "jsontools-${_testname}")
+    add_executable(${_testname} ${_testsource})
+    target_link_libraries(${_testname} jsontools)
+    # - On Apple, ensure dynamic_lookup of undefined symbols
+    if(APPLE)
+      set_target_properties(${_testname} PROPERTIES LINK_FLAGS "-undefined dynamic_lookup")
+    endif()
+    add_test(NAME ${_testname} COMMAND ${_testname})
+    set_property(TEST ${_testname}
+      APPEND PROPERTY ENVIRONMENT ${_jsontools_TEST_ENVIRONMENT}
+      )
+    # - For now, dump them into the testing output directory
+    set_target_properties(${_testname}
+      PROPERTIES
+      RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bxjsontools_tests
+      ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bxjsontools_tests
+      )
+  endforeach()
+endif()
 
 # - end of CMakeLists.txt
