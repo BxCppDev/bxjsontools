@@ -86,3 +86,12 @@ $ LANG="C" tree ~/sw/bxjsontool/install-0.1.0
             `-- jsoncpp
                 `-- LICENSE.txt
 ```
+
+## Using (bx)jsontools:
+
+There  is a  simple example  ``ex01`` that  illustrates a  very simple
+usecase.
+
+No      CMake     configuration      scripts     (``FindBxJsontools``,
+BxJsontoolsConfig.cmake``...)   are   provided  for  now   for  client
+software.
