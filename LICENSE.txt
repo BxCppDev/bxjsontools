@@ -2,11 +2,15 @@ bxjsontools amalgamates  the jsoncpp  library (by  Baptiste Lepilleur,
 https://github.com/open-source-parsers/jsoncpp)   which  is   released
 under the MIT License.
 
-bxjsontools reuse large parts of  the JsonSerializer library (by Simon
-Gene  Gottlieb, https://github.com/SGSSGene/JsonSerializer/)  which is
-released under some kind of Public Licence.
+bxjsontools reuses large  parts of the JsonSerializer  C++ library (by
+Simon   Gene  Gottlieb,   https://github.com/SGSSGene/JsonSerializer/)
+which is released under some kind of Public Licence.
 
-bxjsontools, as the Bayeux library,  is released under the GNU General
+bxjsontools, like the Bayeux library,  is released under the GNU General
 Public License (GPL 3.0).
 
 See the' licensing' directory for details.
+
+--
+F.Mauger
+Updated: 2016-03-31
