@@ -47,8 +47,8 @@ $ make install
 ```
 3. Enjoy (bx)jsontools from its installation directory:
 ```
-$ LANG="C" tree ~/sw/bxjsontool/install-0.1.0
-/home/{login}/sw/bxjsontool/install-0.1.0
+$ LANG="C" tree ~/sw/bxjsontools/install-0.1.0
+/home/<login>/sw/bxjsontools/install-0.1.0
 |-- include
 |   |-- json
 |   |   |-- json-forwards.h
