@@ -47,8 +47,7 @@ make install
 ```
 3. Enjoy bxjsontools from its installation directory:
 ```
-/home/mylogin/sw/bxjsontool/install-0.1.0
-/home/mauger/sw/bxjsontool/install-0.1.0
+/home/{login}/sw/bxjsontool/install-0.1.0
 |-- include
 |   |-- json
 |   |   |-- json-forwards.h
