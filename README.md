@@ -2,16 +2,16 @@
 
 bxjsontools - Tools for JSON serialization (C++ library)
 
-(bx)jsontools consists in a set of C++ classes and utilities
-for JSON based serialization.  It aims to be integrated in
-the Bayeux C++ library.
+(bx)jsontools consists in a set of  C++ classes and utilities for JSON
+based  serialization.  It  aims to  be  integrated in  the Bayeux  C++
+library.
 
 ## Dependencies and inspiration
 
-(bx)jsontools  is makes  use  or  is based  on:
-* the jsoncpp library (https://github.com/open-source-parsers/jsoncpp)
+(bx)jsontools is makes use or is based on:
+* the jsoncpp C++ library (https://github.com/open-source-parsers/jsoncpp)
 is amalgamated in bxjsontools source code.
-* the                      JsonSerializer                      library
+* the              JsonSerializer             C++              library
   (https://github.com/SGSSGene/JsonSerializer)  : large  parts of  the
   code from  JsonSerializer has been  reused with a  few modifications
   (coding style, file splitting and minor changes in the interface).
@@ -24,9 +24,9 @@ See the LICENSE.txt file and the 'licensing' directory.
 
 ## Build and install:
 
-The following instructions illustrate how to build and
-install (bx)jsontools on a Linux system. It should be easy to adapt
-for a MacOS X system.
+The  following  instructions  illustrate  how  to  build  and  install
+(bx)jsontools on  a Linux  system. It  should be easy  to adapt  for a
+MacOS X system.
 
 1. Download the source code from GitHub:
 ```sh
