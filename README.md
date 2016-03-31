@@ -20,3 +20,17 @@ is amalgamated in bxjsontools source code.
 ## License:
 
 See the LICENSE.txt file and the 'licensing' directory.
+
+
+## Build and install:
+
+```sh
+mkdir _build.d/
+cd  _build.d/
+cmake \
+  -DCMAKE_INSTALL_PREFIX=../_install.d \
+  ..
+make
+make test
+make install
+```

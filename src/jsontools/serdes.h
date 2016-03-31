@@ -16,7 +16,7 @@ namespace jsontools {
 
     static void serialize(node & node_, T & x_)
     {
-      x_.serialize(node_);
+      x_.serialize(node_, 0);
       return;
     }
 
@@ -30,17 +30,17 @@ namespace jsontools {
 
   template<typename T>
   auto _deserialize(node & node_, T & x_, int)
-    -> decltype(x_.deserialize(node_))
+    -> decltype(x_.deserialize(node_, 0))
   {
-    x_.deserialize(node_);
+    x_.deserialize(node_, 0);
     return;
   }
 
   template<typename T>
   auto _deserialize(node & node_, T & x_, long)
-    -> decltype(x_.serialize(node_))
+    -> decltype(x_.serialize(node_, 0))
   {
-    x_.serialize(node_);
+    x_.serialize(node_, 0);
     return;
   }
 

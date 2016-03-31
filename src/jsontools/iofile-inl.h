@@ -12,19 +12,19 @@ namespace jsontools {
     node_value node(root, false, false);
     std::ifstream ifs(file_);
     if (ifs.fail()) {
-      throw ::jsontools::exception("Opening file failed");
+      throw ::jsontools::exception("Opening file '" + file_ + "' failed");
     }
     std::stringstream strStream;
     strStream << ifs.rdbuf();
     Json::Reader reader;
     if (not reader.parse(strStream.str(), root)) {
-      throw ::jsontools::exception("Parsing file failed: " + reader.getFormattedErrorMessages());
+      throw ::jsontools::exception("Parsing file '" + file_ + "' failed: " + reader.getFormattedErrorMessages());
     }
     try {
       node % data_;
     } catch(const wrong_type & type) {
       reader.pushError(type.get_value(), type.what(), type.get_value());
-      throw ::jsontools::exception("Parsing failed: "+ reader.getFormattedErrorMessages());
+      throw ::jsontools::exception("Parsing file '" + file_ + "' failed: "+ reader.getFormattedErrorMessages());
     }
     return;
   }
@@ -39,12 +39,12 @@ namespace jsontools {
     std::string jsonString = jsonWriter.write(root);
     std::ofstream oFile(file_);
     if (oFile.fail()) {
-      throw ::jsontools::exception("Opening file failed");
+      throw ::jsontools::exception("Opening file '" + file_ + "' failed!");
     }
     oFile << jsonString;
     oFile.close();
     if (oFile.fail()) {
-      throw ::jsontools::exception("Writing to file failed");
+      throw ::jsontools::exception("Writing to file '" + file_ + "' failed!");
     }
     return;
   }

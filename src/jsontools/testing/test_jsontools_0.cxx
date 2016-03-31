@@ -13,6 +13,8 @@ int main( void )
 
     jsontools::testing::test::run_test_0();
     jsontools::testing::test::run_test_1();
+    jsontools::testing::test::run_test_2();
+    jsontools::testing::test::run_test_3();
 
   } catch (std::exception & x) {
     std::cerr << "ERROR: " << x.what() << std::endl;

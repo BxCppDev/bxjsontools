@@ -63,6 +63,7 @@ namespace jsontools {
         throw wrong_type(node_.get_value(), "expected array");
       }
       x_.clear();
+      x_.reserve(node_.get_value().size());
       for (uint i(0); i < node_.get_value().size(); ++i) {
         x_.push_back(T());
         node_value newNode(node_.grab_value()[i],
