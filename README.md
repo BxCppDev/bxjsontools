@@ -28,13 +28,13 @@ The  following  instructions  illustrate  how  to  build  and  install
 (bx)jsontools on  a Linux  system. It  should be easy  to adapt  for a
 MacOS X system.
 
-1. Download the source code from GitHub:
+### Download the source code from GitHub:
 ```sh
 $ mkdir -p /tmp/${USER}/bxjsontools/_source.d/
 $ cd /tmp/${USER}/bxjsontools/_source.d/
 $ git clone https://github.com/fmauger/bxjsontools.git
 ```
-2. Build the library from a dedicated directory:
+### Build the library from a dedicated directory:
 ```sh
 $ mkdir -p /tmp/${USER}/bxjsontools/_build.d/
 $ cd  /tmp/${USER}/bxjsontools/_build.d/
@@ -45,7 +45,8 @@ $ make
 $ make test
 $ make install
 ```
-3. Enjoy (bx)jsontools from its installation directory:
+
+### Enjoy (bx)jsontools from its installation directory:
 ```
 $ LANG="C" tree ~/sw/bxjsontools/install-0.1.0
 /home/<login>/sw/bxjsontools/install-0.1.0
@@ -89,9 +90,8 @@ $ LANG="C" tree ~/sw/bxjsontools/install-0.1.0
 
 ## Using (bx)jsontools:
 
-There  is a  simple example  ``ex01`` that  illustrates a  very simple
+* There  is a  simple example  ``ex01`` that  illustrates a  very simple
 usecase.
-
-No    CMake    configuration    scripts    (``FindBxJsontools.cmake``,
-``BxJsontoolsConfig.cmake``...)   are  provided  for  now  for  client
+* No    CMake    configuration    scripts    (``FindBxjsontools.cmake``,
+``BxjsontoolsConfig.cmake``...)   are  provided  for  now  for  client
 software.
