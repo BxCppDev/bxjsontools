@@ -5,7 +5,19 @@
 #include <iostream>
 
 // This project:
-#include <jsontools/jsontools.h>
+#include <jsontools/config.h>
+#include <jsontools/core.h>
+#include <jsontools/node.h>
+#include <jsontools/base_type_converters.h>
+#include <jsontools/std_type_converters.h>
+#include <jsontools/serdes.h>
+#include <jsontools/iofile.h>
+
+#if JSONTOOLS_WITH_BOOST == 1
+// Boost:
+#include <boost/optional.hpp>
+#include <jsontools/boost_type_converters.h>
+#endif // JSONTOOLS_WITH_BOOST == 1
 
 namespace bar {
 
@@ -86,7 +98,6 @@ namespace jsontools {
 
   namespace testing {
 
-
     class A
     {
     public:
@@ -109,8 +120,19 @@ namespace jsontools {
         _x_ = 0;
         _values_.clear();
         _dict_.clear();
+#if JSONTOOLS_WITH_BOOST == 1
+        _maybe_ = boost::none;
+#endif // JSONTOOLS_WITH_BOOST == 1
         return;
       }
+
+#if JSONTOOLS_WITH_BOOST == 1
+      void set_maybe(int mb_)
+      {
+        _maybe_ = mb_;
+        return;
+      }
+#endif // JSONTOOLS_WITH_BOOST == 1
 
       void print(std::ostream & out_) const
       {
@@ -118,16 +140,28 @@ namespace jsontools {
         out_ << "|-- name : '" << _name_ << "'" << std::endl;
         out_ << "|-- x : '" << _x_ << "'" << std::endl;
         out_ << "|-- values : [" << _values_.size() << "]" << std::endl;
+#if JSONTOOLS_WITH_BOOST == 1
+        out_ << "|-- maybe : ";
+        if (_maybe_) {
+          out_ << _maybe_.get();
+        } else {
+          out_ << "<none>";
+        }
+        out_ << std::endl;
+#endif // JSONTOOLS_WITH_BOOST == 1
         out_ << "`-- dict : [" << _dict_.size() << "]" << std::endl;
         return;
       }
 
       void serialize(jsontools::node & node_, unsigned long int version_ = 0)
       {
-        node_["name"]   % _name_ or "unknown"; //(de-)serialize name, if name is not set, set it to "unknown"
+        node_["name"]   % _name_;
         node_["x"]      % _x_;
         node_["values"] % _values_;
         node_["dict"]   % _dict_;
+#if JSONTOOLS_WITH_BOOST == 1
+        node_["maybe"]  % _maybe_;
+#endif // JSONTOOLS_WITH_BOOST == 1
         return;
       }
 
@@ -137,6 +171,9 @@ namespace jsontools {
       uint32_t _x_;
       std::vector<double> _values_;
       std::map<std::string, int> _dict_;
+#if JSONTOOLS_WITH_BOOST == 1
+      boost::optional<int32_t> _maybe_;
+#endif // JSONTOOLS_WITH_BOOST == 1
 
     };
 
@@ -157,7 +194,7 @@ namespace jsontools {
 
       void serialize(jsontools::node & node_, unsigned long int version_ = 0)
       {
-        node_["many"]   % _many_;
+        node_["many"] % _many_;
         return;
       }
 
@@ -173,22 +210,30 @@ namespace jsontools {
       }
 
     private:
+
       std::vector<A> _many_;
+
     };
 
     // static
     void test::run_test_0()
     {
+      std::clog << "\ntest::run_test_0: \n" ;
       A a1;
+#if JSONTOOLS_WITH_BOOST == 1
+      a1.set_maybe(666);
+#endif // JSONTOOLS_WITH_BOOST == 1
+      std::clog << "a1 = \n";
       a1.print(std::clog);
       jsontools::store("test-jsontools-file_0.json", a1);
 
       A a2;
       a2.reset();
+      std::clog << "a2 = \n";
       a2.print(std::clog);
       jsontools::load("test-jsontools-file_0.json", a2);
+      std::clog << "a2 = \n";
       a2.print(std::clog);
-      // a1 and a2 are now the same
 
       return;
     }
@@ -196,16 +241,24 @@ namespace jsontools {
     // static
     void test::run_test_1()
     {
+      std::clog << "\ntest::run_test_1: \n" ;
       B b1;
       for (int i = 0; i < 4; i++) {
         A a1;
+#if JSONTOOLS_WITH_BOOST == 1
+        if (i % 2) {
+          a1.set_maybe(333 - i);
+        }
+#endif // JSONTOOLS_WITH_BOOST == 1
         b1.add(a1);
       }
+      std::clog << "b1 = \n";
       b1.print(std::clog);
       jsontools::store("test-jsontools-file_1.json", b1);
 
       B b2;
       jsontools::load("test-jsontools-file_1.json", b2);
+      std::clog << "b2 = \n";
       b2.print(std::clog);
 
       return;
@@ -214,11 +267,17 @@ namespace jsontools {
     // static
     void test::run_test_2()
     {
+      std::clog << "\ntest::run_test_2: \n" ;
       std::map<std::string, B> bees;
 
       B b1;
       for (int i = 0; i < 4; i++) {
         A a1;
+#if JSONTOOLS_WITH_BOOST == 1
+        if (i % 2) {
+          a1.set_maybe(666 - i);
+        }
+#endif // JSONTOOLS_WITH_BOOST == 1
         b1.add(a1);
       }
       bees["riri"] = b1;
@@ -235,19 +294,21 @@ namespace jsontools {
     // static
     void test::run_test_3()
     {
+      std::clog << "\ntest::run_test_3: \n" ;
       std::map<std::string, bar::Foreign> fees;
       fees["f0"] = bar::Foreign(+1.0, -2.0);
       fees["f1"] = bar::Foreign(-3.0, +0.5);
       fees["f2"] = bar::Foreign(+2.0, -1.0);
+      std::clog << "fees = \n";
       for (auto f : fees) {
         std::clog << f.first << " : " << f.second << std::endl;
       }
-
       jsontools::store("test-jsontools-file_3.json", fees);
 
       fees.clear();
       jsontools::load("test-jsontools-file_3.json", fees);
-      for (auto f : fees) {
+      std::clog << "fees = \n";
+       for (auto f : fees) {
         std::clog << f.first << " : " << f.second << std::endl;
       }
 

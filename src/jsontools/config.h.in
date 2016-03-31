@@ -1,0 +1,8 @@
+// -*- mode: c++; -*-
+
+#ifndef JSONTOOLS_JSONTOOLS_CONFIG_H
+#define JSONTOOLS_JSONTOOLS_CONFIG_H
+
+#cmakedefine01 JSONTOOLS_WITH_BOOST
+
+#endif // JSONTOOLS_JSONTOOLS_CONFIG_H

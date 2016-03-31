@@ -1,0 +1,9 @@
+// -*- mode: c++; -*-
+
+#ifndef JSONTOOLS_VERSION_H
+#define JSONTOOLS_VERSION_H
+
+//! String encoded full version number, e.g. "1.2.3", available at compile time
+#define JSONTOOLS_LIB_VERSION "@Jsontools_VERSION_MAJOR@.@Jsontools_VERSION_MINOR@.@Jsontools_VERSION_PATCH@"
+
+#endif // JSONTOOLS_VERSION_H
