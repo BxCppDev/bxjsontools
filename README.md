@@ -8,13 +8,15 @@ Bayeux C++ library.
 
 ## Dependencies and inspiration
 
-(bx)jsontools is makes use or is based on:
+(bx)jsontools makes use and is based on:
 * the jsoncpp C++ library (https://github.com/open-source-parsers/jsoncpp)
 is amalgamated in bxjsontools source code.
 * the              JsonSerializer             C++              library
   (https://github.com/SGSSGene/JsonSerializer)  : large  parts of  the
   code from  JsonSerializer has been  reused with a  few modifications
-  (coding style, file splitting, minor changes in the interface, addons).
+  (coding style, file splitting, minor changes in the interface, addons)
+
+Needed tools and software:
 * You need CMake version >= 2.8 (former version may work)
 * You need gcc version >= 4.8.4 (former version may work)
 * By default, some (bx)jsontools' parts depends on Boost 1.54 (former version may work).
@@ -83,14 +85,14 @@ $ LANG="C" tree ~/sw/bxjsontools/install-0.1.0
 |-- lib
 |   `-- x86_64-linux-gnu
 |       |-- cmake
-|       |   `-- bxjsontools-0.1.0
+|       |   `-- BxJsontools-0.1.0
 |       |       |-- BxJsontoolsConfig.cmake
 |       |       |-- BxJsontoolsConfigVersion.cmake
 |       |       |-- BxJsontoolsTargets-noconfig.cmake
 |       |       `-- BxJsontoolsTargets.cmake
 |       `-- libBayeux_jsontools.so
 `-- share
-    `-- bxjsontools-0.1.0
+    `-- BxJsontools-0.1.0
         |-- LICENSE.txt
         |-- examples
         |   `-- ex01
