@@ -16,6 +16,7 @@
 #if JSONTOOLS_WITH_BOOST == 1
 // Boost:
 #include <boost/optional.hpp>
+#include <boost/lexical_cast.hpp>
 #include <jsontools/boost_type_converters.h>
 #endif // JSONTOOLS_WITH_BOOST == 1
 
@@ -308,9 +309,76 @@ namespace jsontools {
       fees.clear();
       jsontools::load("test-jsontools-file_3.json", fees);
       std::clog << "fees = \n";
-       for (auto f : fees) {
+      for (auto f : fees) {
         std::clog << f.first << " : " << f.second << std::endl;
       }
+
+      return;
+    }
+
+    // static
+    void test::run_test_4()
+    {
+      std::clog << "\ntest::run_test_4: \n" ;
+#if JSONTOOLS_WITH_BOOST == 1
+      std::map<std::string, boost::posix_time::ptime> times;
+      for (int i = 0; i < (int) 7; i++) {
+        boost::posix_time::ptime t(boost::posix_time::microsec_clock::local_time());
+        if (i == 3) {
+          t = boost::posix_time::ptime(boost::posix_time::neg_infin);
+        } else if (i == 4) {
+          t = boost::posix_time::ptime(boost::posix_time::pos_infin);
+        } else if (i == 5) {
+          t = boost::posix_time::ptime(boost::posix_time::not_a_date_time);
+        }
+        times["t" + boost::lexical_cast<std::string>(i)] = t;
+      }
+      std::clog << "times = \n";
+      for (auto t : times) {
+        std::clog << t.first << " : " << boost::posix_time::to_simple_string(t.second) << std::endl;
+      }
+      jsontools::store("test-jsontools-file_4.json", times);
+
+      times.clear();
+      jsontools::load("test-jsontools-file_4.json", times);
+      std::clog << "times = \n";
+      for (auto t : times) {
+        std::clog << t.first << " : " << boost::posix_time::to_simple_string(t.second) << std::endl;
+      }
+
+      {
+        boost::posix_time::time_period tp(boost::posix_time::microsec_clock::local_time(),
+                                          boost::posix_time::microsec_clock::local_time() +
+                                          boost::posix_time::seconds(10));
+        std::clog << "tp : " << boost::posix_time::to_simple_string(tp) << std::endl;
+        jsontools::store("test-jsontools-file_4bis.json", tp);
+      }
+
+      {
+        boost::posix_time::time_period tp(boost::posix_time::microsec_clock::local_time(),
+                                          boost::posix_time::microsec_clock::local_time() -
+                                          boost::posix_time::seconds(1));
+        jsontools::load("test-jsontools-file_4bis.json", tp);
+        std::clog << "tp : " << boost::posix_time::to_simple_string(tp) << std::endl;
+      }
+
+      {
+        boost::posix_time::time_period tp(boost::posix_time::microsec_clock::local_time(),
+                                          boost::posix_time::microsec_clock::local_time() -
+                                          boost::posix_time::seconds(1));
+        std::clog << "tp : " << boost::posix_time::to_simple_string(tp) << std::endl;
+        jsontools::store("test-jsontools-file_4ter.json", tp);
+      }
+
+      {
+        boost::posix_time::time_period tp(boost::posix_time::microsec_clock::local_time(),
+                                          boost::posix_time::microsec_clock::local_time() +
+                                          boost::posix_time::seconds(1));
+        jsontools::load("test-jsontools-file_4ter.json", tp);
+        std::clog << "tp : " << boost::posix_time::to_simple_string(tp) << std::endl;
+      }
+
+#endif // JSONTOOLS_WITH_BOOST == 1
 
       return;
     }

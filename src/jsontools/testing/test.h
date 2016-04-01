@@ -19,6 +19,8 @@ namespace jsontools {
 
       static void run_test_3();
 
+      static void run_test_4();
+
     };
 
   } // end of namespace testing

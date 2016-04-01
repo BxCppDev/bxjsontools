@@ -42,14 +42,19 @@ set(Jsontools_HEADERS
   src/jsontools/jsontools.h
   )
 
+set(_libs)
 if(JSONTOOLS_WITH_BOOST)
-  find_package(Boost 1.54 REQUIRED)
+  find_package(Boost 1.54 REQUIRED date_time)
   message( STATUS "Boost found at '${Boost_INCLUDE_DIRS}'")
   include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
   list(APPEND
     Jsontools_HEADERS
     src/jsontools/boost_type_converters.h
     )
+  list(APPEND _libs
+    ${Boost_DATE_TIME_LIBRARY}
+    )
+  message( STATUS "_libs='${_libs}'")
 endif()
 
 # - Publish headers
@@ -101,6 +106,7 @@ add_library(jsontools SHARED
   ${Jsontools_HEADERS}
   ${Jsontools_PRIVATE_HEADERS}
   ${Jsontools_SOURCES}
+  ${_libs}
   )
 
 install( FILES
@@ -161,7 +167,7 @@ if(JSONTOOLS_ENABLE_TESTING)
       src/jsontools/testing/test.h
       src/jsontools/testing/test.cc
       )
-    target_link_libraries(${_testname} jsontools)
+    target_link_libraries(${_testname} jsontools ${_libs})
     # - On Apple, ensure dynamic_lookup of undefined symbols
     if(APPLE)
       set_target_properties(${_testname} PROPERTIES LINK_FLAGS "-undefined dynamic_lookup")
