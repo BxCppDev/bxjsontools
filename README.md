@@ -14,7 +14,7 @@ is amalgamated in bxjsontools source code.
 * the              JsonSerializer             C++              library
   (https://github.com/SGSSGene/JsonSerializer)  : large  parts of  the
   code from  JsonSerializer has been  reused with a  few modifications
-  (coding style, file splitting and minor changes in the interface).
+  (coding style, file splitting, minor changes in the interface, addons).
 * By default, some (bx)jsontools' parts depends on Boost. This can be inhibited
   at configuration.
 
