@@ -6,6 +6,10 @@ bxjsontools - Tools for JSON serialization (C++ library)
 based serialization.   It aims  to be  integrated as  a module  of the
 Bayeux C++ library.
 
+JSON serialization will be used by the Vire C++ library for communication
+between C++ and Java based Control and Monitoring System (CMS) servers for
+the SuperNEMO experiment.
+
 ## Dependencies and inspiration
 
 (bx)jsontools makes use and is based on:
@@ -16,7 +20,7 @@ is amalgamated in bxjsontools source code.
   code from  JsonSerializer has been  reused with a  few modifications
   (coding style, file splitting, minor changes in the interface, addons)
 
-Needed tools and software:
+Needed tools and software (tested on Ubuntu 14.04 LTS):
 * You need CMake version >= 2.8 (former version may work)
 * You need gcc version >= 4.8.4 (former version may work)
 * By default, some (bx)jsontools' parts depends on Boost 1.54 (former version may work).
@@ -36,8 +40,15 @@ to adapt for a MacOS X system.
 CMake options:
 
 * ``BXJSONTOOLS_WITH_BOOST`` (default: ``ON``) : implements some
-specific JSON serialization support for some Boost classes (implies Boost 1.54 dependency).
-* ``BXJSONTOOLS_ENABLE_TESTING`` (default: ``ON``) : build the test program(s).
+  specific JSON serialization support for some Boost classes (implies Boost 1.54 dependency).
+
+  Supported classes are:
+
+  * ``boost::optional<T>`` (for optional records in message's header and/or body)
+  * ``boost::posix_time::ptime`` (for message timestamping)
+  * ``boost::posix_time::time_period`` (for agenda reservation/scheduling)
+
+* ``BXJSONTOOLS_ENABLE_TESTING`` (default: ``ON``) : builds the test program(s).
 
 
 ### Download the source code from GitHub:
