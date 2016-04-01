@@ -112,8 +112,8 @@ $ LANG="C" tree ~/sw/bxjsontools/install-0.1.0
 
 ## Using (bx)jsontools:
 
+* CMake  configuration  scripts (``BxjsontoolsConfig.cmake``...)   are
+provided for client software.
+
 * There is  a simple example  ``ex01`` that illustrates a  very simple
 usecase.
-
-* CMake  configuration  scripts (``BxjsontoolsConfig.cmake``...)   is
-provided for client software.
