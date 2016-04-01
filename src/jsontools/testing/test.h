@@ -1,7 +1,7 @@
 // -*- mode: c++; -*-
 
-#ifndef JSONTOOLS_TESTING_TEST_H
-#define JSONTOOLS_TESTING_TEST_H
+#ifndef BXJSONTOOLS_TESTING_TEST_H
+#define BXJSONTOOLS_TESTING_TEST_H
 
 namespace jsontools {
 
@@ -27,4 +27,4 @@ namespace jsontools {
 
 } // end of namespace jsontools
 
-#endif // JSONTOOLS_JSONTOOLS_H
+#endif // BXJSONTOOLS_TESTING_TEST_H

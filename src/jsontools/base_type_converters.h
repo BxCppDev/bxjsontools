@@ -1,7 +1,7 @@
 // -*- mode: c++; -*-
 
-#ifndef JSONTOOLS_BASE_TYPE_CONVERTERS_H
-#define JSONTOOLS_BASE_TYPE_CONVERTERS_H
+#ifndef BXJSONTOOLS_BASE_TYPE_CONVERTERS_H
+#define BXJSONTOOLS_BASE_TYPE_CONVERTERS_H
 
 // This project:
 #include <json/json.h>
@@ -227,4 +227,4 @@ namespace jsontools {
 
 } // end of namespace jsontools
 
-#endif // JSONTOOLS_BASE_TYPE_CONVERTERS_H
+#endif // BXJSONTOOLS_BASE_TYPE_CONVERTERS_H

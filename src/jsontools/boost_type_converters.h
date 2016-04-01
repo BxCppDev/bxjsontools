@@ -1,7 +1,7 @@
 // -*- mode: c++; -*-
 
-#ifndef JSONTOOLS_BOOST_TYPE_CONVERTERS_H
-#define JSONTOOLS_BOOST_TYPE_CONVERTERS_H
+#ifndef BXJSONTOOLS_BOOST_TYPE_CONVERTERS_H
+#define BXJSONTOOLS_BOOST_TYPE_CONVERTERS_H
 
 // Standard library:
 #include <string>
@@ -155,4 +155,4 @@ namespace jsontools {
 
 } // end of namespace jsontools
 
-#endif // JSONTOOLS_BOOST_TYPE_CONVERTERS_H
+#endif // BXJSONTOOLS_BOOST_TYPE_CONVERTERS_H

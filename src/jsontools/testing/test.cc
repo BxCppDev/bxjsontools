@@ -13,12 +13,12 @@
 #include <jsontools/serdes.h>
 #include <jsontools/iofile.h>
 
-#if JSONTOOLS_WITH_BOOST == 1
+#if BXJSONTOOLS_WITH_BOOST == 1
 // Boost:
 #include <boost/optional.hpp>
 #include <boost/lexical_cast.hpp>
 #include <jsontools/boost_type_converters.h>
-#endif // JSONTOOLS_WITH_BOOST == 1
+#endif // BXJSONTOOLS_WITH_BOOST == 1
 
 namespace bar {
 
@@ -121,19 +121,19 @@ namespace jsontools {
         _x_ = 0;
         _values_.clear();
         _dict_.clear();
-#if JSONTOOLS_WITH_BOOST == 1
+#if BXJSONTOOLS_WITH_BOOST == 1
         _maybe_ = boost::none;
-#endif // JSONTOOLS_WITH_BOOST == 1
+#endif // BXJSONTOOLS_WITH_BOOST == 1
         return;
       }
 
-#if JSONTOOLS_WITH_BOOST == 1
+#if BXJSONTOOLS_WITH_BOOST == 1
       void set_maybe(int mb_)
       {
         _maybe_ = mb_;
         return;
       }
-#endif // JSONTOOLS_WITH_BOOST == 1
+#endif // BXJSONTOOLS_WITH_BOOST == 1
 
       void print(std::ostream & out_) const
       {
@@ -141,7 +141,7 @@ namespace jsontools {
         out_ << "|-- name : '" << _name_ << "'" << std::endl;
         out_ << "|-- x : '" << _x_ << "'" << std::endl;
         out_ << "|-- values : [" << _values_.size() << "]" << std::endl;
-#if JSONTOOLS_WITH_BOOST == 1
+#if BXJSONTOOLS_WITH_BOOST == 1
         out_ << "|-- maybe : ";
         if (_maybe_) {
           out_ << _maybe_.get();
@@ -149,7 +149,7 @@ namespace jsontools {
           out_ << "<none>";
         }
         out_ << std::endl;
-#endif // JSONTOOLS_WITH_BOOST == 1
+#endif // BXJSONTOOLS_WITH_BOOST == 1
         out_ << "`-- dict : [" << _dict_.size() << "]" << std::endl;
         return;
       }
@@ -160,9 +160,9 @@ namespace jsontools {
         node_["x"]      % _x_;
         node_["values"] % _values_;
         node_["dict"]   % _dict_;
-#if JSONTOOLS_WITH_BOOST == 1
+#if BXJSONTOOLS_WITH_BOOST == 1
         node_["maybe"]  % _maybe_;
-#endif // JSONTOOLS_WITH_BOOST == 1
+#endif // BXJSONTOOLS_WITH_BOOST == 1
         return;
       }
 
@@ -172,9 +172,9 @@ namespace jsontools {
       uint32_t _x_;
       std::vector<double> _values_;
       std::map<std::string, int> _dict_;
-#if JSONTOOLS_WITH_BOOST == 1
+#if BXJSONTOOLS_WITH_BOOST == 1
       boost::optional<int32_t> _maybe_;
-#endif // JSONTOOLS_WITH_BOOST == 1
+#endif // BXJSONTOOLS_WITH_BOOST == 1
 
     };
 
@@ -221,9 +221,9 @@ namespace jsontools {
     {
       std::clog << "\ntest::run_test_0: \n" ;
       A a1;
-#if JSONTOOLS_WITH_BOOST == 1
+#if BXJSONTOOLS_WITH_BOOST == 1
       a1.set_maybe(666);
-#endif // JSONTOOLS_WITH_BOOST == 1
+#endif // BXJSONTOOLS_WITH_BOOST == 1
       std::clog << "a1 = \n";
       a1.print(std::clog);
       jsontools::store("test-jsontools-file_0.json", a1);
@@ -246,11 +246,11 @@ namespace jsontools {
       B b1;
       for (int i = 0; i < 4; i++) {
         A a1;
-#if JSONTOOLS_WITH_BOOST == 1
+#if BXJSONTOOLS_WITH_BOOST == 1
         if (i % 2) {
           a1.set_maybe(333 - i);
         }
-#endif // JSONTOOLS_WITH_BOOST == 1
+#endif // BXJSONTOOLS_WITH_BOOST == 1
         b1.add(a1);
       }
       std::clog << "b1 = \n";
@@ -274,11 +274,11 @@ namespace jsontools {
       B b1;
       for (int i = 0; i < 4; i++) {
         A a1;
-#if JSONTOOLS_WITH_BOOST == 1
+#if BXJSONTOOLS_WITH_BOOST == 1
         if (i % 2) {
           a1.set_maybe(666 - i);
         }
-#endif // JSONTOOLS_WITH_BOOST == 1
+#endif // BXJSONTOOLS_WITH_BOOST == 1
         b1.add(a1);
       }
       bees["riri"] = b1;
@@ -320,7 +320,7 @@ namespace jsontools {
     void test::run_test_4()
     {
       std::clog << "\ntest::run_test_4: \n" ;
-#if JSONTOOLS_WITH_BOOST == 1
+#if BXJSONTOOLS_WITH_BOOST == 1
       std::map<std::string, boost::posix_time::ptime> times;
       for (int i = 0; i < (int) 7; i++) {
         boost::posix_time::ptime t(boost::posix_time::microsec_clock::local_time());
@@ -378,7 +378,7 @@ namespace jsontools {
         std::clog << "tp : " << boost::posix_time::to_simple_string(tp) << std::endl;
       }
 
-#endif // JSONTOOLS_WITH_BOOST == 1
+#endif // BXJSONTOOLS_WITH_BOOST == 1
 
       return;
     }

@@ -3,8 +3,8 @@
 bxjsontools - Tools for JSON serialization (C++ library)
 
 (bx)jsontools consists in a set of  C++ classes and utilities for JSON
-based  serialization.  It  aims to  be  integrated in  the Bayeux  C++
-library.
+based serialization.   It aims  to be  integrated as  a module  of the
+Bayeux C++ library.
 
 ## Dependencies and inspiration
 
@@ -15,8 +15,10 @@ is amalgamated in bxjsontools source code.
   (https://github.com/SGSSGene/JsonSerializer)  : large  parts of  the
   code from  JsonSerializer has been  reused with a  few modifications
   (coding style, file splitting, minor changes in the interface, addons).
-* By default, some (bx)jsontools' parts depends on Boost. This can be inhibited
-  at configuration.
+* You need CMake version >= 2.8 (former version may work)
+* You need gcc version >= 4.8.4 (former version may work)
+* By default, some (bx)jsontools' parts depends on Boost 1.54 (former version may work).
+  This can be inhibited at configuration (see 'CMake options' below).
 
 ## License:
 
@@ -26,14 +28,14 @@ See the LICENSE.txt file and the 'licensing' directory.
 ## Build and install:
 
 The  following  instructions  illustrate  how  to  build  and  install
-(bx)jsontools on  a Linux  system. It  should be easy  to adapt  for a
-MacOS X system.
+(bx)jsontools on a Linux system (Ubuntu  14.04 LTS). It should be easy
+to adapt for a MacOS X system.
 
 CMake options:
 
-* ``JSONTOOLS_WITH_BOOST`` (default: ``ON``) : implements some
+* ``BXJSONTOOLS_WITH_BOOST`` (default: ``ON``) : implements some
 specific JSON serialization support for some Boost classes (implies Boost 1.54 dependency).
-* ``JSONTOOLS_ENABLE_TESTING`` (default: ``ON``) : build the test programs.
+* ``BXJSONTOOLS_ENABLE_TESTING`` (default: ``ON``) : build the test program(s).
 
 
 ### Download the source code from GitHub:
@@ -59,28 +61,36 @@ $ make install
 $ LANG="C" tree ~/sw/bxjsontools/install-0.1.0
 /home/<login>/sw/bxjsontools/install-0.1.0
 |-- include
-|   |-- json
-|   |   |-- json-forwards.h
-|   |   `-- json.h
-|   `-- jsontools
-|       |-- base_type_converters.h
-|       |-- boost_type_converters.h
-|       |-- config.h
-|       |-- core.h
-|       |-- exception.h
-|       |-- i_jsonizable.h
-|       |-- iofile-inl.h
-|       |-- iofile.h
-|       |-- jsontools.h
-|       |-- node-inl.h
-|       |-- node.h
-|       |-- serdes.h
-|       |-- std_type_converters.h
-|       `-- version.h
+|   `-- bayeux
+|       |-- json
+|       |   |-- json-forwards.h
+|       |   `-- json.h
+|       `-- jsontools
+|           |-- base_type_converters.h
+|           |-- boost_type_converters.h
+|           |-- config.h
+|           |-- core.h
+|           |-- exception.h
+|           |-- i_jsonizable.h
+|           |-- iofile-inl.h
+|           |-- iofile.h
+|           |-- jsontools.h
+|           |-- node-inl.h
+|           |-- node.h
+|           |-- serdes.h
+|           |-- std_type_converters.h
+|           `-- version.h
 |-- lib
-|   `-- libjsontools.so
+|   `-- x86_64-linux-gnu
+|       |-- cmake
+|       |   `-- bxjsontools-0.1.0
+|       |       |-- BxJsontoolsConfig.cmake
+|       |       |-- BxJsontoolsConfigVersion.cmake
+|       |       |-- BxJsontoolsTargets-noconfig.cmake
+|       |       `-- BxJsontoolsTargets.cmake
+|       `-- libBayeux_jsontools.so
 `-- share
-    `-- jsontools-0.1.0
+    `-- bxjsontools-0.1.0
         |-- LICENSE.txt
         |-- examples
         |   `-- ex01
@@ -100,8 +110,8 @@ $ LANG="C" tree ~/sw/bxjsontools/install-0.1.0
 
 ## Using (bx)jsontools:
 
-* There  is a  simple example  ``ex01`` that  illustrates a  very simple
+* There is  a simple example  ``ex01`` that illustrates a  very simple
 usecase.
-* No    CMake    configuration    scripts    (``FindBxjsontools.cmake``,
-``BxjsontoolsConfig.cmake``...)   are  provided  for  now  for  client
-software.
+
+* CMake  configuration  scripts (``BxjsontoolsConfig.cmake``...)   is
+provided for client software.

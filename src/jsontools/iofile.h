@@ -1,7 +1,7 @@
 // -*- mode: c++; -*-
 
-#ifndef JSONTOOLS_IOFILE_H
-#define JSONTOOLS_IOFILE_H
+#ifndef BXJSONTOOLS_IOFILE_H
+#define BXJSONTOOLS_IOFILE_H
 
 // Standard library:
 #include <fstream>
@@ -22,4 +22,4 @@ namespace jsontools {
 
 #include "iofile-inl.h"
 
-#endif // JSONTOOLS_IOFILE_H
+#endif // BXJSONTOOLS_IOFILE_H

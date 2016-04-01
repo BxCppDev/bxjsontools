@@ -7,11 +7,12 @@ $ mkdir -p /tmp/${USER}/bxjsontools/ex01/_build.d
 $ cd  /tmp/${USER}/bxjsontools/ex01/_build.d
 $ cmake \
   -DCMAKE_INSTALL_PREFIX=../_install.d \
-  -Djsontools_INCLUDE_DIRS="<jsontools-install-dir>/include" \
-  -Djsontools_LIBRARIES="<jsontools-install-dir>/lib/libjsontools.so" \
-   <jsontools-install-dir>/share/jsontools-0.1.0/examples/ex01
+  -DCMAKE_FIND_ROOT_PATH="<bxjsontools-install-dir>" \
+   <bxjsontools-install-dir>/share/BxJsontools-0.1.0/examples/ex01
 $ make
 ```
+
+[//]: # -DBxJsontools_DIR="<bxjsontools-install-dir>/lib/x86_64-linux-gnu/cmake/BxJsontools-0.1.0/" \
 
 ## Run example
 

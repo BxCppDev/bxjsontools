@@ -1,7 +1,7 @@
 // -*- mode: c++; -*-
 
-#ifndef JSONTOOLS_EXCEPTION_H
-#define JSONTOOLS_EXCEPTION_H
+#ifndef BXJSONTOOLS_EXCEPTION_H
+#define BXJSONTOOLS_EXCEPTION_H
 
 // Standard library:
 #include <string>
@@ -51,4 +51,4 @@ namespace jsontools {
 
 } // end of namespace jsontools
 
-#endif // JSONTOOLS_EXCEPTION_H
+#endif // BXJSONTOOLS_EXCEPTION_H

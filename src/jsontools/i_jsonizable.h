@@ -1,7 +1,7 @@
 // -*- mode: c++; -*-
 
-#ifndef JSONTOOLS_I_JSONIZABLE_H
-#define JSONTOOLS_I_JSONIZABLE_H
+#ifndef BXJSONTOOLS_I_JSONIZABLE_H
+#define BXJSONTOOLS_I_JSONIZABLE_H
 
 // This project:
 #include <jsontools/node.h>
@@ -28,4 +28,4 @@ namespace jsontools {
 
 } // end of namespace jsontools
 
-#endif // JSONTOOLS_I_JSONIZABLE_H
+#endif // BXJSONTOOLS_I_JSONIZABLE_H

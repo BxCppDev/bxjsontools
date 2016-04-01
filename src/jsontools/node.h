@@ -1,7 +1,7 @@
 // -*- mode: c++; -*-
 
-#ifndef JSONTOOLS_NODE_H
-#define JSONTOOLS_NODE_H
+#ifndef BXJSONTOOLS_NODE_H
+#define BXJSONTOOLS_NODE_H
 
 // This project:
 #include <json/json.h>
@@ -83,4 +83,4 @@ namespace jsontools {
 
 #include "node-inl.h"
 
-#endif // JSONTOOLS_NODE_H
+#endif // BXJSONTOOLS_NODE_H

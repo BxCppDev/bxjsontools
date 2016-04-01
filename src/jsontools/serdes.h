@@ -1,7 +1,7 @@
 // -*- mode: c++; -*-
 
-#ifndef JSONTOOLS_SERDES_H
-#define JSONTOOLS_SERDES_H
+#ifndef BXJSONTOOLS_SERDES_H
+#define BXJSONTOOLS_SERDES_H
 
 // This project:
 #include <jsontools/core.h>
@@ -46,4 +46,4 @@ namespace jsontools {
 
 } // end of namespace jsontools
 
-#endif // JSONTOOLS_SERDES_H
+#endif // BXJSONTOOLS_SERDES_H
