@@ -31,9 +31,9 @@ MacOS X system.
 
 CMake options:
 
-* ``JSONTOOLS_WITH_BOOST`` (default: ``ÒN``) : implements some
+* ``JSONTOOLS_WITH_BOOST`` (default: ``ON``) : implements some
 specific JSON serialization support for some Boost classes (implies Boost 1.54 dependency).
-* ``JSONTOOLS_ENABLE_TESTING`` (default: ``ÒN``) : build the test programs.
+* ``JSONTOOLS_ENABLE_TESTING`` (default: ``ON``) : build the test programs.
 
 
 ### Download the source code from GitHub:
