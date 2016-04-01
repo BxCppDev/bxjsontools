@@ -15,7 +15,8 @@ is amalgamated in bxjsontools source code.
   (https://github.com/SGSSGene/JsonSerializer)  : large  parts of  the
   code from  JsonSerializer has been  reused with a  few modifications
   (coding style, file splitting and minor changes in the interface).
-
+* By default, some (bx)jsontools' parts depends on Boost. This can be inhibited
+  at configuration.
 
 ## License:
 
@@ -27,6 +28,13 @@ See the LICENSE.txt file and the 'licensing' directory.
 The  following  instructions  illustrate  how  to  build  and  install
 (bx)jsontools on  a Linux  system. It  should be easy  to adapt  for a
 MacOS X system.
+
+Options:
+
+* ``JSONTOOLS_WITH_BOOST`` (default: ``ÒN``) : implements some
+specific JSON serialization support for some Boost classes.
+* ``JSONTOOLS_ENABLE_TESTING`` (default: ``ÒN``) : build the test programs.
+
 
 ### Download the source code from GitHub:
 ```sh
