@@ -2,7 +2,7 @@
 
 bxjsontools - Tools for JSON serialization (C++ library)
 
-(bx)jsontools consists in a set of  C++ classes and utilities for JSON
+(bx)jsontools (or ``BxJsontools``) consists in a set of  C++ classes and utilities for JSON
 based serialization.   It aims  to be  integrated as  a module  of the
 Bayeux  C++   library (the   foundation  library  of   the  SuperNEMO
 experiment's software) as soon as Bayeux will natively support the C++11
