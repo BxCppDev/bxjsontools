@@ -64,6 +64,8 @@ $ LANG="C" tree ~/sw/bxjsontools/install-0.1.0
 |   |   `-- json.h
 |   `-- jsontools
 |       |-- base_type_converters.h
+|       |-- boost_type_converters.h
+|       |-- config.h
 |       |-- core.h
 |       |-- exception.h
 |       |-- i_jsonizable.h
@@ -74,7 +76,7 @@ $ LANG="C" tree ~/sw/bxjsontools/install-0.1.0
 |       |-- node.h
 |       |-- serdes.h
 |       |-- std_type_converters.h
-|       `-- test.h
+|       `-- version.h
 |-- lib
 |   `-- libjsontools.so
 `-- share
