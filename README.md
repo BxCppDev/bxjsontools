@@ -29,10 +29,10 @@ The  following  instructions  illustrate  how  to  build  and  install
 (bx)jsontools on  a Linux  system. It  should be easy  to adapt  for a
 MacOS X system.
 
-Options:
+CMake options:
 
 * ``JSONTOOLS_WITH_BOOST`` (default: ``ÒN``) : implements some
-specific JSON serialization support for some Boost classes.
+specific JSON serialization support for some Boost classes (implies Boost 1.54 dependency).
 * ``JSONTOOLS_ENABLE_TESTING`` (default: ``ÒN``) : build the test programs.
 
 
