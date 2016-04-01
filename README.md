@@ -2,7 +2,7 @@
 
 bxjsontools - Tools for JSON serialization (C++ library)
 
-(bx)jsontools (or ``BxJsontools``) consists in a set of  C++ classes and utilities for JSON
+bxjsontools (or ``BxJsontools``) consists in a set of  C++ classes and utilities for JSON
 based serialization.   It aims  to be  integrated as  a module  of the
 Bayeux  C++   library (the   foundation  library  of   the  SuperNEMO
 experiment's software) as soon as Bayeux will natively support the C++11
@@ -15,7 +15,7 @@ communication between C++ and Java based Control and Monitoring System
 
 ## Dependencies and inspiration
 
-(bx)jsontools makes use and is based on:
+bxjsontools makes use and is based on:
 * the jsoncpp C++ library (https://github.com/open-source-parsers/jsoncpp)
 is amalgamated in bxjsontools source code.
 * the              JsonSerializer             C++              library
@@ -26,7 +26,7 @@ is amalgamated in bxjsontools source code.
 Needed tools and software (tested on Ubuntu 14.04 LTS):
 * You need CMake version >= 2.8 (former version may work)
 * You need gcc version >= 4.8.4 (former version may work)
-* By default, some (bx)jsontools' parts depends on Boost 1.54 (former version may work).
+* By default, some bxjsontools' parts depends on Boost 1.54 (former version may work).
   This can be inhibited at configuration (see 'CMake options' below).
 
 ## License:
@@ -37,7 +37,7 @@ See the LICENSE.txt file and the 'licensing' directory.
 ## Build and install:
 
 The  following  instructions  illustrate  how  to  build  and  install
-(bx)jsontools on a Linux system (Ubuntu  14.04 LTS). It should be easy
+bxjsontools on a Linux system (Ubuntu  14.04 LTS). It should be easy
 to adapt for a MacOS X system.
 
 CMake options:
@@ -72,7 +72,7 @@ $ make test
 $ make install
 ```
 
-### Enjoy (bx)jsontools from its installation directory:
+### Enjoy bxjsontools from its installation directory:
 ```
 $ LANG="C" tree ~/sw/bxjsontools/install-0.1.0
 /home/<login>/sw/bxjsontools/install-0.1.0
@@ -124,7 +124,7 @@ $ LANG="C" tree ~/sw/bxjsontools/install-0.1.0
                 `-- LICENSE.txt
 ```
 
-## Using (bx)jsontools:
+## Using bxjsontools:
 
 * CMake  configuration  scripts (``BxJsontoolsConfig.cmake``... for ``find_package(BxJsontools ... )``)   are
 provided for client software.
