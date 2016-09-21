@@ -39,6 +39,9 @@ set(BxJsontools_INCLUDE_DIRS "${BxJsontools_INCLUDE_DIR}" "${BxJsontools_INCLUDE
 message(STATUS "BxJsontools_INCLUDE_DIRS = '${BxJsontools_INCLUDE_DIRS}'")
 
 #-----------------------------------------------------------------------
+if(CMAKE_COMPILER_IS_GNUCXX)
+  set(CMAKE_CXX_FLAGS -std=c++11)
+endif()
 set(BxJsontools_DEFINITIONS -std=c++11)
 message(STATUS "BxJsontools_DEFINITIONS = '${BxJsontools_DEFINITIONS}'")
 
@@ -52,13 +55,12 @@ message(STATUS "BxJsontools_WITH_BOOST = '${BxJsontools_WITH_BOOST}'")
 
 # - Boost
 if (BxJsontools_WITH_BOOST)
-  find_package(Boost 1.54.0
-    #EXACT
+  find_package(Boost 1.60.0
     REQUIRED
-    COMPONENTS date_time
-    #NO_MODULE
-    #PATHS @Boost_DIR@
-    #NO_DEFAULT_PATH
+    date_time
+    # NO_MODULE
+    # PATHS @Boost_DIR@
+    # NO_DEFAULT_PATH
     )
 endif()
 

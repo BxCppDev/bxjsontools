@@ -1,7 +1,7 @@
 # - Top level CMakeLists.txt for Bayeux/Jsontools C++ library
 
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
-project(bxjsontools)
+project(bxjsontools LANGUAGES CXX)
 
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
   message(STATUS "${PROJECT_NAME} requires an out-of-source build.")
@@ -18,7 +18,8 @@ endif()
 set(BxJsontools_VERSION_MAJOR 0)
 set(BxJsontools_VERSION_MINOR 1)
 set(BxJsontools_VERSION_PATCH 0)
-set(BxJsontools_VERSION "${BxJsontools_VERSION_MAJOR}.${BxJsontools_VERSION_MINOR}.${BxJsontools_VERSION_PATCH}")
+set(BxJsontools_VERSION
+  "${BxJsontools_VERSION_MAJOR}.${BxJsontools_VERSION_MINOR}.${BxJsontools_VERSION_PATCH}")
 
 #-----------------------------------------------------------------------
 # - Standard UNIX Tool install paths, including relative paths for use
@@ -38,7 +39,7 @@ set(CMAKE_INSTALL_FULL_CMAKEDIR ${CMAKE_INSTALL_FULL_LIBDIR}/cmake)
 
 # Resources directories based on name-version subdirs
 set(BXJSONTOOLS_TAG "BxJsontools-${BxJsontools_VERSION}")
-file(RELATIVE_PATH BXJSONTOOLS_BINDIR_TO_RESOURCEDIR "${CMAKE_INSTALL_FULL_BINDIR}"  "${CMAKE_INSTALL_FULL_DATAROOTDIR}/${BXJSONTOOLS_TAG}")
+file(RELATIVE_PATH BXJSONTOOLS_BINDIR_TO_RESOURCEDIR "${CMAKE_INSTALL_FULL_BINDIR}" "${CMAKE_INSTALL_FULL_DATAROOTDIR}/${BXJSONTOOLS_TAG}")
 file(RELATIVE_PATH BXJSONTOOLS_CMAKEDIR_TO_INCLUDEDIR "${CMAKE_INSTALL_FULL_CMAKEDIR}/${BXJSONTOOLS_TAG}"  "${CMAKE_INSTALL_FULL_INCLUDEDIR}")
 # message( STATUS "BXJSONTOOLS_TAG='${BXJSONTOOLS_TAG}'")
 # message( STATUS "CMAKE_INSTALL_INCLUDEDIR='${CMAKE_INSTALL_INCLUDEDIR}'")
@@ -69,9 +70,19 @@ set(BxJsontools_HEADERS
   src/jsontools/jsontools.h
   )
 
-set(_libs)
+set(BxJsontools_SOURCES
+  src/jsontools/i_jsonizable.cc
+  src/jsontools/exception.cc
+  src/jsontools/node.cc
+  src/json/jsoncpp.cpp
+  )
+
+set(BxJsontools_OTHER_LIBS)
 if(BXJSONTOOLS_WITH_BOOST)
-  find_package(Boost 1.54 REQUIRED date_time)
+  find_package(Boost 1.60.0
+    REQUIRED
+    date_time
+    )
   message( STATUS "Boost found at '${Boost_INCLUDE_DIRS}'")
   message( STATUS "Boost version = '${Boost_VERSION}'")
   include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
@@ -79,11 +90,12 @@ if(BXJSONTOOLS_WITH_BOOST)
     BxJsontools_HEADERS
     src/jsontools/boost_type_converters.h
     )
-  list(APPEND _libs
+  message( STATUS "Boost_LIBRARIES='${Boost_LIBRARIES}'")
+  list(APPEND BxJsontools_OTHER_LIBS
     ${Boost_DATE_TIME_LIBRARY}
     )
   message( STATUS "Boost_DIR='${Boost_DIR}'")
-  message( STATUS "_libs='${_libs}'")
+  message( STATUS "BxJsontools_OTHER_LIBS='${BxJsontools_OTHER_LIBS}'")
 endif()
 
 # - Publish headers
@@ -93,27 +105,22 @@ configure_file(src/jsontools/config.h.in  ${PROJECT_BINARY_DIR}/src/jsontools/co
 set(BxJsontools_PRIVATE_HEADERS
   )
 
+if(CMAKE_COMPILER_IS_GNUCXX)
+  set(CMAKE_CXX_FLAGS -std=c++11)
+endif()
+# add_definitions(-std=c++11)
+
 include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(${PROJECT_BINARY_DIR}/src)
-
-set(BxJsontools_SOURCES
-  src/jsontools/i_jsonizable.cc
-  src/jsontools/exception.cc
-  src/jsontools/node.cc
-  src/json/jsoncpp.cpp
-  )
-
-add_definitions(-std=c++11)
 
 add_library(Bayeux_jsontools SHARED
   ${BxJsoncpp_HEADERS}
   ${BxJsontools_HEADERS}
   ${BxJsontools_PRIVATE_HEADERS}
   ${BxJsontools_SOURCES}
-  ${_libs}
   )
 
-target_link_libraries(Bayeux_jsontools ${_libs})
+target_link_libraries(Bayeux_jsontools ${BxJsontools_OTHER_LIBS})
 
 install( FILES
   ${BxJsontools_HEADERS}
@@ -198,7 +205,7 @@ if(JSONTOOLS_ENABLE_TESTING)
       src/jsontools/testing/test.h
       src/jsontools/testing/test.cc
       )
-    target_link_libraries(${_testname} Bayeux_jsontools ${_libs})
+    target_link_libraries(${_testname} Bayeux_jsontools ${BxJsontools_OTHER_LIBS})
     # - On Apple, ensure dynamic_lookup of undefined symbols
     if(APPLE)
       set_target_properties(${_testname} PROPERTIES LINK_FLAGS "-undefined dynamic_lookup")
