@@ -31,7 +31,7 @@ Needed tools and software (tested on Ubuntu 14.04 LTS):
 
 ## License:
 
-See the LICENSE.txt file and the 'licensing' directory.
+See the ``LICENSE.txt`` file and the ``licensing`` directory.
 
 
 ## Build and install:
