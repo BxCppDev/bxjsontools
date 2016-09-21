@@ -33,7 +33,7 @@ void ex01()
 
   {
     jsontools_ex01::foo f1;
-    f1.set(42, 1000000, 3.14159265358979);
+    f1.set(42, 1000000, 3.14159265358979, "Hello, JSON!");
     std::clog << "f1: " << std::endl;
     f1.print(std::clog);
     jsontools::store("f1.json", f1);

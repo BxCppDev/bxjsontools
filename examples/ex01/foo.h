@@ -24,7 +24,7 @@ namespace jsontools_ex01 {
     virtual ~foo();
 
     /// Set attributes
-    void set(int16_t, uint32_t, double);
+    void set(int16_t, uint32_t, double, const std::string &);
 
     /// Reset attributes
     void reset();
@@ -41,6 +41,7 @@ namespace jsontools_ex01 {
     int16_t  _i16_;
     uint32_t _u32_;
     double   _f64_;
+    std::string _str_;
 
   };
 
