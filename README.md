@@ -151,8 +151,9 @@ export PATH="${HOME}/sw/bxjsontools/install-0.1.0/bin:${PATH}"
 ```sh
 $ bxjsontools-query --help
 ```
-* CMake  configuration  scripts (i.e. ``BxJsontoolsConfig.cmake``) are provided for client software. The CMake ``find_package(BxJsontools REQUIRED CONFIG)`` command can be given
-the following variable to find the BxJsontools installation on your system:
+* CMake  configuration  scripts (i.e. ``BxJsontoolsConfig.cmake``) are provided for client
+  software. The CMake ``find_package(BxJsontools REQUIRED CONFIG)`` command can be given
+  the following variable to find the BxJsontools installation on your system:
 ```sh
 $ cmake ... -DBxJsontools_DIR="$(bxjsontools-query --cmakedir)" ...
 ```
