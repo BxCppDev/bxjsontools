@@ -62,6 +62,18 @@ $ cd /tmp/${USER}/bxjsontools/_source.d/
 $ git clone https://github.com/fmauger/bxjsontools.git
 ```
 ### Build the library from a dedicated directory:
+
+For  SuperNEMO users  only:
+
+The SuperNEMO experiment data  processing and simulation software uses
+Cadfaelbrew  which  provides some  core  software  tools and  librares
+(compiler,  Boost,  GSL,  ROOT  libraries...).  Before  to  build  and
+install BxJsontools, you must switch to a brew shell before:
+```sh
+$ brew sh
+```
+
+Then:
 ```sh
 $ mkdir -p /tmp/${USER}/bxjsontools/_build.d/
 $ cd  /tmp/${USER}/bxjsontools/_build.d/
