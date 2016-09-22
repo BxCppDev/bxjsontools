@@ -142,7 +142,7 @@ $ LANG="C" tree ${HOME}/sw/bxjsontools/install-0.1.0
 ## Using bxjsontools:
 
 * The ``bxjsontools-query`` utility allows you to fetch informations about your
-BxJsontools installation. You may add the following typical line in your
+  BxJsontools installation. You may add the following typical line in your
 ``~/.bashrc`` profile:
 ```sh
 export PATH="${HOME}/sw/bxjsontools/install-0.1.0/bin:${PATH}"
@@ -151,8 +151,5 @@ This will give you access to the ``bxjsontools-query`` command-line utility:
 ```sh
 $ bxjsontools-query --help
 ```
-
-* CMake  configuration  scripts (``BxJsontoolsConfig.cmake``... for ``find_package(BxJsontools ... )``)   are
-provided for client software.
-* There is  a simple example  ``ex01`` that illustrates a  very simple
-usecase.
+* CMake  configuration  scripts (``BxJsontoolsConfig.cmake``... for ``find_package(BxJsontools ... )``)   are provided for client software.
+* There is  a simple example  ``ex01`` that illustrates a  very simple usecase.
