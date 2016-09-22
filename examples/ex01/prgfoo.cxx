@@ -64,7 +64,12 @@ void ex01()
       std::string jsonline;
       std::getline(f1json, jsonline);
       std::clog << jsonline << std::endl;
-      f1json >> std::ws;
+      char c = 0;
+      f1json.get(c);
+      if (f1json.eof()) {
+        break;
+      }
+      f1json.putback(c);
     }
     std::clog << "EOF" << std::endl;
   }

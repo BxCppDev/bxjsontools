@@ -14,7 +14,7 @@ if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
   message(FATAL_ERROR "in-source build detected")
 endif()
 
-find_package(BxJsontools 0.1 REQUIRED CONFIG HINTS )
+find_package(BxJsontools 0.1 REQUIRED CONFIG) # HINTS )
 message(STATUS "BxJsontools_INCLUDE_DIRS='${BxJsontools_INCLUDE_DIRS}'")
 message(STATUS "BxJsontools_DEFINITIONS='${BxJsontools_DEFINITIONS}'")
 message(STATUS "BxJsontools_LIBRARY='${BxJsontools_LIBRARY}'")
