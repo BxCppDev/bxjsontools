@@ -102,6 +102,9 @@ endif()
 configure_file(src/jsontools/version.h.in ${PROJECT_BINARY_DIR}/src/jsontools/version.h @ONLY)
 configure_file(src/jsontools/config.h.in  ${PROJECT_BINARY_DIR}/src/jsontools/config.h  @ONLY)
 
+# - Utilities
+configure_file(src/utilities/bxjsontools-query.in ${PROJECT_BINARY_DIR}/src/utilities/bxjsontools-query  @ONLY)
+
 set(BxJsontools_PRIVATE_HEADERS
   )
 
@@ -150,6 +153,14 @@ install( FILES
 install( FILES
   ${PROJECT_BINARY_DIR}/libBayeux_jsontools${CMAKE_SHARED_LIBRARY_SUFFIX}
   DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}
+  PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
+  GROUP_READ GROUP_EXECUTE
+  WORLD_READ WORLD_EXECUTE
+  )
+
+install( FILES
+  ${PROJECT_BINARY_DIR}/src/utilities/bxjsontools-query
+  DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR}
   PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
   GROUP_READ GROUP_EXECUTE
   WORLD_READ WORLD_EXECUTE
