@@ -34,7 +34,7 @@ add_library(Bayeux_jsontools_ex01 SHARED
 
 target_link_libraries(Bayeux_jsontools_ex01 ${_libs} )
 install( FILES
-         ${PROJECT_BINARY_DIR}/libBayeux_jsontools_ex01{CMAKE_SHARED_LIBRARY_SUFFIX}
+         ${PROJECT_BINARY_DIR}/libBayeux_jsontools_ex01${CMAKE_SHARED_LIBRARY_SUFFIX}
          DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
          PERMISSIONS OWNER_READ OWNER_EXECUTE
          GROUP_READ GROUP_EXECUTE
