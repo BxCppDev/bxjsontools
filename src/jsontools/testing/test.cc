@@ -11,6 +11,7 @@
 #include <jsontools/base_type_converters.h>
 #include <jsontools/std_type_converters.h>
 #include <jsontools/serdes.h>
+#include <jsontools/io.h>
 #include <jsontools/iofile.h>
 
 #if BXJSONTOOLS_WITH_BOOST == 1
@@ -227,6 +228,17 @@ namespace jsontools {
       std::clog << "a1 = \n";
       a1.print(std::clog);
       jsontools::store("test-jsontools-file_0.json", a1);
+
+      std::ostringstream buffer_out;
+      jsontools::store(buffer_out,a1);
+      std::string buffer = buffer_out.str();
+      std::clog << "JSON buffer: [" << buffer << "]" << std::endl;
+      std::istringstream buffer_in(buffer);
+      A a1_bis;
+      jsontools::load(buffer_in,a1_bis);
+      std::clog << "Deserialized a1 = \n";
+      a1_bis.print(std::clog);
+      std::clog << "\n";
 
       A a2;
       a2.reset();

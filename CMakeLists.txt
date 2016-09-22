@@ -64,6 +64,8 @@ set(BxJsontools_HEADERS
   src/jsontools/base_type_converters.h
   src/jsontools/std_type_converters.h
   src/jsontools/serdes.h
+  src/jsontools/io.h
+  src/jsontools/io-inl.h
   src/jsontools/iofile.h
   src/jsontools/iofile-inl.h
   src/jsontools/i_jsonizable.h

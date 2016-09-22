@@ -13,6 +13,7 @@
 #include <jsontools/serdes.h>
 #include <jsontools/base_type_converters.h>
 #include <jsontools/std_type_converters.h>
+#include <jsontools/io.h>
 #include <jsontools/iofile.h>
 #if BXJSONTOOLS_WITH_BOOST == 1
 #include <jsontools/boost_type_converters.h>
