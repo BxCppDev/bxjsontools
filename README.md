@@ -79,7 +79,7 @@ Then:
 $ mkdir -p /tmp/${USER}/bxjsontools/_build.d/
 $ cd  /tmp/${USER}/bxjsontools/_build.d/
 $ cmake \
-  -DCMAKE_INSTALL_PREFIX=${HOME}/sw/bxjsontool/install-0.1.0 \
+  -DCMAKE_INSTALL_PREFIX=${HOME}/sw/bxjsontools/install-0.1.0 \
   /tmp/${USER}/bxjsontools/_source.d/bxjsontools/
 $ make
 $ make test
@@ -88,8 +88,10 @@ $ make install
 
 ### Enjoy bxjsontools from its installation directory:
 ```
-$ LANG="C" tree ~/sw/bxjsontools/install-0.1.0
-/home/<login>/sw/bxjsontools/install-0.1.0
+$ LANG="C" tree ${HOME}/sw/bxjsontools/install-0.1.0
+/home/mauger/sw/bxjsontools/install-0.1.0
+|-- bin
+|   `-- bxjsontools-query
 |-- include
 |   `-- bayeux
 |       |-- json
@@ -111,14 +113,13 @@ $ LANG="C" tree ~/sw/bxjsontools/install-0.1.0
 |           |-- std_type_converters.h
 |           `-- version.h
 |-- lib
-|   `-- x86_64-linux-gnu
-|       |-- cmake
-|       |   `-- BxJsontools-0.1.0
-|       |       |-- BxJsontoolsConfig.cmake
-|       |       |-- BxJsontoolsConfigVersion.cmake
-|       |       |-- BxJsontoolsTargets-noconfig.cmake
-|       |       `-- BxJsontoolsTargets.cmake
-|       `-- libBayeux_jsontools.so
+|   |-- cmake
+|   |   `-- BxJsontools-0.1.0
+|   |       |-- BxJsontoolsConfig.cmake
+|   |       |-- BxJsontoolsConfigVersion.cmake
+|   |       |-- BxJsontoolsTargets-noconfig.cmake
+|   |       `-- BxJsontoolsTargets.cmake
+|   `-- libBayeux_jsontools.so
 `-- share
     `-- BxJsontools-0.1.0
         |-- LICENSE.txt
