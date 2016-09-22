@@ -147,7 +147,7 @@ $ LANG="C" tree ${HOME}/sw/bxjsontools/install-0.1.0
 ```sh
 export PATH="${HOME}/sw/bxjsontools/install-0.1.0/bin:${PATH}"
 ```
-This will give you access to the ``bxjsontools-query`` command-line utility:
+  This will give you access to the ``bxjsontools-query`` command-line utility:
 ```sh
 $ bxjsontools-query --help
 ```
