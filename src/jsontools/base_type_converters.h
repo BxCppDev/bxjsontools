@@ -16,13 +16,13 @@ namespace jsontools {
   {
   public:
 
-    static void serialize(node & node_, bool & x_)
+    static void jsonize(node & node_, bool & x_)
     {
       node_.grab_value() = x_;
       return;
     }
 
-    static void deserialize(node & node_, bool & x_)
+    static void dejsonize(node & node_, bool & x_)
     {
       if (not node_.get_value().isBool()) {
         throw wrong_type(node_.get_value(), "expected bool");
@@ -39,13 +39,13 @@ namespace jsontools {
   {
   public:
 
-    static void serialize(node & node, uint8_t & x_)
+    static void jsonize(node & node, uint8_t & x_)
     {
       node.grab_value() = x_;
       return;
     }
 
-    static void deserialize(node & node, uint8_t & x_)
+    static void dejsonize(node & node, uint8_t & x_)
     {
       if (not node.get_value().isUInt()) {
         throw wrong_type(node.get_value(), "expected uint8_t");
@@ -65,13 +65,13 @@ namespace jsontools {
   {
   public:
 
-    static void serialize(node & node, int8_t & x_)
+    static void jsonize(node & node, int8_t & x_)
     {
       node.grab_value() = x_;
       return;
     }
 
-    static void deserialize(node & node, int8_t & x_)
+    static void dejsonize(node & node, int8_t & x_)
     {
       if (not node.get_value().isInt()) {
         throw wrong_type(node.get_value(), "expected int8_t");
@@ -91,13 +91,13 @@ namespace jsontools {
   {
   public:
 
-    static void serialize(node & node, uint16_t & x_)
+    static void jsonize(node & node, uint16_t & x_)
     {
       node.grab_value() = x_;
       return;
     }
 
-    static void deserialize(node & node, uint16_t & x_)
+    static void dejsonize(node & node, uint16_t & x_)
     {
       if (not node.get_value().isUInt()) {
         throw wrong_type(node.get_value(), "expected uint16_t");
@@ -117,13 +117,13 @@ namespace jsontools {
   {
   public:
 
-    static void serialize(node & node_, int16_t & x_)
+    static void jsonize(node & node_, int16_t & x_)
     {
       node_.grab_value() = x_;
       return;
     }
 
-    static void deserialize(node & node_, int16_t & x_)
+    static void dejsonize(node & node_, int16_t & x_)
     {
       if (not node_.get_value().isInt()) {
         throw wrong_type(node_.get_value(), "expected int16_t");
@@ -143,13 +143,13 @@ namespace jsontools {
   {
   public:
 
-    static void serialize(node & node_, uint32_t & x_)
+    static void jsonize(node & node_, uint32_t & x_)
     {
       node_.grab_value() = x_;
       return;
     }
 
-    static void deserialize(node & node_, uint32_t & x_)
+    static void dejsonize(node & node_, uint32_t & x_)
     {
       if (not node_.get_value().isUInt()) {
         throw wrong_type(node_.get_value(), "expected uint32_t");
@@ -164,13 +164,13 @@ namespace jsontools {
   class converter<int32_t> {
   public:
 
-    static void serialize(node & node_, int32_t & x_)
+    static void jsonize(node & node_, int32_t & x_)
     {
       node_.grab_value() = x_;
       return;
     }
 
-    static void deserialize(node & node_, int32_t & x_)
+    static void dejsonize(node & node_, int32_t & x_)
     {
       if (not node_.get_value().isInt()) {
         throw wrong_type(node_.get_value(), "expected int32_t");
@@ -186,13 +186,13 @@ namespace jsontools {
   {
   public:
 
-    static void serialize(node & node_, float & x_)
+    static void jsonize(node & node_, float & x_)
     {
       node_.grab_value() = x_;
       return;
     }
 
-    static void deserialize(node & node_, float & x_)
+    static void dejsonize(node & node_, float & x_)
     {
       if (not node_.get_value().isDouble()) {
         throw wrong_type(node_.get_value(), "expected float");
@@ -208,13 +208,13 @@ namespace jsontools {
   {
   public:
 
-    static void serialize(node & node_, double & x_)
+    static void jsonize(node & node_, double & x_)
     {
       node_.grab_value() = x_;
       return;
     }
 
-    static void deserialize(node & node_, double & x_)
+    static void dejsonize(node & node_, double & x_)
     {
       if (not node_.get_value().isDouble()) {
         throw wrong_type(node_.get_value(), "expected double");

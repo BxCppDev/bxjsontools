@@ -24,7 +24,7 @@ namespace jsontools {
   {
   public:
 
-    static void serialize(node & node_, boost::optional<T> & opt_)
+    static void jsonize(node & node_, boost::optional<T> & opt_)
     {
       bool init_flag = opt_.is_initialized();
       {
@@ -40,7 +40,7 @@ namespace jsontools {
       return;
     }
 
-    static void deserialize(node & node_, boost::optional<T> & opt_)
+    static void dejsonize(node & node_, boost::optional<T> & opt_)
     {
       bool init_flag = false;
       if (not node_.get_value().isObject()) {
@@ -69,7 +69,7 @@ namespace jsontools {
   {
   public:
 
-    static void serialize(node & node_, boost::posix_time::ptime & t_)
+    static void jsonize(node & node_, boost::posix_time::ptime & t_)
     {
       // if (not node_.get_value().isString()) {
         std::string tstr;
@@ -88,7 +88,7 @@ namespace jsontools {
       return;
     }
 
-    static void deserialize(node & node_, boost::posix_time::ptime & t_)
+    static void dejsonize(node & node_, boost::posix_time::ptime & t_)
     {
       if (not node_.get_value().isString()) {
         throw wrong_type(node_.get_value(), "expected string");
@@ -114,7 +114,7 @@ namespace jsontools {
   {
   public:
 
-    static void serialize(node & node_, boost::posix_time::time_period & tp_)
+    static void jsonize(node & node_, boost::posix_time::time_period & tp_)
     {
       boost::posix_time::ptime b = tp_.begin();
       boost::posix_time::ptime e = tp_.end();
@@ -131,7 +131,7 @@ namespace jsontools {
       return;
     }
 
-    static void deserialize(node & node_, boost::posix_time::time_period & t_)
+    static void dejsonize(node & node_, boost::posix_time::time_period & t_)
     {
       if (not node_.get_value().isObject()) {
         throw wrong_type(node_.get_value(), "expected object");

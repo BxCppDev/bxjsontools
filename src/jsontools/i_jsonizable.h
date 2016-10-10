@@ -21,8 +21,8 @@ namespace jsontools {
     virtual ~i_jsonizable();
 
     /// Main JSON (de-)serialization method
-    virtual void serialize(jsontools::node & node_,
-                           unsigned long int version_ = 0) = 0;
+    virtual void jsonize(jsontools::node & node_,
+                         unsigned long int version_ = 0) = 0;
 
   };
 

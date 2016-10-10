@@ -14,33 +14,33 @@ namespace jsontools {
   {
   public:
 
-    static void serialize(node & node_, T & x_)
+    static void jsonize(node & node_, T & x_)
     {
-      x_.serialize(node_, 0);
+      x_.jsonize(node_, 0);
       return;
     }
 
-    static void deserialize(node & node_, T & x_)
+    static void dejsonize(node & node_, T & x_)
     {
-      _deserialize(node_, x_, 0);
+      _dejsonize(node_, x_, 0);
       return;
     }
 
   };
 
   template<typename T>
-  auto _deserialize(node & node_, T & x_, int)
-    -> decltype(x_.deserialize(node_, 0))
+  auto _dejsonize(node & node_, T & x_, int)
+    -> decltype(x_.dejsonize(node_, 0))
   {
-    x_.deserialize(node_, 0);
+    x_.dejsonize(node_, 0);
     return;
   }
 
   template<typename T>
-  auto _deserialize(node & node_, T & x_, long)
-    -> decltype(x_.serialize(node_, 0))
+  auto _dejsonize(node & node_, T & x_, long)
+    -> decltype(x_.jsonize(node_, 0))
   {
-    x_.serialize(node_, 0);
+    x_.jsonize(node_, 0);
     return;
   }
 

@@ -6,10 +6,10 @@ namespace jsontools {
   node_value_default<T> node_value::operator%(T & x_)
   {
     if (_serializing) {
-      converter<T>::serialize(*this, x_);
+      converter<T>::jsonize(*this, x_);
       _default_value_needed_ = false;
     } else if (not _default_value_needed_) {
-      converter<T>::deserialize(*this, x_);
+      converter<T>::dejsonize(*this, x_);
     }
     return node_value_default<T>(x_, _default_value_needed_);
   }

@@ -23,13 +23,13 @@ namespace jsontools {
   {
   public:
 
-    static void serialize(node & node_, std::string & x_)
+    static void jsonize(node & node_, std::string & x_)
     {
       node_.grab_value() = x_;
       return;
     }
 
-    static void deserialize(node & node_, std::string & x_)
+    static void dejsonize(node & node_, std::string & x_)
     {
       if (not node_.get_value().isString()) {
         throw wrong_type(node_.get_value(), "expected string");
@@ -45,7 +45,7 @@ namespace jsontools {
   {
   public:
 
-    static void serialize(node & node_, std::vector<T> & x_)
+    static void jsonize(node & node_, std::vector<T> & x_)
     {
       node_.grab_value() = Json::arrayValue;
       for (auto & e : x_) {
@@ -57,7 +57,7 @@ namespace jsontools {
       return;
     }
 
-    static void deserialize(node & node_, std::vector<T> & x_)
+    static void dejsonize(node & node_, std::vector<T> & x_)
     {
       if (not node_.get_value().isArray()) {
         throw wrong_type(node_.get_value(), "expected array");
@@ -81,7 +81,7 @@ namespace jsontools {
   {
   public:
 
-    static void serialize(node & node_, std::list<T> & x_)
+    static void jsonize(node & node_, std::list<T> & x_)
     {
       node_.grab_value() = Json::arrayValue;
       for (auto e : x_) {
@@ -93,7 +93,7 @@ namespace jsontools {
       return;
     }
 
-    static void deserialize(node & node_, std::list<T> & x_)
+    static void dejsonize(node & node_, std::list<T> & x_)
     {
       if (not node_.get_value().isArray()) {
         throw wrong_type(node_.get_value(), "expected array");
@@ -116,7 +116,7 @@ namespace jsontools {
   {
   public:
 
-    static void serialize(node & node_, std::array<T, N> & x_)
+    static void jsonize(node & node_, std::array<T, N> & x_)
     {
       node_.grab_value() = Json::arrayValue;
       for (auto & e : x_) {
@@ -128,7 +128,7 @@ namespace jsontools {
       return;
     }
 
-    static void deserialize(node & node_, std::array<T, N> & x_)
+    static void dejsonize(node & node_, std::array<T, N> & x_)
     {
       if (not node_.get_value().isArray()) {
         throw wrong_type(node_.get_value(), "expected array");
@@ -150,7 +150,7 @@ namespace jsontools {
   {
   public:
 
-    static void serialize(node & node_, std::map<T1, T2> & x_)
+    static void jsonize(node & node_, std::map<T1, T2> & x_)
     {
       node_.grab_value() = Json::arrayValue;
       for (auto & e : x_) {
@@ -164,7 +164,7 @@ namespace jsontools {
       return;
     }
 
-    static void deserialize(node & node_, std::map<T1, T2> & x_)
+    static void dejsonize(node & node_, std::map<T1, T2> & x_)
     {
       if (not node_.get_value().isArray()) {
         throw wrong_type(node_.get_value(), "expected array");

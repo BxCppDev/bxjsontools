@@ -58,7 +58,7 @@ namespace jsontools {
   {
   public:
 
-    static void serialize(node & node_, bar::Foreign & f_)
+    static void jsonize(node & node_, bar::Foreign & f_)
     {
       node_.grab_value() = Json::objectValue;
       {
@@ -74,7 +74,7 @@ namespace jsontools {
       return;
     }
 
-    static void deserialize(node & node_, bar::Foreign & f_)
+    static void dejsonize(node & node_, bar::Foreign & f_)
     {
       if (not node_.get_value().isObject()) {
         throw wrong_type(node_.get_value(), "expected object!");
@@ -155,7 +155,7 @@ namespace jsontools {
         return;
       }
 
-      void serialize(jsontools::node & node_, unsigned long int version_ = 0)
+      void jsonize(jsontools::node & node_, unsigned long int version_ = 0)
       {
         node_["name"]   % _name_;
         node_["x"]      % _x_;
@@ -194,7 +194,7 @@ namespace jsontools {
         return;
       }
 
-      void serialize(jsontools::node & node_, unsigned long int version_ = 0)
+      void jsonize(jsontools::node & node_, unsigned long int version_ = 0)
       {
         node_["many"] % _many_;
         return;

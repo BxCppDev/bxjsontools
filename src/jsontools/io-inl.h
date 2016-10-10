@@ -11,6 +11,7 @@ namespace jsontools {
     Json::Value root;
     node_value node(root, false, false);
     std::stringstream strStream;
+    // FIXME
     strStream << in_.rdbuf();
     Json::Reader reader;
     if (not reader.parse(strStream.str(), root)) {
