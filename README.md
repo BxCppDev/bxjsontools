@@ -25,7 +25,7 @@ bxjsontools makes use and is based on:
 is amalgamated in bxjsontools source code.
 * the              JsonSerializer             C++              library
   (https://github.com/SGSSGene/JsonSerializer)  : large  parts of  the
-  code from  JsonSerializer has been  reused with a  few modifications
+  original code from  JsonSerializer has been  reused with a  some modifications
   (coding style, file splitting, minor changes in the interface, addons)
 
 Needed tools and software (tested on Ubuntu 16.04 LTS):
