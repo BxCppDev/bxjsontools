@@ -28,7 +28,9 @@ add_definitions(${BxJsontools_DEFINITIONS})
 
 include_directories(${PROJECT_SOURCE_DIR} ${_incs})
 add_library(Bayeux_jsontools_ex01 SHARED
+            bar.h
             foo.h
+            bar.cc
             foo.cc
             )
 

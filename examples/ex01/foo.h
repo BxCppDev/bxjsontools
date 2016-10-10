@@ -13,27 +13,10 @@
 // Bayeux/jsontools:
 #include <jsontools/i_jsonizable.h>
 
+// This project:
+#include <bar.h>
+
 namespace jsontools_ex01 {
-
-  /// \brief A simple record
-  struct bar : public jsontools::i_jsonizable
-  {
-    bar() {
-      return;
-    }
-
-    bar(int32_t value_, const std::string & label_)
-      : value(value_), label(label_) {
-      return;
-    }
-
-    /// Main JSON (de-)serialization method
-    virtual void serialize(jsontools::node & node_,
-                           unsigned long int version_ = 0);
-
-    int32_t     value = 0;
-    std::string label;
-  };
 
   /// \brief A dummy class
   class foo : public jsontools::i_jsonizable
@@ -65,8 +48,8 @@ namespace jsontools_ex01 {
     void print(std::ostream & out_, const std::string & indent_ = "") const;
 
     /// Main JSON (de-)serialization method
-    virtual void serialize(jsontools::node & node_,
-                           unsigned long int version_ = 0);
+    virtual void jsonize(jsontools::node & node_,
+                         unsigned long int version_ = 0);
 
   private:
 

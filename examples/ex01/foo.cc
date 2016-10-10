@@ -7,14 +7,6 @@
 
 namespace jsontools_ex01 {
 
-  void bar::serialize(jsontools::node & node_,
-                      unsigned long int /* version_ */)
-  {
-    node_["value"] % value;
-    node_["label"] % label;
-    return;
-  }
-
   foo::foo()
   {
     _b_   = false;
@@ -119,8 +111,8 @@ namespace jsontools_ex01 {
     return;
   }
 
-  void foo::serialize(jsontools::node & node_,
-                      unsigned long int /* version_ */)
+  void foo::jsonize(jsontools::node & node_,
+                    unsigned long int /* version_ */)
   {
     node_["b"] % _b_;
     node_["i16"] % _i16_;
