@@ -2,14 +2,17 @@
 
 bxjsontools - Tools for JSON serialization (C++ library)
 
-The     ``bxjsontools``     library     (or     ``BxJsontools``     or
+The     ``bxjsontools``     library     (also   ``BxJsontools``     or
 ``Bayeux/Jsontools``) consists in  a set of C++  classes and utilities
 for JSON based serialization.  It aims to be integrated as a companion
 module  of the  Bayeux  C++  library (the  foundation  library of  the
 SuperNEMO physics experiment's software).
 
+
+For SuperNEMO users only:
+
 JSON  serialization  will  be  used   by  the  Vire  C++  library  for
-communication between C++ implemented  service, Java based Control and
+communication between C++ implemented  services, Java based Control and
 Monitoring  System  (CMS)  servers  and  external  services  (RabbitMQ
 server) for the SuperNEMO experiment.
 
@@ -151,7 +154,7 @@ export PATH="${HOME}/sw/bxjsontools/install-0.1.0/bin:${PATH}"
 ```sh
 $ bxjsontools-query --help
 ```
-* CMake  configuration  scripts (i.e. ``BxJsontoolsConfig.cmake``) are provided for client
+* CMake  configuration  scripts (i.e. ``BxJsontoolsConfig.cmake`` and ``BxJsontoolsConfigVersion.cmake``) are provided for client
   software. The CMake ``find_package(BxJsontools REQUIRED CONFIG)`` command can be given
   the following variable to find the BxJsontools installation on your system:
 ```sh
