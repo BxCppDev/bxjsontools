@@ -8,6 +8,7 @@ for JSON based serialization.  It aims to be integrated as a companion
 module  of the  Bayeux  C++  library (the  foundation  library of  the
 SuperNEMO physics experiment's software).
 
+This is a very preliminary work that needs more development and tests.
 
 For SuperNEMO users only:
 
@@ -27,10 +28,10 @@ is amalgamated in bxjsontools source code.
   code from  JsonSerializer has been  reused with a  few modifications
   (coding style, file splitting, minor changes in the interface, addons)
 
-Needed tools and software (tested on Ubuntu 14.04 LTS):
-* You need CMake version >= 2.8 (former version may work)
-* You need gcc version >= 4.8.4 (former version may work)
-* By default, some bxjsontools' parts depends on Boost 1.54 (former version may work).
+Needed tools and software (tested on Ubuntu 16.04 LTS):
+* You need CMake version >= 3.6.1 (former version may work)
+* You need gcc version >= 5.4.0 (former version may work)
+* By default, some bxjsontools' parts depends on Boost 1.60 (former version may work).
   This can be inhibited at configuration (see 'CMake options' below).
 
 ## License:
@@ -66,7 +67,11 @@ $ git clone https://github.com/fmauger/bxjsontools.git
 ```
 ### Build the library from a dedicated directory:
 
-For  SuperNEMO users  only:
+In case  you configure ``bxjsontools``  with Boost support,  make sure
+you have a proper installation of the Boost library on your system.
+
+
+For SuperNEMO users only:
 
 The SuperNEMO experiment data  processing and simulation software uses
 Cadfaelbrew    (https://github.com/SuperNEMO-DBD/cadfaelbrew)    which
@@ -82,8 +87,10 @@ Then:
 $ mkdir -p /tmp/${USER}/bxjsontools/_build.d/
 $ cd  /tmp/${USER}/bxjsontools/_build.d/
 $ cmake \
-  -DCMAKE_INSTALL_PREFIX=${HOME}/sw/bxjsontools/install-0.1.0 \
-  /tmp/${USER}/bxjsontools/_source.d/bxjsontools/
+    -DCMAKE_INSTALL_PREFIX=${HOME}/sw/bxjsontools/install-0.1.0 \
+    -DBXJSONTOOLS_WITH_BOOST=ON \
+    -DBoost_DIR="installation/path/of/boost/version/1.60" \
+    /tmp/${USER}/bxjsontools/_source.d/bxjsontools/
 $ make
 $ make test
 $ make install
@@ -92,7 +99,7 @@ $ make install
 ### Enjoy bxjsontools from its installation directory:
 ```sh
 $ LANG="C" tree ${HOME}/sw/bxjsontools/install-0.1.0
-/home/mauger/sw/bxjsontools/install-0.1.0
+/home/{userlogin}/sw/bxjsontools/install-0.1.0
 |-- bin
 |   `-- bxjsontools-query
 |-- include
