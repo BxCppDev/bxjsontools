@@ -7,7 +7,7 @@
 // This project:
 #include <foo.h>
 
-// - Bayeux/jsontools:
+// Bayeux/jsontools:
 #include <jsontools/iofile.h>
 
 void ex01();
