@@ -25,13 +25,13 @@ bxjsontools makes use and is based on:
 is amalgamated in bxjsontools source code.
 * the              JsonSerializer             C++              library
   (https://github.com/SGSSGene/JsonSerializer)  : large  parts of  the
-  original code from  JsonSerializer has been  reused with a  some modifications
+  original code from  JsonSerializer has been  reused with some modifications
   (coding style, file splitting, minor changes in the interface, addons)
 
 Needed tools and software (tested on Ubuntu 16.04 LTS):
 * You need CMake version >= 3.6.1 (former version may work)
 * You need gcc version >= 5.4.0 (former version may work)
-* By default, some bxjsontools' parts depends on Boost 1.60 (former version may work).
+* By default, some bxjsontools parts depends on Boost 1.60 (former version may work).
   This can be inhibited at configuration (see 'CMake options' below).
 
 ## License:
@@ -48,7 +48,7 @@ to adapt for a MacOS X system.
 CMake options:
 
 * ``BXJSONTOOLS_WITH_BOOST`` (default: ``ON``) : implements some
-  specific JSON serialization support for some Boost classes (implies Boost 1.54 dependency).
+  specific JSON serialization support for some Boost classes (implies Boost 1.60 dependency).
 
   Supported classes are:
 
