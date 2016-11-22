@@ -30,10 +30,10 @@ namespace jsontools_ex01 {
     virtual ~foo();
 
     /// Set attributes
-    void set(bool, int16_t, uint32_t, double, const std::string &);
+    void set(const bool, const int16_t, const uint32_t, const double, const std::string &);
 
     /// Append buf
-    void append_buf(uint8_t c_);
+    void append_buf(const uint8_t c_);
 
     /// Append sequence
     void append_seq(const bar & b_);
@@ -49,7 +49,7 @@ namespace jsontools_ex01 {
 
     /// Main JSON (de-)serialization method
     virtual void jsonize(jsontools::node & node_,
-                         unsigned long int version_ = 0);
+                         const unsigned long int version_ = 0);
 
   private:
 

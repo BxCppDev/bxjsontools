@@ -22,7 +22,7 @@ namespace jsontools {
 
     /// Main JSON (de-)serialization method
     virtual void jsonize(jsontools::node & node_,
-                         unsigned long int version_ = 0) = 0;
+                         const unsigned long int version_ = 0) = 0;
 
   };
 

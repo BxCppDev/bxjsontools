@@ -14,21 +14,19 @@ namespace jsontools_ex01 {
   /// \brief A simple record
   struct bar : public jsontools::i_jsonizable
   {
-    bar() {
-      return;
-    }
+    bar();
 
-    bar(int32_t value_, const std::string & label_)
-      : value(value_), label(label_) {
-      return;
-    }
+    bar(const int32_t value_, const std::string & label_);
+
+    virtual ~bar();
 
     /// Main JSON (de-)serialization method
     virtual void jsonize(jsontools::node & node_,
-                         unsigned long int version_ = 0);
+                         const unsigned long int version_ = 0);
 
     int32_t     value = 0;
     std::string label;
+
   };
 
 } // end of namespace jsontools_ex01

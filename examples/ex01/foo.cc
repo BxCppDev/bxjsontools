@@ -21,10 +21,10 @@ namespace jsontools_ex01 {
     return;
   }
 
-  void foo::set(bool b_,
-                int16_t i_,
-                uint32_t u_,
-                double d_,
+  void foo::set(const bool b_,
+                const int16_t i_,
+                const uint32_t u_,
+                const double d_,
                 const std::string & str_)
   {
     _b_   = b_;
@@ -35,7 +35,7 @@ namespace jsontools_ex01 {
     return;
   }
 
-  void foo::append_buf(uint8_t c_)
+  void foo::append_buf(const uint8_t c_)
   {
     _buf_.push_back(c_);
     return;
@@ -112,7 +112,7 @@ namespace jsontools_ex01 {
   }
 
   void foo::jsonize(jsontools::node & node_,
-                    unsigned long int /* version_ */)
+                    const unsigned long int /* version_ */)
   {
     node_["b"] % _b_;
     node_["i16"] % _i16_;

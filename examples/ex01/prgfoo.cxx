@@ -31,7 +31,6 @@ int main(void)
 
 void ex01()
 {
-
   {
     jsontools_ex01::foo f1;
     f1.set(true, 42, 1000000, 3.14159265358979, "Hello, JSON!");

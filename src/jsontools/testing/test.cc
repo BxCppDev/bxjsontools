@@ -129,7 +129,7 @@ namespace jsontools {
       }
 
 #if BXJSONTOOLS_WITH_BOOST == 1
-      void set_maybe(int mb_)
+      void set_maybe(const int mb_)
       {
         _maybe_ = mb_;
         return;
@@ -155,7 +155,7 @@ namespace jsontools {
         return;
       }
 
-      void jsonize(jsontools::node & node_, unsigned long int version_ = 0)
+      void jsonize(jsontools::node & node_, const unsigned long int version_ = 0)
       {
         node_["name"]   % _name_;
         node_["x"]      % _x_;
@@ -194,7 +194,7 @@ namespace jsontools {
         return;
       }
 
-      void jsonize(jsontools::node & node_, unsigned long int version_ = 0)
+      void jsonize(jsontools::node & node_, const unsigned long int version_ = 0)
       {
         node_["many"] % _many_;
         return;
