@@ -181,6 +181,51 @@ namespace jsontools {
 
   };
 
+#if defined(JSON_HAS_INT64)
+  template<>
+  class converter<uint64_t>
+  {
+  public:
+
+    static void jsonize(node & node_, uint64_t & x_)
+    {
+      node_.grab_value() = (Json::UInt64&) x_;
+      return;
+    }
+
+    static void dejsonize(node & node_, uint64_t & x_)
+    {
+      if (not node_.get_value().isUInt64()) {
+        throw wrong_type(node_.get_value(), "expected uint64_t");
+      }
+      x_ = node_.get_value().asUInt64();
+      return;
+    }
+
+  };
+
+  template<>
+  class converter<int64_t> {
+  public:
+
+    static void jsonize(node & node_, int64_t & x_)
+    {
+      node_.grab_value() = (Json::Int64&) x_;
+      return;
+    }
+
+    static void dejsonize(node & node_, int64_t & x_)
+    {
+      if (not node_.get_value().isInt64()) {
+        throw wrong_type(node_.get_value(), "expected int64_t");
+      }
+      x_ = node_.get_value().asInt64();
+      return;
+    }
+
+  };
+#endif // defined(JSON_HAS_INT64)
+
   template<>
   class converter<float>
   {
