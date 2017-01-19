@@ -74,7 +74,7 @@ In case  you configure ``bxjsontools``  with Boost support,  make sure
 you have a proper installation of the Boost library on your system.
 
 
-For SuperNEMO users only:
+**Note for SuperNEMO users:**
 
 The SuperNEMO experiment data  processing and simulation software uses
 Cadfaelbrew    (https://github.com/SuperNEMO-DBD/cadfaelbrew)    which
