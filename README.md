@@ -10,9 +10,12 @@ SuperNEMO physics experiment's software).
 
 This is a very preliminary work that needs more development and tests.
 
-For SuperNEMO users only:
+bxjsontools has been initiated in the framework of the SuperNEMO physics
+experiment software.
 
-JSON  serialization  will  be  used   by  the  Vire  C++  library  for
+**Note for SuperNEMO users**:
+
+JSON  serialization  is  used   by  the  Vire  C++  library  for
 communication between C++ implemented  services, Java based Control and
 Monitoring  System  (CMS)  servers  and  external  services  (RabbitMQ
 server) for the SuperNEMO experiment.
@@ -22,7 +25,7 @@ server) for the SuperNEMO experiment.
 
 bxjsontools makes use and is based on:
 * the jsoncpp C++ library (https://github.com/open-source-parsers/jsoncpp)
-is amalgamated in bxjsontools source code.
+  is amalgamated in bxjsontools source code.
 * the              JsonSerializer             C++              library
   (https://github.com/SGSSGene/JsonSerializer)  : large  parts of  the
   original code from  JsonSerializer has been  reused with some modifications
