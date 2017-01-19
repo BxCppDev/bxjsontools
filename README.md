@@ -34,7 +34,7 @@ bxjsontools makes use and is based on:
 Needed tools and software (tested on Ubuntu 16.04 LTS):
 * You need CMake version >= 3.6.1 (former version may work)
 * You need gcc version >= 5.4.0 (former version may work)
-* By default, some bxjsontools parts depends on Boost 1.60 (former version may work).
+* Some parts of bxjsontools may depend on Boost 1.60 (former version may work).
   This can be inhibited at configuration (see 'CMake options' below).
 
 ## License:
