@@ -80,13 +80,17 @@ set(BxJsontools_SOURCES
   )
 
 set(BxJsontools_OTHER_LIBS)
+set(BOOST_MIN_VERSION 1.58.0)
 if(BXJSONTOOLS_WITH_BOOST)
-  find_package(Boost 1.60.0
+  find_package(Boost ${BOOST_MIN_VERSION}
     REQUIRED
     date_time
     )
   message( STATUS "Boost found at '${Boost_INCLUDE_DIRS}'")
   message( STATUS "Boost version = '${Boost_VERSION}'")
+  message( STATUS "Boost lib version = '${Boost_LIB_VERSION}'")
+  set(BxJsontools_BOOST_VERSION "${Boost_MAJOR_VERSION}.${Boost_MINOR_VERSION}.${Boost_SUBMINOR_VERSION}")
+  message( STATUS "Used Boost version = '${BxJsontools_BOOST_VERSION}'")
   include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
   list(APPEND
     BxJsontools_HEADERS

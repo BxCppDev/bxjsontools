@@ -55,12 +55,9 @@ message(STATUS "BxJsontools_WITH_BOOST = '${BxJsontools_WITH_BOOST}'")
 
 # - Boost
 if (BxJsontools_WITH_BOOST)
-  find_package(Boost 1.60.0
+  find_package(Boost ${BxJsontools_BOOST_VERSION}
     REQUIRED
     date_time
-    # NO_MODULE
-    # PATHS @Boost_DIR@
-    # NO_DEFAULT_PATH
     )
 endif()
 
