@@ -56,7 +56,7 @@ CMake option(s):
 ### Note on Boost:
 
 bxjsontools implements some specific  JSON serialization support for a
-few Boost classes of interest (implies Boost 1.58 dependency):
+few Boost classes of interest (implies Boost >=1.58 dependency):
 
 * ``boost::optional<T>`` (for optional records in Vire message's header and/or body)
 * ``boost::posix_time::ptime`` (for Vire message timestamping)
@@ -65,22 +65,20 @@ few Boost classes of interest (implies Boost 1.58 dependency):
 In  principle  bxjsontools   can  build  both  with   a  system  Boost
 installation (version  1.58 on Ubuntu  16.04 resolved by  the standard
 ``FindBoost.cmake`` script  using the ``find_package``  *MODULE* mode)
-or with a  Boost installation provided by  Cadfaelbrew (version >=1.60
-resolved  from  a  dedicated ``BoostConfig.cmake``  script  using  the
-``find_package`` *CONFIG* mode).
+or with a  Boost installation provided by  Cadfaelbrew (version >=1.60).
 
 ### Download the source code from GitHub:
+
 ```sh
 $ mkdir -p /tmp/${USER}/bxjsontools/_source.d/
 $ cd /tmp/${USER}/bxjsontools/_source.d/
 $ git clone https://github.com/BxCppDev/bxjsontools.git
 ```
-### Build the library from a dedicated directory:
 
+### Build the library from a dedicated directory:
 
 Make sure you have a proper installation of the Boost library (>=1.58)
 on your system.
-
 
 **Note for SuperNEMO users:**
 

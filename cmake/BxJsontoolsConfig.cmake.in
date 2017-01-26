@@ -34,23 +34,12 @@ message(STATUS "[info] BxJsontoolsConfig: BxJsontools CMake config in '${__bxjso
 set(BxJsontools_BOOST_VERSION    @BxJsontools_BOOST_VERSION@)
 set(BxJsontools_BOOST_COMPONENTS @BXJSONTOOLS_BOOST_COMPONENTS@)
 set(BxJsontools_BOOST_CONFIG     @Boost_USE_CONFIG@)
-if (BxJsontools_BOOST_CONFIG)
-  # CONFIG: from Cadfaelbrew
-  message(STATUS "[info] BxJsontoolsConfig: Searching for Boost version ${BxJsontools_BOOST_VERSION} with 'CONFIG' mode...")
-  # set(Boost_DIR ${BxJsontools_BOOST_DIR})
-  find_package(Boost ${BxJsontools_BOOST_VERSION} EXACT
-    REQUIRED
-    ${BxJsontools_BOOST_COMPONENTS}
-    CONFIG
-    )
-else()
-  # MODULE: from CMake
-  message(STATUS "[info] BxJsontoolsConfig: Searching for Boost version ${BxJsontools_BOOST_VERSION} with 'MODULE' mode...")
-  find_package(Boost ${BxJsontools_BOOST_VERSION} EXACT
-    REQUIRED
-    ${BxJsontools_BOOST_COMPONENTS}
-    )
-endif()
+message(STATUS "[info] BxJsontoolsConfig: Searching for Boost version ${BxJsontools_BOOST_VERSION} with 'MODULE' mode...")
+set(Boost_NO_BOOST_CMAKE ON)
+find_package(Boost ${BxJsontools_BOOST_VERSION} EXACT
+  REQUIRED
+  ${BxJsontools_BOOST_COMPONENTS}
+  )
 message(STATUS "[info] BxJsontoolsConfig: Found Boost version ${Boost_VERSION}")
 
 #-----------------------------------------------------------------------
@@ -93,7 +82,6 @@ mark_as_advanced(BxJsontools_LIBRARY)
 
 set(BxJsontools_LIBRARIES ${BxJsontools_LIBRARY})
 list(APPEND BxJsontools_LIBRARIES
-  # ${Boost_DATE_TIME_LIBRARY}
   @BxJsontools_OTHER_LIBS@
   )
 message(STATUS "[info] BxJsontoolsConfig: BxJsontools_LIBRARIES = '${BxJsontools_LIBRARIES}'")

@@ -82,7 +82,8 @@ set(BxJsontools_OTHER_LIBS)
 
 set(BXJSONTOOLS_BOOST_MIN_VERSION 1.58.0)
 set(BXJSONTOOLS_BOOST_COMPONENTS date_time)
-message( STATUS "[info] Finding Boost version > ${BXJSONTOOLS_BOOST_MIN_VERSION} and components '${BXJSONTOOLS_BOOST_COMPONENTS}'")
+message( STATUS "[info] Finding Boost version >=${BXJSONTOOLS_BOOST_MIN_VERSION} and components '${BXJSONTOOLS_BOOST_COMPONENTS}'")
+set(Boost_NO_BOOST_CMAKE ON)
 find_package(Boost ${BXJSONTOOLS_BOOST_MIN_VERSION}
   REQUIRED
   ${BXJSONTOOLS_BOOST_COMPONENTS}
@@ -91,22 +92,14 @@ message( STATUS "[info] Boost_VERSION      = '${Boost_VERSION}'")
 message( STATUS "[info] Boost_INCLUDE_DIRS = '${Boost_INCLUDE_DIRS}'")
 message( STATUS "[info] Boost_LIBRARIES    = '${Boost_LIBRARIES}'")
 set(Boost_USE_CONFIG 0)
-if (Boost_MAJOR_VERSION)
-  # MODULE:  Example: /usr/share/cmake-X.Y/Modules/FindBoost.cmake:
-  message( STATUS "[info] Found Boost through 'MODULE' mode.")
-  message( STATUS "[info] Found Boost_LIB_VERSION  = '${Boost_LIB_VERSION}'")
-  message( STATUS "[info] Found Boost_MAJOR_VERSION    = '${Boost_MAJOR_VERSION}'")
-  message( STATUS "[info] Found Boost_MINOR_VERSION    = '${Boost_MINOR_VERSION}'")
-  message( STATUS "[info] Found Boost_SUBMINOR_VERSION = '${Boost_SUBMINOR_VERSION}'")
-  set(BxJsontools_BOOST_VERSION
-    "${Boost_MAJOR_VERSION}.${Boost_MINOR_VERSION}.${Boost_SUBMINOR_VERSION}")
-  get_filename_component(Boost_DIR ${Boost_INCLUDE_DIRS} DIRECTORY)
-else()
-  # CONFIG:  Example: [Cadfaelbrew/install/dir]/lib/cmake/Boost-1.XX.Y/BoostConfig.cmake:
-  message( STATUS "[info] Found Boost through 'CONFIG' mode.")
-  set(Boost_USE_CONFIG 1)
-  string(REPLACE "_" "." BxJsontools_BOOST_VERSION ${Boost_VERSION})
-endif()
+message( STATUS "[info] Found Boost through 'MODULE' mode.")
+message( STATUS "[info] Found Boost_LIB_VERSION  = '${Boost_LIB_VERSION}'")
+message( STATUS "[info] Found Boost_MAJOR_VERSION    = '${Boost_MAJOR_VERSION}'")
+message( STATUS "[info] Found Boost_MINOR_VERSION    = '${Boost_MINOR_VERSION}'")
+message( STATUS "[info] Found Boost_SUBMINOR_VERSION = '${Boost_SUBMINOR_VERSION}'")
+set(BxJsontools_BOOST_VERSION
+  "${Boost_MAJOR_VERSION}.${Boost_MINOR_VERSION}.${Boost_SUBMINOR_VERSION}")
+get_filename_component(Boost_DIR ${Boost_INCLUDE_DIRS} DIRECTORY)
 message( STATUS "[info] BxJsontools_BOOST_VERSION    = '${BxJsontools_BOOST_VERSION}'")
 set(BxJsontools_BOOST_INCLUDE_DIRS ${Boost_INCLUDE_DIRS})
 include_directories(SYSTEM ${BxJsontools_BOOST_INCLUDE_DIRS})
@@ -114,8 +107,11 @@ list(APPEND
   BxJsontools_HEADERS
   src/jsontools/boost_type_converters.h
   )
+set(BxJsontools_BOOST_LIBRARIES Boost::date_time)
+message( STATUS "[info] BxJsontools_BOOST_LIBRARIES = '${BxJsontools_BOOST_LIBRARIES}'")
+
 list(APPEND BxJsontools_OTHER_LIBS
-  ${Boost_DATE_TIME_LIBRARY}
+  ${BxJsontools_BOOST_LIBRARIES}
   )
 message( STATUS "[info] BxJsontools_OTHER_LIBS = '${BxJsontools_OTHER_LIBS}'")
 
