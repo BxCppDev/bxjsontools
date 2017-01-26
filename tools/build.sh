@@ -30,8 +30,7 @@ echo >&2 ""
 echo >&2 "[info] Configuring..."
 cmake \
     -DCMAKE_INSTALL_PREFIX="${install_dir}" \
-    -DBXJSONTOOLS_WITH_BOOST=ON \
-    ${src_dir}
+     ${src_dir}
 if [ $? -ne 0 ]; then
     echo >&2 "[error] CMake failed! Abort!"
     my_exit 1
@@ -52,8 +51,6 @@ if [ $? -ne 0 ]; then
     echo >&2 "[error] Installation failed! Abort!"
     my_exit 1
 fi
-
-# tree ${install_dir}
 
 my_exit 0
 

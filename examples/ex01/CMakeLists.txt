@@ -3,6 +3,8 @@
 cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
 project(bxjsontools_ex01)
 
+message( STATUS "[info] ${PROJECT_NAME}: Entering...")
+
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
   message(STATUS "${PROJECT_NAME} requires an out-of-source build.")
   message(STATUS "Please remove these files from ${CMAKE_BINARY_DIR} first:")
@@ -18,10 +20,9 @@ include(GNUInstallDirs)
 # - Validate that certain paths are relative, otherwise relocation may fail
 foreach(_dir BINDIR LIBDIR INCLUDEDIR DATAROOTDIR)
   if(IS_ABSOLUTE "${CMAKE_INSTALL_${_dir}}")
-    message(FATAL_ERROR "[fatal] Absolute path for CMAKE_INSTALL_${_dir} not allowed")
+    message(FATAL_ERROR "[fatal] ${PROJECT_NAME}: Absolute path for CMAKE_INSTALL_${_dir} not allowed")
   endif()
 endforeach()
-
 message(STATUS "[info] CMAKE_INSTALL_PREFIX           = '${CMAKE_INSTALL_PREFIX}'")
 message(STATUS "[info] CMAKE_INSTALL_BINDIR           = '${CMAKE_INSTALL_BINDIR}'")
 message(STATUS "[info] CMAKE_INSTALL_LIBDIR           = '${CMAKE_INSTALL_LIBDIR}'")
@@ -82,5 +83,7 @@ target_link_libraries(prgfoo PUBLIC Bayeux_jsontools_ex01)
 install(TARGETS prgfoo
   RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
   )
+
+message( STATUS "[info] ${PROJECT_NAME}: Exiting.")
 
 # end of CMakeLists.txt

@@ -1,7 +1,7 @@
 # - Config file for the Jsontools package
 # It defines the following variables
-#  BxJsontools_INCLUDE_DIRS  - include directories for Bayeux/Jsontools
 #  BxJsontools_DEFINITIONS   - compile definitions needed to use Bayeux/Jsontools
+#  BxJsontools_INCLUDE_DIRS  - include directories for Bayeux/Jsontools
 #  BxJsontools_LIBRARIES     - libraries to link against
 #  BxJsontools_BOOST_VERSION
 #  BxJsontools_BOOST_COMPONENTS
