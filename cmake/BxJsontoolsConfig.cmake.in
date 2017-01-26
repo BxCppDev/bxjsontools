@@ -37,7 +37,7 @@ set(BxJsontools_BOOST_CONFIG     @Boost_USE_CONFIG@)
 if (BxJsontools_BOOST_CONFIG)
   # CONFIG: from Cadfaelbrew
   message(STATUS "[info] BxJsontoolsConfig: Searching for Boost version ${BxJsontools_BOOST_VERSION} with 'CONFIG' mode...")
-  set(Boost_DIR ${BxJsontools_BOOST_DIR})
+  # set(Boost_DIR ${BxJsontools_BOOST_DIR})
   find_package(Boost ${BxJsontools_BOOST_VERSION} EXACT
     REQUIRED
     ${BxJsontools_BOOST_COMPONENTS}
@@ -51,7 +51,6 @@ else()
     ${BxJsontools_BOOST_COMPONENTS}
     )
 endif()
-
 message(STATUS "[info] BxJsontoolsConfig: Found Boost version ${Boost_VERSION}")
 
 #-----------------------------------------------------------------------

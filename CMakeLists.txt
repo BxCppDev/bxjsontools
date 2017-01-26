@@ -171,7 +171,9 @@ set_target_properties(Bayeux_jsontools PROPERTIES INSTALL_RPATH_USE_LINK_PATH 1)
 set_target_properties(Bayeux_jsontools PROPERTIES COMPILE_DEFINITIONS ENABLE_BINRELOC)
 
 # - Utilities
-configure_file(src/utilities/bxjsontools-query.in ${PROJECT_BINARY_DIR}/src/utilities/bxjsontools-query  @ONLY)
+configure_file(src/utilities/bxjsontools-query.in
+  ${PROJECT_BINARY_DIR}/src/utilities/bxjsontools-query
+  @ONLY)
 
 install( FILES
   ${BxJsontools_HEADERS}

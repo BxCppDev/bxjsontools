@@ -38,12 +38,7 @@ inc_dir="${prefix_dir}/@CMAKE_INSTALL_INCLUDEDIR@"
 data_dir="${prefix_dir}/@CMAKE_INSTALL_DATADIR@/@BxJsontools_TAG@"
 example_dir="${data_dir}/examples"
 cmake_dir="${prefix_dir}/@CMAKE_INSTALL_CMAKEDIR@/@BxJsontools_TAG@"
-with_boost=false
-boost_version=""
-if [ "x@BxJsontools_WITH_BOOST@" = "x1" ]; then
-    with_boost=true
-    boost_version="@BxJsontools_BOOST_VERSION@"
-fi
+boost_version="@BxJsontools_BOOST_VERSION@"
 
 function print_usage()
 {
@@ -71,17 +66,9 @@ Options:
 
   --exampledir           Print examples directory.
 
-  --with-boost           Print true if BxJsontools is linked to Boost.
-
-EOF
-
-    if [ ${with_boost} = true ]; then
-    cat<<EOF
   --boost-version        Print the version of Boost BxJsontools is linked to.
 
 EOF
-    fi
-
     return
 }
 
@@ -116,10 +103,7 @@ while [ -n "$?" ]; do
 	  elif [ "${option}" = "--cmakedir" ]; then
 	      echo ${cmake_dir}
 	      exit 0
-	  elif [ "${option}" = "--with-boost" ]; then
-	      echo ${with_boost}
-	      exit 0
-	  elif [ ${with_boost} = true -a "${option}" = "--boost-version" ]; then
+	  elif [ "${option}" = "--boost-version" ]; then
 	      echo ${boost_version}
 	      exit 0
 	  else
