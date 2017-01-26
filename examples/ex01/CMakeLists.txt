@@ -1,6 +1,6 @@
-# - Top level CMakeLists.txt for jsontools_ex01 example program
+# - Top level CMakeLists.txt for bxjsontools_ex01 example program
 
-cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
 project(bxjsontools_ex01)
 
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
@@ -14,45 +14,73 @@ if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
   message(FATAL_ERROR "in-source build detected")
 endif()
 
-find_package(BxJsontools 0.1 REQUIRED CONFIG) # HINTS )
-message(STATUS "BxJsontools_INCLUDE_DIRS='${BxJsontools_INCLUDE_DIRS}'")
-message(STATUS "BxJsontools_DEFINITIONS='${BxJsontools_DEFINITIONS}'")
-message(STATUS "BxJsontools_LIBRARY='${BxJsontools_LIBRARY}'")
+include(GNUInstallDirs)
+# - Validate that certain paths are relative, otherwise relocation may fail
+foreach(_dir BINDIR LIBDIR INCLUDEDIR DATAROOTDIR)
+  if(IS_ABSOLUTE "${CMAKE_INSTALL_${_dir}}")
+    message(FATAL_ERROR "[fatal] Absolute path for CMAKE_INSTALL_${_dir} not allowed")
+  endif()
+endforeach()
 
-# - jsontools_INCLUDE_DIRS and jsontools_LIBRARIES must be set on the command line
+message(STATUS "[info] CMAKE_INSTALL_PREFIX           = '${CMAKE_INSTALL_PREFIX}'")
+message(STATUS "[info] CMAKE_INSTALL_BINDIR           = '${CMAKE_INSTALL_BINDIR}'")
+message(STATUS "[info] CMAKE_INSTALL_LIBDIR           = '${CMAKE_INSTALL_LIBDIR}'")
+message(STATUS "[info] CMAKE_INSTALL_INCLUDEDIR       = '${CMAKE_INSTALL_INCLUDEDIR}'")
+message(STATUS "[info] CMAKE_INSTALL_DATAROOTDIR      = '${CMAKE_INSTALL_DATAROOTDIR}'")
+message(STATUS "[info] CMAKE_INSTALL_FULL_LIBDIR      = '${CMAKE_INSTALL_FULL_LIBDIR}'")
+message(STATUS "[info] CMAKE_INSTALL_FULL_BINDIR      = '${CMAKE_INSTALL_FULL_BINDIR}'")
+message(STATUS "[info] CMAKE_INSTALL_FULL_INCLUDEDIR  = '${CMAKE_INSTALL_FULL_INCLUDEDIR}'")
+message(STATUS "[info] CMAKE_INSTALL_FULL_DATAROOTDIR = '${CMAKE_INSTALL_FULL_DATAROOTDIR}'")
+
+# -- RPATH settings --
+# From: https://cmake.org/Wiki/CMake_RPATH_handling
+# use, i.e. don't skip the full RPATH for the build tree
+set(CMAKE_SKIP_BUILD_RPATH  FALSE)
+# when building, don't use the install RPATH already
+# (but later on when installing)
+set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+# add the automatically determined parts of the RPATH
+# which point to directories outside the build tree to the install RPATH
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+# the RPATH to be used when installing, but only if it's not a system directory
+list(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_FULL_LIBDIR}" isSystemDir)
+if("${isSystemDir}" STREQUAL "-1")
+  set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_FULL_LIBDIR}")
+endif()
+
+# - Find BxJsontools
+message(STATUS "[info] Searching for BxJsontools version 0.1...")
+find_package(BxJsontools 0.1 REQUIRED CONFIG)
+message(STATUS "[info] BxJsontools_VERSION      = '${BxJsontools_VERSION}'")
+message(STATUS "[info] BxJsontools_DEFINITIONS  = '${BxJsontools_DEFINITIONS}'")
+message(STATUS "[info] BxJsontools_INCLUDE_DIRS = '${BxJsontools_INCLUDE_DIRS}'")
+message(STATUS "[info] BxJsontools_LIBRARIES    = '${BxJsontools_LIBRARIES}'")
+
 set(_incs ${BxJsontools_INCLUDE_DIRS})
-set(_libs ${BxJsontools_LIBRARY})
+set(_libs ${BxJsontools_LIBRARIES})
 add_definitions(${BxJsontools_DEFINITIONS})
-
-#set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-
 include_directories(${PROJECT_SOURCE_DIR} ${_incs})
+
+# - Library:
+message(STATUS "[info] Adding library 'Bayeux_jsontools_ex01'...")
 add_library(Bayeux_jsontools_ex01 SHARED
-            bar.h
-            foo.h
-            bar.cc
-            foo.cc
-            )
-
+  bar.h
+  foo.h
+  bar.cc
+  foo.cc
+  )
 target_link_libraries(Bayeux_jsontools_ex01 ${_libs} )
-install( FILES
-         ${PROJECT_BINARY_DIR}/libBayeux_jsontools_ex01${CMAKE_SHARED_LIBRARY_SUFFIX}
-         DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-         PERMISSIONS OWNER_READ OWNER_EXECUTE
-         GROUP_READ GROUP_EXECUTE
-         WORLD_READ WORLD_EXECUTE
-       )
+install(TARGETS Bayeux_jsontools_ex01
+  LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+  )
 
+# - Executable:
+message(STATUS "[info] Adding executable 'prgfoo'...")
 add_executable(prgfoo prgfoo.cxx)
-
-target_link_libraries(prgfoo Bayeux_jsontools_ex01)
-
-install ( FILES
-    ${PROJECT_BINARY_DIR}/prgfoo
-    DESTINATION ${CMAKE_INSTALL_PREFIX}
-    PERMISSIONS OWNER_READ OWNER_EXECUTE
-    GROUP_READ GROUP_EXECUTE
-    WORLD_READ WORLD_EXECUTE
+target_link_libraries(prgfoo PUBLIC Bayeux_jsontools_ex01)
+install(TARGETS prgfoo
+  RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
   )
 
 # end of CMakeLists.txt

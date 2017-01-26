@@ -1,10 +1,11 @@
 # - Config file for the Jsontools package
 # It defines the following variables
-#  BxJsontools_INCLUDE_DIRS - include directories for Bayeux/Jsontools
-#  BxJsontools_DEFINITIONS  - compile definitions needed to use Bayeux/Jsontools
-#  BxJsontools_LIBRARIES    - libraries to link against
-#  BxJsontools_WITH_BOOST   - implements support for some Boost classes
-#
+#  BxJsontools_INCLUDE_DIRS  - include directories for Bayeux/Jsontools
+#  BxJsontools_DEFINITIONS   - compile definitions needed to use Bayeux/Jsontools
+#  BxJsontools_LIBRARIES     - libraries to link against
+#  BxJsontools_BOOST_VERSION
+#  BxJsontools_BOOST_COMPONENTS
+#  BxJsontools_BOOST_DIR
 
 #----------------------------------------------------------------------
 # This program is free software: you can redistribute it and/or modify
@@ -21,55 +22,62 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #----------------------------------------------------------------------
 
+message(STATUS "[info] BxJsontoolsConfig: Entering...")
 #-----------------------------------------------------------------------
 # Locate ourselves, since all our config files should have been installed
 # alongside us...
 #
 get_filename_component(__bxjsontools_config_dir "${CMAKE_CURRENT_LIST_FILE}" PATH)
-message(STATUS "BxJsontools CMake config in '${__bxjsontools_config_dir}'")
+message(STATUS "[info] BxJsontoolsConfig: BxJsontools CMake config in '${__bxjsontools_config_dir}'")
+
+# - Boost
+set(BxJsontools_BOOST_VERSION    @BxJsontools_BOOST_VERSION@)
+set(BxJsontools_BOOST_COMPONENTS @BXJSONTOOLS_BOOST_COMPONENTS@)
+set(BxJsontools_BOOST_CONFIG     @Boost_USE_CONFIG@)
+if (BxJsontools_BOOST_CONFIG)
+  # CONFIG: from Cadfaelbrew
+  message(STATUS "[info] BxJsontoolsConfig: Searching for Boost version ${BxJsontools_BOOST_VERSION} with 'CONFIG' mode...")
+  set(Boost_DIR ${BxJsontools_BOOST_DIR})
+  find_package(Boost ${BxJsontools_BOOST_VERSION} EXACT
+    REQUIRED
+    ${BxJsontools_BOOST_COMPONENTS}
+    CONFIG
+    )
+else()
+  # MODULE: from CMake
+  message(STATUS "[info] BxJsontoolsConfig: Searching for Boost version ${BxJsontools_BOOST_VERSION} with 'MODULE' mode...")
+  find_package(Boost ${BxJsontools_BOOST_VERSION} EXACT
+    REQUIRED
+    ${BxJsontools_BOOST_COMPONENTS}
+    )
+endif()
+
+message(STATUS "[info] BxJsontoolsConfig: Found Boost version ${Boost_VERSION}")
+
+#-----------------------------------------------------------------------
+# Build option
+set(BxJsontools_DEFINITIONS @BXJSONTOOLS_DEFINITIONS@)
+message(STATUS "[info] BxJsontoolsConfig: BxJsontools_DEFINITIONS = '${BxJsontools_DEFINITIONS}'")
+if(CMAKE_COMPILER_IS_GNUCXX)
+  set(CMAKE_CXX_FLAGS ${BxJsontools_DEFINITIONS})
+endif()
 
 #-----------------------------------------------------------------------
 # Hard code paths to headers
 #
 
 set(BxJsontools_INCLUDE_DIR "${__bxjsontools_config_dir}/@BXJSONTOOLS_CMAKEDIR_TO_INCLUDEDIR@")
-
 mark_as_advanced(BxJsontools_INCLUDE_DIR)
-set(BxJsontools_INCLUDE_DIRS "${BxJsontools_INCLUDE_DIR}" "${BxJsontools_INCLUDE_DIR}/bayeux")
-message(STATUS "BxJsontools_INCLUDE_DIRS = '${BxJsontools_INCLUDE_DIRS}'")
 
-#-----------------------------------------------------------------------
-if(CMAKE_COMPILER_IS_GNUCXX)
-  set(CMAKE_CXX_FLAGS -std=c++11)
-endif()
-set(BxJsontools_DEFINITIONS -std=c++11)
-message(STATUS "BxJsontools_DEFINITIONS = '${BxJsontools_DEFINITIONS}'")
-
-#-----------------------------------------------------------------------
-# Build option
-set(BxJsontools_WITH_BOOST @BXJSONTOOLS_WITH_BOOST@)
-message(STATUS "BxJsontools_WITH_BOOST = '${BxJsontools_WITH_BOOST}'")
+set(BxJsontools_INCLUDE_DIRS
+  "${BxJsontools_INCLUDE_DIR}"
+  "${BxJsontools_INCLUDE_DIR}/bayeux"
+  ${Boost_INCLUDE_DIRS}
+  )
+message(STATUS "[info] BxJsontoolsConfig: BxJsontools_INCLUDE_DIRS = '${BxJsontools_INCLUDE_DIRS}'")
 
 #-----------------------------------------------------------------------
 # Handle paths/targets for third party deps here...
-
-# - Boost
-if (BxJsontools_WITH_BOOST)
-  find_package(Boost ${BxJsontools_BOOST_VERSION}
-    REQUIRED
-    date_time
-    )
-endif()
-
-#-----------------------------------------------------------------------
-# Append third party include directories to Jsontools's so exposed
-# headers are visible
-#
-if (BxJsontools_WITH_BOOST)
-  list(APPEND BxJsontools_INCLUDE_DIRS
-    ${Boost_INCLUDE_DIRS}
-    )
-endif()
 
 #-----------------------------------------------------------------------
 # Include the file listing all the imported targets.
@@ -80,15 +88,17 @@ if(NOT BxJsontools_TARGETS_LOADED)
   set(BxJsontools_TARGETS_LOADED 1)
 endif()
 
-# - Jsontools itself
+# - BxJsontools itself
 set(BxJsontools_LIBRARY Bayeux_jsontools CACHE FILE "BxJsontools library (imported)")
-set(BxJsontools_LIBRARIES ${BxJsontools_LIBRARY})
-if (BxJsontools_WITH_BOOST)
-  list(APPEND BxJsontools_LIBRARIES
-    ${Boost_DATE_TIME_LIBRARY}
-    )
-endif()
 mark_as_advanced(BxJsontools_LIBRARY)
-message(STATUS "BxJsontools_LIBRARIES = '${BxJsontools_LIBRARIES}'")
+
+set(BxJsontools_LIBRARIES ${BxJsontools_LIBRARY})
+list(APPEND BxJsontools_LIBRARIES
+  # ${Boost_DATE_TIME_LIBRARY}
+  @BxJsontools_OTHER_LIBS@
+  )
+message(STATUS "[info] BxJsontoolsConfig: BxJsontools_LIBRARIES = '${BxJsontools_LIBRARIES}'")
+
+message(STATUS "[info] BxJsontoolsConfig: Exiting.")
 
 # - end

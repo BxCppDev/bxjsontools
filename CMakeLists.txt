@@ -1,6 +1,6 @@
 # - Top level CMakeLists.txt for Bayeux/Jsontools C++ library
 
-cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
 project(bxjsontools LANGUAGES CXX)
 
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
@@ -29,27 +29,26 @@ include(GNUInstallDirs)
 # - Validate that certain paths are relative, otherwise relocation may fail
 foreach(_dir BINDIR LIBDIR INCLUDEDIR DATAROOTDIR)
   if(IS_ABSOLUTE "${CMAKE_INSTALL_${_dir}}")
-    message(FATAL_ERROR "Absolute path for CMAKE_INSTALL_${_dir} not allowed")
+    message(FATAL_ERROR "[fatal] Absolute path for CMAKE_INSTALL_${_dir} not allowed")
   endif()
 endforeach()
 
 # Add a path for CMake config files
-set(CMAKE_INSTALL_CMAKEDIR ${CMAKE_INSTALL_LIBDIR}/cmake)
+set(CMAKE_INSTALL_CMAKEDIR      ${CMAKE_INSTALL_LIBDIR}/cmake)
 set(CMAKE_INSTALL_FULL_CMAKEDIR ${CMAKE_INSTALL_FULL_LIBDIR}/cmake)
 
 # Resources directories based on name-version subdirs
-set(BXJSONTOOLS_TAG "BxJsontools-${BxJsontools_VERSION}")
-file(RELATIVE_PATH BXJSONTOOLS_BINDIR_TO_RESOURCEDIR "${CMAKE_INSTALL_FULL_BINDIR}" "${CMAKE_INSTALL_FULL_DATAROOTDIR}/${BXJSONTOOLS_TAG}")
-file(RELATIVE_PATH BXJSONTOOLS_CMAKEDIR_TO_INCLUDEDIR "${CMAKE_INSTALL_FULL_CMAKEDIR}/${BXJSONTOOLS_TAG}"  "${CMAKE_INSTALL_FULL_INCLUDEDIR}")
-# message( STATUS "BXJSONTOOLS_TAG='${BXJSONTOOLS_TAG}'")
-# message( STATUS "CMAKE_INSTALL_INCLUDEDIR='${CMAKE_INSTALL_INCLUDEDIR}'")
-# message( STATUS "CMAKE_INSTALL_BINDIR='${CMAKE_INSTALL_BINDIR}'")
-# message( STATUS "CMAKE_INSTALL_LIBDIR='${CMAKE_INSTALL_LIBDIR}'")
-# message( STATUS "CMAKE_INSTALL_CMAKEDIR='${CMAKE_INSTALL_CMAKEDIR}'")
-# message( STATUS "CMAKE_INSTALL_DATAROOTDIR='${CMAKE_INSTALL_DATAROOTDIR}'")
-
-option(BXJSONTOOLS_WITH_BOOST "Build Bayeux/jsontools with Boost support" ON)
-mark_as_advanced(BXJSONTOOLS_WITH_BOOST)
+set(BxJsontools_TAG "BxJsontools-${BxJsontools_VERSION}")
+file(RELATIVE_PATH BXJSONTOOLS_BINDIR_TO_RESOURCEDIR
+  "${CMAKE_INSTALL_FULL_BINDIR}"
+  "${CMAKE_INSTALL_FULL_DATAROOTDIR}/${BxJsontools_TAG}"
+  )
+file(RELATIVE_PATH BXJSONTOOLS_CMAKEDIR_TO_INCLUDEDIR
+  "${CMAKE_INSTALL_FULL_CMAKEDIR}/${BxJsontools_TAG}"
+  "${CMAKE_INSTALL_FULL_INCLUDEDIR}"
+  )
+message(STATUS "[info] BXJSONTOOLS_BINDIR_TO_RESOURCEDIR  = '${BXJSONTOOLS_BINDIR_TO_RESOURCEDIR}'")
+message(STATUS "[info] BXJSONTOOLS_CMAKEDIR_TO_INCLUDEDIR = '${BXJSONTOOLS_CMAKEDIR_TO_INCLUDEDIR}'")
 
 set(BxJsoncpp_HEADERS
   src/json/json-forwards.h
@@ -80,44 +79,60 @@ set(BxJsontools_SOURCES
   )
 
 set(BxJsontools_OTHER_LIBS)
-set(BOOST_MIN_VERSION 1.58.0)
-if(BXJSONTOOLS_WITH_BOOST)
-  find_package(Boost ${BOOST_MIN_VERSION}
-    REQUIRED
-    date_time
-    )
-  message( STATUS "Boost found at '${Boost_INCLUDE_DIRS}'")
-  message( STATUS "Boost version = '${Boost_VERSION}'")
-  message( STATUS "Boost lib version = '${Boost_LIB_VERSION}'")
-  set(BxJsontools_BOOST_VERSION "${Boost_MAJOR_VERSION}.${Boost_MINOR_VERSION}.${Boost_SUBMINOR_VERSION}")
-  message( STATUS "Used Boost version = '${BxJsontools_BOOST_VERSION}'")
-  include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
-  list(APPEND
-    BxJsontools_HEADERS
-    src/jsontools/boost_type_converters.h
-    )
-  message( STATUS "Boost_LIBRARIES='${Boost_LIBRARIES}'")
-  list(APPEND BxJsontools_OTHER_LIBS
-    ${Boost_DATE_TIME_LIBRARY}
-    )
-  message( STATUS "Boost_DIR='${Boost_DIR}'")
-  message( STATUS "BxJsontools_OTHER_LIBS='${BxJsontools_OTHER_LIBS}'")
+
+set(BXJSONTOOLS_BOOST_MIN_VERSION 1.58.0)
+set(BXJSONTOOLS_BOOST_COMPONENTS date_time)
+message( STATUS "[info] Finding Boost version > ${BXJSONTOOLS_BOOST_MIN_VERSION} and components '${BXJSONTOOLS_BOOST_COMPONENTS}'")
+find_package(Boost ${BXJSONTOOLS_BOOST_MIN_VERSION}
+  REQUIRED
+  ${BXJSONTOOLS_BOOST_COMPONENTS}
+  )
+message( STATUS "[info] Boost_VERSION      = '${Boost_VERSION}'")
+message( STATUS "[info] Boost_INCLUDE_DIRS = '${Boost_INCLUDE_DIRS}'")
+message( STATUS "[info] Boost_LIBRARIES    = '${Boost_LIBRARIES}'")
+set(Boost_USE_CONFIG 0)
+if (Boost_MAJOR_VERSION)
+  # MODULE:  Example: /usr/share/cmake-X.Y/Modules/FindBoost.cmake:
+  message( STATUS "[info] Found Boost through 'MODULE' mode.")
+  message( STATUS "[info] Found Boost_LIB_VERSION  = '${Boost_LIB_VERSION}'")
+  message( STATUS "[info] Found Boost_MAJOR_VERSION    = '${Boost_MAJOR_VERSION}'")
+  message( STATUS "[info] Found Boost_MINOR_VERSION    = '${Boost_MINOR_VERSION}'")
+  message( STATUS "[info] Found Boost_SUBMINOR_VERSION = '${Boost_SUBMINOR_VERSION}'")
+  set(BxJsontools_BOOST_VERSION
+    "${Boost_MAJOR_VERSION}.${Boost_MINOR_VERSION}.${Boost_SUBMINOR_VERSION}")
+  get_filename_component(Boost_DIR ${Boost_INCLUDE_DIRS} DIRECTORY)
+else()
+  # CONFIG:  Example: [Cadfaelbrew/install/dir]/lib/cmake/Boost-1.XX.Y/BoostConfig.cmake:
+  message( STATUS "[info] Found Boost through 'CONFIG' mode.")
+  set(Boost_USE_CONFIG 1)
+  string(REPLACE "_" "." BxJsontools_BOOST_VERSION ${Boost_VERSION})
 endif()
+message( STATUS "[info] BxJsontools_BOOST_VERSION    = '${BxJsontools_BOOST_VERSION}'")
+set(BxJsontools_BOOST_INCLUDE_DIRS ${Boost_INCLUDE_DIRS})
+include_directories(SYSTEM ${BxJsontools_BOOST_INCLUDE_DIRS})
+list(APPEND
+  BxJsontools_HEADERS
+  src/jsontools/boost_type_converters.h
+  )
+list(APPEND BxJsontools_OTHER_LIBS
+  ${Boost_DATE_TIME_LIBRARY}
+  )
+message( STATUS "[info] BxJsontools_OTHER_LIBS = '${BxJsontools_OTHER_LIBS}'")
 
 # - Publish headers
 configure_file(src/jsontools/version.h.in ${PROJECT_BINARY_DIR}/src/jsontools/version.h @ONLY)
 configure_file(src/jsontools/config.h.in  ${PROJECT_BINARY_DIR}/src/jsontools/config.h  @ONLY)
 
-# - Utilities
-configure_file(src/utilities/bxjsontools-query.in ${PROJECT_BINARY_DIR}/src/utilities/bxjsontools-query  @ONLY)
-
 set(BxJsontools_PRIVATE_HEADERS
   )
 
+set(BXJSONTOOLS_DEFINITIONS
+  -std=c++11
+  )
+
 if(CMAKE_COMPILER_IS_GNUCXX)
-  set(CMAKE_CXX_FLAGS -std=c++11)
+  set(CMAKE_CXX_FLAGS ${BXJSONTOOLS_DEFINITIONS})
 endif()
-# add_definitions(-std=c++11)
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
 include_directories(${PROJECT_BINARY_DIR}/src)
@@ -129,7 +144,34 @@ add_library(Bayeux_jsontools SHARED
   ${BxJsontools_SOURCES}
   )
 
+# Not used:
+# # -- RPATH settings --
+# # From: https://cmake.org/Wiki/CMake_RPATH_handling
+# # use, i.e. don't skip the full RPATH for the build tree
+# set(CMAKE_SKIP_BUILD_RPATH  FALSE)
+# # when building, don't use the install RPATH already
+# # (but later on when installing)
+# set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+# set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+# # add the automatically determined parts of the RPATH
+# # which point to directories outside the build tree to the install RPATH
+# set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+# # the RPATH to be used when installing, but only if it's not a system directory
+# list(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_FULL_LIBDIR}" isSystemDir)
+# if("${isSystemDir}" STREQUAL "-1")
+#   set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_FULL_LIBDIR}")
+# endif()
+
 target_link_libraries(Bayeux_jsontools ${BxJsontools_OTHER_LIBS})
+
+# - Set RPATH as needed
+set_target_properties(Bayeux_jsontools PROPERTIES INSTALL_RPATH_USE_LINK_PATH 1)
+
+# - Use BinReloc
+set_target_properties(Bayeux_jsontools PROPERTIES COMPILE_DEFINITIONS ENABLE_BINRELOC)
+
+# - Utilities
+configure_file(src/utilities/bxjsontools-query.in ${PROJECT_BINARY_DIR}/src/utilities/bxjsontools-query  @ONLY)
 
 install( FILES
   ${BxJsontools_HEADERS}
@@ -174,7 +216,7 @@ install( FILES
 
 install( DIRECTORY
   ${PROJECT_SOURCE_DIR}/examples
-  DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATAROOTDIR}/${BXJSONTOOLS_TAG}
+  DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATAROOTDIR}/${BxJsontools_TAG}
   FILE_PERMISSIONS OWNER_READ
   GROUP_READ
   WORLD_READ
@@ -185,7 +227,7 @@ install( DIRECTORY
 
 install( FILES
   ${PROJECT_SOURCE_DIR}/LICENSE.txt
-  DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATAROOTDIR}/${BXJSONTOOLS_TAG}
+  DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATAROOTDIR}/${BxJsontools_TAG}
   PERMISSIONS OWNER_READ OWNER_WRITE
   GROUP_READ
   WORLD_READ
@@ -193,7 +235,7 @@ install( FILES
 
 install( DIRECTORY
   ${PROJECT_SOURCE_DIR}/licensing
-  DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATAROOTDIR}/${BXJSONTOOLS_TAG}
+  DESTINATION ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATAROOTDIR}/${BxJsontools_TAG}
   FILE_PERMISSIONS OWNER_READ OWNER_WRITE
   GROUP_READ
   WORLD_READ
@@ -202,8 +244,8 @@ install( DIRECTORY
   WORLD_READ WORLD_EXECUTE
   )
 
-option(JSONTOOLS_ENABLE_TESTING "Build unit testing system for Bayeux/jsontools" ON)
-if(JSONTOOLS_ENABLE_TESTING)
+option(BXJSONTOOLS_ENABLE_TESTING "Build unit testing system for Bayeux/jsontools" ON)
+if(BXJSONTOOLS_ENABLE_TESTING)
   enable_testing()
 endif()
 
@@ -211,7 +253,7 @@ set(BxJsontools_TESTS
   src/jsontools/testing/test_jsontools_0.cxx
   )
 
-if(JSONTOOLS_ENABLE_TESTING)
+if(BXJSONTOOLS_ENABLE_TESTING)
   foreach(_testsource ${BxJsontools_TESTS})
     set(_bxjsontools_TEST_ENVIRONMENT
       # "BXJSONTOOLS_RESOURCE_FILES_DIR=${PROJECT_SOURCE_DIR}/resources"
@@ -256,28 +298,28 @@ install(TARGETS Bayeux_jsontools
 #
 # - Targets
 export(TARGETS Bayeux_jsontools
-  FILE ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_CMAKEDIR}/${BXJSONTOOLS_TAG}/BxJsontoolsTargets.cmake
+  FILE ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_CMAKEDIR}/${BxJsontools_TAG}/BxJsontoolsTargets.cmake
   )
 install(EXPORT BxJsontoolsTargets
-  DESTINATION ${CMAKE_INSTALL_CMAKEDIR}/${BXJSONTOOLS_TAG}
+  DESTINATION ${CMAKE_INSTALL_CMAKEDIR}/${BxJsontools_TAG}
   )
 
 # - Versioning (build and install trees)
 configure_file(${PROJECT_SOURCE_DIR}/cmake/BxJsontoolsConfigVersion.cmake.in
-  ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_CMAKEDIR}/${BXJSONTOOLS_TAG}/BxJsontoolsConfigVersion.cmake
+  ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_CMAKEDIR}/${BxJsontools_TAG}/BxJsontoolsConfigVersion.cmake
   @ONLY
   )
 
 # - Config (build and install trees *at present*)
 configure_file(${PROJECT_SOURCE_DIR}/cmake/BxJsontoolsConfig.cmake.in
-  ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_CMAKEDIR}/${BXJSONTOOLS_TAG}/BxJsontoolsConfig.cmake
+  ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_CMAKEDIR}/${BxJsontools_TAG}/BxJsontoolsConfig.cmake
   @ONLY
   )
 
 install(FILES
-  ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_CMAKEDIR}/${BXJSONTOOLS_TAG}/BxJsontoolsConfigVersion.cmake
-  ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_CMAKEDIR}/${BXJSONTOOLS_TAG}/BxJsontoolsConfig.cmake
-  DESTINATION ${CMAKE_INSTALL_CMAKEDIR}/${BXJSONTOOLS_TAG}
+  ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_CMAKEDIR}/${BxJsontools_TAG}/BxJsontoolsConfigVersion.cmake
+  ${PROJECT_BINARY_DIR}/${CMAKE_INSTALL_CMAKEDIR}/${BxJsontools_TAG}/BxJsontoolsConfig.cmake
+  DESTINATION ${CMAKE_INSTALL_CMAKEDIR}/${BxJsontools_TAG}
   )
 
 # - end of CMakeLists.txt

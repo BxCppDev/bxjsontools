@@ -35,19 +35,20 @@ version_str="@BxJsontools_VERSION@"
 lib_dir="${prefix_dir}/@CMAKE_INSTALL_LIBDIR@"
 bin_dir="${prefix_dir}/@CMAKE_INSTALL_BINDIR@"
 inc_dir="${prefix_dir}/@CMAKE_INSTALL_INCLUDEDIR@"
-data_dir="${prefix_dir}/@CMAKE_INSTALL_DATADIR@/BxJsontools-@BxJsontools_VERSION@"
-cmake_dir="${prefix_dir}/@CMAKE_INSTALL_CMAKEDIR@/BxJsontools-@BxJsontools_VERSION@"
-#resource_dir="${data_dir}/resources"
-#doc_dir="${data_dir}/Documentation"
-#plugin_dir="${lib_dir}/@BxJsontools_PLUGINLIBDIR@"
-
-# List of plugins (experimental):
-# plugins="$(find ${plugin_dir} -name lib*.* -exec basename \{\} \; | cut -d. -f1 | sed -e 's/^lib//g')"
+data_dir="${prefix_dir}/@CMAKE_INSTALL_DATADIR@/@BxJsontools_TAG@"
+example_dir="${data_dir}/examples"
+cmake_dir="${prefix_dir}/@CMAKE_INSTALL_CMAKEDIR@/@BxJsontools_TAG@"
+with_boost=false
+boost_version=""
+if [ "x@BxJsontools_WITH_BOOST@" = "x1" ]; then
+    with_boost=true
+    boost_version="@BxJsontools_BOOST_VERSION@"
+fi
 
 function print_usage()
 {
 
-cat<<EOF
+    cat<<EOF
 
 bxjsontools-query - Utility script to fetch informations about BxJsontools installation.
 
@@ -68,13 +69,18 @@ Options:
 
   --cmakedir             Print CMake config directory.
 
+  --exampledir           Print examples directory.
+
+  --with-boost           Print true if BxJsontools is linked to Boost.
+
 EOF
 
-#   --docdir               Print documentation base directory.
+    if [ ${with_boost} = true ]; then
+    cat<<EOF
+  --boost-version        Print the version of Boost BxJsontools is linked to.
 
-#   --resourcedir          Print resource base directory.
-
-# EOF
+EOF
+    fi
 
     return
 }
@@ -104,23 +110,18 @@ while [ -n "$?" ]; do
 	  elif [ "${option}" = "--datadir" ]; then
 	      echo ${data_dir}
 	      exit 0
+	  elif [ "${option}" = "--exampledir" ]; then
+	      echo ${example_dir}
+	      exit 0
 	  elif [ "${option}" = "--cmakedir" ]; then
 	      echo ${cmake_dir}
 	      exit 0
-	  # elif [ "${option}" = "--docdir" ]; then
-	  #     echo ${doc_dir}
-	  #     exit 0
-	  # elif [ "${option}" = "--plugindir" ]; then
-	  #     echo ${plugin_dir}
-	  #     exit 0
-	  # elif [ "${option}" = "--resourcedir" ]; then
-	  #     echo ${resource_dir}
-	  #     exit 0
-	  # elif [ "${option}" = "--plugins" ]; then
-	  #     for plugin in ${plugins} ; do
-	  # 	  echo ${plugin}
-	  #     done
-	  #     exit 0
+	  elif [ "${option}" = "--with-boost" ]; then
+	      echo ${with_boost}
+	      exit 0
+	  elif [ ${with_boost} = true -a "${option}" = "--boost-version" ]; then
+	      echo ${boost_version}
+	      exit 0
 	  else
 	      echo "error: ${APPNAME}: Invalid option '${option}' !" >&2
 	      print_usage
@@ -135,3 +136,5 @@ while [ -n "$?" ]; do
 done
 
 exit 0
+
+# end

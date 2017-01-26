@@ -1,0 +1,45 @@
+{
+   "b" : true,
+   "bars" : [
+      {
+         "key" : "book",
+         "value" : {
+            "label" : "H2G2",
+            "value" : 42
+         }
+      },
+      {
+         "key" : "movie",
+         "value" : {
+            "label" : "Holly Grail",
+            "value" : 472
+         }
+      },
+      {
+         "key" : "song",
+         "value" : {
+            "label" : "Sad song",
+            "value" : 666
+         }
+      }
+   ],
+   "buf" : [ 75, 105, 110, 103, 32, 65, 114, 116, 104, 117, 114 ],
+   "f64" : 3.14159265358979,
+   "i16" : 42,
+   "seq" : [
+      {
+         "label" : "Riri",
+         "value" : 0
+      },
+      {
+         "label" : "Fifi",
+         "value" : 10
+      },
+      {
+         "label" : "Loulou",
+         "value" : 23
+      }
+   ],
+   "str" : "Hello, JSON!",
+   "u32" : 1000000
+}
