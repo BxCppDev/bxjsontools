@@ -24,8 +24,10 @@ SuperNEMO experiment.
 ## Dependencies and inspiration
 
 bxjsontools makes use and is based on:
+
 * the jsoncpp C++ library (https://github.com/open-source-parsers/jsoncpp)
   is amalgamated in bxjsontools source code.
+
 * the              JsonSerializer             C++              library
   (https://github.com/SGSSGene/JsonSerializer)  : large  parts of  the
   original code from  JsonSerializer has been  reused with some modifications
@@ -51,7 +53,7 @@ CMake option(s):
 
 * ``BXJSONTOOLS_ENABLE_TESTING`` (default: ``ON``) : builds the test program(s).
 
-## Boost:
+### Note on Boost:
 
 bxjsontools implements some specific  JSON serialization support for a
 few Boost classes of interest (implies Boost 1.58 dependency):
@@ -75,8 +77,9 @@ $ git clone https://github.com/BxCppDev/bxjsontools.git
 ```
 ### Build the library from a dedicated directory:
 
-In case  you configure ``bxjsontools``  with Boost support,  make sure
-you have a proper installation of the Boost library on your system.
+
+Make sure you have a proper installation of the Boost library (>=1.58)
+on your system.
 
 
 **Note for SuperNEMO users:**
