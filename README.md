@@ -65,7 +65,7 @@ few Boost classes of interest (implies Boost 1.58 dependency):
 In  principle  bxjsontools   can  build  both  with   a  system  Boost
 installation (version  1.58 on Ubuntu  16.04 resolved by  the standard
 ``FindBoost.cmake`` script  using the ``find_package``  *MODULE* mode)
-or with  a Boost  installation provided  by Cadfaelbrew  (version 1.60
+or with a  Boost installation provided by  Cadfaelbrew (version >=1.60
 resolved  from  a  dedicated ``BoostConfig.cmake``  script  using  the
 ``find_package`` *CONFIG* mode).
 
