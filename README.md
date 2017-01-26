@@ -10,15 +10,15 @@ SuperNEMO physics experiment's software).
 
 This is a very preliminary work that needs more development and tests.
 
-bxjsontools has been initiated in the framework of the SuperNEMO physics
-experiment software.
+bxjsontools  has been  initiated  in the  framework  of the  SuperNEMO
+physics experiment software.
 
 **Note for SuperNEMO users**:
 
-JSON  serialization  is  used   by  the  Vire  C++  library  for
-communication between C++ implemented  services, Java based Control and
-Monitoring  System  (CMS)  servers  and  external  services  (RabbitMQ
-server) for the SuperNEMO experiment.
+JSON serialization is  used by the Vire C++  library for communication
+between C++  implemented services,  Java based Control  and Monitoring
+System (CMS) servers  and external services (RabbitMQ  server) for the
+SuperNEMO experiment.
 
 
 ## Dependencies and inspiration
@@ -34,8 +34,7 @@ bxjsontools makes use and is based on:
 Needed tools and software (tested on Ubuntu 16.04 LTS):
 * You need CMake version >= 3.6.1 (former version may work)
 * You need gcc version >= 5.4.0 (former version may work)
-* Some parts of bxjsontools may depend on Boost 1.60 (former version may work).
-  This can be inhibited at configuration (see 'CMake options' below).
+* bxjsontools depends on Boost >= 1.58 (former version may work).
 
 ## License:
 
@@ -45,28 +44,34 @@ See the ``LICENSE.txt`` file and the ``licensing`` directory.
 ## Build and install:
 
 The  following  instructions  illustrate  how  to  build  and  install
-bxjsontools on a Linux system (Ubuntu  14.04/16.04 LTS). It should be easy
-to adapt for a MacOS X system.
+bxjsontools on a  Linux system (tested: 16.04 LTS).  It should be
+easy to adapt for a MacOS X system.
 
-CMake options:
-
-* ``BXJSONTOOLS_WITH_BOOST`` (default: ``ON``) : implements some
-  specific JSON serialization support for some Boost classes (implies Boost 1.60 dependency).
-
-  Supported classes are:
-
-  * ``boost::optional<T>`` (for optional records in message's header and/or body)
-  * ``boost::posix_time::ptime`` (for message timestamping)
-  * ``boost::posix_time::time_period`` (for agenda reservation/scheduling)
+CMake option(s):
 
 * ``BXJSONTOOLS_ENABLE_TESTING`` (default: ``ON``) : builds the test program(s).
 
+## Boost:
+
+bxjsontools implements some specific  JSON serialization support for a
+few Boost classes of interest (implies Boost 1.58 dependency):
+
+* ``boost::optional<T>`` (for optional records in Vire message's header and/or body)
+* ``boost::posix_time::ptime`` (for Vire message timestamping)
+* ``boost::posix_time::time_period`` (for Vire agenda reservation/scheduling)
+
+In  principle  bxjsontools   can  build  both  with   a  system  Boost
+installation (version  1.58 on Ubuntu  16.04 resolved by  the standard
+``FindBoost.cmake`` script  using the ``find_package``  *MODULE* mode)
+or with  a Boost  installation provided  by Cadfaelbrew  (version 1.60
+resolved  from  a  dedicated ``BoostConfig.cmake``  script  using  the
+``find_package`` *CONFIG* mode).
 
 ### Download the source code from GitHub:
 ```sh
 $ mkdir -p /tmp/${USER}/bxjsontools/_source.d/
 $ cd /tmp/${USER}/bxjsontools/_source.d/
-$ git clone https://github.com/fmauger/bxjsontools.git
+$ git clone https://github.com/BxCppDev/bxjsontools.git
 ```
 ### Build the library from a dedicated directory:
 
@@ -78,20 +83,21 @@ you have a proper installation of the Boost library on your system.
 
 The SuperNEMO experiment data  processing and simulation software uses
 Cadfaelbrew    (https://github.com/SuperNEMO-DBD/cadfaelbrew)    which
-provides some core software tools  and libraries (C++ compiler, Boost, GSL,
-ROOT libraries...).  Before to build and install BxJsontools, you must
-switch to a brew shell before:
+provides some core software tools  and libraries (C++ compiler, Boost,
+GSL,  ROOT,  XercesC  libraries...).   Before  to  build  and  install
+BxJsontools, you must switch to a ``brew`` shell before:
+
 ```sh
 $ brew sh
 ```
 
 Then:
+
 ```sh
 $ mkdir -p /tmp/${USER}/bxjsontools/_build.d/
 $ cd  /tmp/${USER}/bxjsontools/_build.d/
 $ cmake \
     -DCMAKE_INSTALL_PREFIX=${HOME}/sw/bxjsontools/install-0.1.0 \
-    -DBXJSONTOOLS_WITH_BOOST=ON \
     -DBoost_DIR="installation/path/of/boost/version/1.60" \
     /tmp/${USER}/bxjsontools/_source.d/bxjsontools/
 $ make
@@ -99,75 +105,32 @@ $ make test
 $ make install
 ```
 
-### Enjoy bxjsontools from its installation directory:
-```sh
-$ LANG="C" tree ${HOME}/sw/bxjsontools/install-0.1.0
-/home/{userlogin}/sw/bxjsontools/install-0.1.0
-|-- bin
-|   `-- bxjsontools-query
-|-- include
-|   `-- bayeux
-|       |-- json
-|       |   |-- json-forwards.h
-|       |   `-- json.h
-|       `-- jsontools
-|           |-- base_type_converters.h
-|           |-- boost_type_converters.h
-|           |-- config.h
-|           |-- core.h
-|           |-- exception.h
-|           |-- i_jsonizable.h
-|           |-- iofile-inl.h
-|           |-- iofile.h
-|           |-- jsontools.h
-|           |-- node-inl.h
-|           |-- node.h
-|           |-- serdes.h
-|           |-- std_type_converters.h
-|           `-- version.h
-|-- lib
-|   |-- cmake
-|   |   `-- BxJsontools-0.1.0
-|   |       |-- BxJsontoolsConfig.cmake
-|   |       |-- BxJsontoolsConfigVersion.cmake
-|   |       |-- BxJsontoolsTargets-noconfig.cmake
-|   |       `-- BxJsontoolsTargets.cmake
-|   `-- libBayeux_jsontools.so
-`-- share
-    `-- BxJsontools-0.1.0
-        |-- LICENSE.txt
-        |-- examples
-        |   `-- ex01
-        |       |-- CMakeLists.txt
-        |       |-- README.md
-        |       |-- foo.cc
-        |       |-- foo.h
-        |       `-- prgfoo.cxx
-        `-- licensing
-            |-- JsonSerializer
-            |   `-- LICENSE.txt
-            |-- bxjsontools
-            |   `-- LICENSE.txt
-            `-- jsoncpp
-                `-- LICENSE.txt
-```
-
 ## Using bxjsontools:
 
-* The ``bxjsontools-query`` utility allows you to fetch informations about your
-  BxJsontools installation. You may add the following typical line in your
-``~/.bashrc`` profile:
+* The ``bxjsontools-query``  utility allows you to  fetch informations
+  about  your  BxJsontools installation.  You  may  add the  following
+  typical line in your ``~/.bashrc`` profile:
+
 ```sh
 export PATH="${HOME}/sw/bxjsontools/install-0.1.0/bin:${PATH}"
 ```
-  This will give you access to the ``bxjsontools-query`` command-line utility:
+
+This will  give you  access to the  ``bxjsontools-query`` command-line
+utility:
+
 ```sh
 $ bxjsontools-query --help
 ```
-* CMake  configuration  scripts (i.e. ``BxJsontoolsConfig.cmake`` and ``BxJsontoolsConfigVersion.cmake``) are provided for client
-  software. The CMake ``find_package(BxJsontools REQUIRED CONFIG)`` command can be given
-  the following variable to find the BxJsontools installation on your system:
+
+* CMake  configuration scripts  (i.e. ``BxJsontoolsConfig.cmake``  and
+  ``BxJsontoolsConfigVersion.cmake``)   are    provided   for   client
+  software.  The CMake  ``find_package(BxJsontools REQUIRED  CONFIG)``
+  command can be given the  following variable to find the BxJsontools
+  installation on your system:
+
 ```sh
 $ cmake ... -DBxJsontools_DIR="$(bxjsontools-query --cmakedir)" ...
 ```
-* There is  a simple example  ``ex01`` that illustrates a  very simple usecase.
+
+* There is  a simple example  ``ex01`` that illustrates a  very simple
+  usecase.
