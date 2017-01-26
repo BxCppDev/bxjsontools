@@ -91,7 +91,6 @@ find_package(Boost ${BXJSONTOOLS_BOOST_MIN_VERSION}
 message( STATUS "[info] Boost_VERSION      = '${Boost_VERSION}'")
 message( STATUS "[info] Boost_INCLUDE_DIRS = '${Boost_INCLUDE_DIRS}'")
 message( STATUS "[info] Boost_LIBRARIES    = '${Boost_LIBRARIES}'")
-set(Boost_USE_CONFIG 0)
 message( STATUS "[info] Found Boost through 'MODULE' mode.")
 message( STATUS "[info] Found Boost_LIB_VERSION  = '${Boost_LIB_VERSION}'")
 message( STATUS "[info] Found Boost_MAJOR_VERSION    = '${Boost_MAJOR_VERSION}'")
@@ -110,9 +109,7 @@ list(APPEND
 set(BxJsontools_BOOST_LIBRARIES Boost::date_time)
 message( STATUS "[info] BxJsontools_BOOST_LIBRARIES = '${BxJsontools_BOOST_LIBRARIES}'")
 
-list(APPEND BxJsontools_OTHER_LIBS
-  ${BxJsontools_BOOST_LIBRARIES}
-  )
+list(APPEND BxJsontools_OTHER_LIBS ${BxJsontools_BOOST_LIBRARIES})
 message( STATUS "[info] BxJsontools_OTHER_LIBS = '${BxJsontools_OTHER_LIBS}'")
 
 # - Publish headers
