@@ -97,9 +97,8 @@ Then:
 $ mkdir -p /tmp/${USER}/bxjsontools/_build.d/
 $ cd  /tmp/${USER}/bxjsontools/_build.d/
 $ cmake \
-    -DCMAKE_INSTALL_PREFIX=${HOME}/sw/bxjsontools/install-0.1.0 \
-    -DBoost_DIR="installation/path/of/boost/version/1.60" \
-    /tmp/${USER}/bxjsontools/_source.d/bxjsontools/
+    -DCMAKE_INSTALL_PREFIX=/tmp/${USER}/bxjsontools/_install.d \
+    /tmp/${USER}/bxjsontools/_source.d/bxjsontools
 $ make
 $ make test
 $ make install
@@ -112,7 +111,7 @@ $ make install
   typical line in your ``~/.bashrc`` profile:
 
 ```sh
-export PATH="${HOME}/sw/bxjsontools/install-0.1.0/bin:${PATH}"
+export PATH="/tmp/${USER}/bxjsontools/_install.d/bin:${PATH}"
 ```
 
 This will  give you  access to the  ``bxjsontools-query`` command-line
