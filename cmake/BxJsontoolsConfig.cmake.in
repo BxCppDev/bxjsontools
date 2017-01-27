@@ -30,6 +30,9 @@ message(STATUS "[info] BxJsontoolsConfig: Entering...")
 get_filename_component(__bxjsontools_config_dir "${CMAKE_CURRENT_LIST_FILE}" PATH)
 message(STATUS "[info] BxJsontoolsConfig: BxJsontools CMake config in '${__bxjsontools_config_dir}'")
 
+set(BxJsontools_VERSION @BxJsontools_VERSION@)
+message(STATUS "[info] BxJsontoolsConfig: BxJsontools_VERSION = '${BxJsontools_VERSION}'")
+
 # - Boost
 set(BxJsontools_BOOST_VERSION    @BxJsontools_BOOST_VERSION@)
 set(BxJsontools_BOOST_COMPONENTS @BXJSONTOOLS_BOOST_COMPONENTS@)
