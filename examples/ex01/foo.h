@@ -10,6 +10,9 @@
 #include <list>
 #include <map>
 
+// Boost:
+#include <boost/date_time/posix_time/posix_time.hpp>
+
 // Bayeux/jsontools:
 #include <jsontools/i_jsonizable.h>
 
@@ -41,6 +44,9 @@ namespace jsontools_ex01 {
     /// Append bar
     void append_bar(const std::string & name_, const bar & b_);
 
+    /// Set timestamp
+    void set_timestamp(const boost::posix_time::ptime &);
+
     /// Reset attributes
     void reset();
 
@@ -61,6 +67,7 @@ namespace jsontools_ex01 {
     std::vector<uint8_t> _buf_;
     std::list<bar> _seq_;
     std::map<std::string, bar> _bars_;
+    boost::posix_time::ptime _timestamp_;
 
   };
 

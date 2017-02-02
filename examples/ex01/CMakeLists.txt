@@ -50,16 +50,35 @@ if("${isSystemDir}" STREQUAL "-1")
   set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_FULL_LIBDIR}")
 endif()
 
-# - Find BxJsontools
+# - Find BxJsontools:
 message(STATUS "[info] Searching for BxJsontools version 0.1...")
 find_package(BxJsontools 0.1 REQUIRED CONFIG)
-message(STATUS "[info] BxJsontools_VERSION      = '${BxJsontools_VERSION}'")
-message(STATUS "[info] BxJsontools_DEFINITIONS  = '${BxJsontools_DEFINITIONS}'")
-message(STATUS "[info] BxJsontools_INCLUDE_DIRS = '${BxJsontools_INCLUDE_DIRS}'")
-message(STATUS "[info] BxJsontools_LIBRARIES    = '${BxJsontools_LIBRARIES}'")
+message(STATUS "[info] BxJsontools_VERSION          = '${BxJsontools_VERSION}'")
+message(STATUS "[info] BxJsontools_DEFINITIONS      = '${BxJsontools_DEFINITIONS}'")
+message(STATUS "[info] BxJsontools_INCLUDE_DIRS     = '${BxJsontools_INCLUDE_DIRS}'")
+message(STATUS "[info] BxJsontools_LIBRARIES        = '${BxJsontools_LIBRARIES}'")
+message(STATUS "[info] BxJsontools_BOOST_VERSION    = '${BxJsontools_BOOST_VERSION}'")
+message(STATUS "[info] BxJsontools_BOOST_COMPONENTS = '${BxJsontools_BOOST_COMPONENTS}'")
 
-set(_incs ${BxJsontools_INCLUDE_DIRS})
-set(_libs ${BxJsontools_LIBRARIES})
+# - Find Boost:
+message(STATUS "[info] Searching for Boost version ${BxJsontools_BOOST_VERSION} with 'MODULE' mode...")
+set(Boost_NO_BOOST_CMAKE ON)
+find_package(Boost ${BxJsontools_BOOST_VERSION} EXACT
+  REQUIRED
+  ${BxJsontools_BOOST_COMPONENTS}
+  )
+message(STATUS "[info] Boost_VERSION      = '${Boost_VERSION}'")
+message(STATUS "[info] Boost_INCLUDE_DIRS = '${Boost_INCLUDE_DIRS}'")
+message(STATUS "[info] Boost_LIBRARIES    = '${Boost_LIBRARIES}'")
+
+set(_incs
+  ${BxJsontools_INCLUDE_DIRS}
+  ${Boost_INCLUDE_DIRS}
+  )
+set(_libs
+  ${BxJsontools_LIBRARIES}
+  ${Boost_LIBRARIES}
+  )
 add_definitions(${BxJsontools_DEFINITIONS})
 include_directories(${PROJECT_SOURCE_DIR} ${_incs})
 

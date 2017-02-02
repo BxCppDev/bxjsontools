@@ -106,10 +106,13 @@ list(APPEND
   BxJsontools_HEADERS
   src/jsontools/boost_type_converters.h
   )
-set(BxJsontools_BOOST_LIBRARIES Boost::date_time)
-message( STATUS "[info] BxJsontools_BOOST_LIBRARIES = '${BxJsontools_BOOST_LIBRARIES}'")
+# set(BxJsontools_BOOST_LIBRARIES
+#   ${Boost_LIBRARIES}
+#   # Boost::date_time
+#   )
+# message( STATUS "[info] BxJsontools_BOOST_LIBRARIES = '${BxJsontools_BOOST_LIBRARIES}'")
+### list(APPEND BxJsontools_OTHER_LIBS ${BxJsontools_BOOST_LIBRARIES})
 
-list(APPEND BxJsontools_OTHER_LIBS ${BxJsontools_BOOST_LIBRARIES})
 message( STATUS "[info] BxJsontools_OTHER_LIBS = '${BxJsontools_OTHER_LIBS}'")
 
 # - Publish headers

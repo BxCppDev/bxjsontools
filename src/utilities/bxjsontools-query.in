@@ -38,7 +38,7 @@ inc_dir="${prefix_dir}/@CMAKE_INSTALL_INCLUDEDIR@"
 data_dir="${prefix_dir}/@CMAKE_INSTALL_DATADIR@/@BxJsontools_TAG@"
 example_dir="${data_dir}/examples"
 cmake_dir="${prefix_dir}/@CMAKE_INSTALL_CMAKEDIR@/@BxJsontools_TAG@"
-boost_version="@BxJsontools_BOOST_VERSION@"
+# boost_version="@BxJsontools_BOOST_VERSION@"
 
 function print_usage()
 {
@@ -65,8 +65,6 @@ Options:
   --cmakedir             Print CMake config directory.
 
   --exampledir           Print examples directory.
-
-  --boost-version        Print the version of Boost BxJsontools is linked to.
 
 EOF
     return
@@ -103,9 +101,9 @@ while [ -n "$?" ]; do
 	  elif [ "${option}" = "--cmakedir" ]; then
 	      echo ${cmake_dir}
 	      exit 0
-	  elif [ "${option}" = "--boost-version" ]; then
-	      echo ${boost_version}
-	      exit 0
+	  # elif [ "${option}" = "--boost-version" ]; then
+	  #     echo ${boost_version}
+	  #     exit 0
 	  else
 	      echo "error: ${APPNAME}: Invalid option '${option}' !" >&2
 	      print_usage

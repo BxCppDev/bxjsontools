@@ -71,20 +71,17 @@ namespace jsontools {
 
     static void jsonize(node & node_, boost::posix_time::ptime & t_)
     {
-      // if (not node_.get_value().isString()) {
-        std::string tstr;
-        if (t_.is_neg_infinity()) {
-          tstr = "-infinity";
-        } else if (t_.is_pos_infinity()) {
-          tstr = "+infinity";
-        } else if (t_.is_not_a_date_time()) {
-          tstr = "not-a-date-time";
-        } else {
-          tstr = boost::posix_time::to_iso_string(t_);
-        }
-        node_.grab_value() = tstr;
-        //}
-
+      std::string tstr;
+      if (t_.is_neg_infinity()) {
+        tstr = "-infinity";
+      } else if (t_.is_pos_infinity()) {
+        tstr = "+infinity";
+      } else if (t_.is_not_a_date_time()) {
+        tstr = "not-a-date-time";
+      } else {
+        tstr = boost::posix_time::to_iso_string(t_);
+      }
+      node_.grab_value() = tstr;
       return;
     }
 

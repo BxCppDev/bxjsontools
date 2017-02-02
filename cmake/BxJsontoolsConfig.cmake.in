@@ -3,9 +3,11 @@
 #  BxJsontools_DEFINITIONS   - compile definitions needed to use Bayeux/Jsontools
 #  BxJsontools_INCLUDE_DIRS  - include directories for Bayeux/Jsontools
 #  BxJsontools_LIBRARIES     - libraries to link against
+
+# There is no explicit Boost dependency but here are recommandations for
+# client projects that would need Boost:
 #  BxJsontools_BOOST_VERSION
 #  BxJsontools_BOOST_COMPONENTS
-#  BxJsontools_BOOST_DIR
 
 #----------------------------------------------------------------------
 # This program is free software: you can redistribute it and/or modify
@@ -36,14 +38,14 @@ message(STATUS "[info] BxJsontoolsConfig: BxJsontools_VERSION = '${BxJsontools_V
 # - Boost
 set(BxJsontools_BOOST_VERSION    @BxJsontools_BOOST_VERSION@)
 set(BxJsontools_BOOST_COMPONENTS @BXJSONTOOLS_BOOST_COMPONENTS@)
-set(BxJsontools_BOOST_CONFIG     @Boost_USE_CONFIG@)
-message(STATUS "[info] BxJsontoolsConfig: Searching for Boost version ${BxJsontools_BOOST_VERSION} with 'MODULE' mode...")
-set(Boost_NO_BOOST_CMAKE ON)
-find_package(Boost ${BxJsontools_BOOST_VERSION} EXACT
-  REQUIRED
-  ${BxJsontools_BOOST_COMPONENTS}
-  )
-message(STATUS "[info] BxJsontoolsConfig: Found Boost version ${Boost_VERSION}")
+# message(STATUS "[info] BxJsontoolsConfig: Searching for Boost version ${BxJsontools_BOOST_VERSION} with 'MODULE' mode...")
+# set(Boost_NO_BOOST_CMAKE ON)
+# find_package(Boost ${BxJsontools_BOOST_VERSION} EXACT
+#   REQUIRED
+#   ${BxJsontools_BOOST_COMPONENTS}
+#   )
+# message(STATUS "[info] BxJsontoolsConfig: Found Boost version ${Boost_VERSION}")
+# message(STATUS "[info] BxJsontoolsConfig: Found Boost version ${Boost_VERSION}")
 
 #-----------------------------------------------------------------------
 # Build option
@@ -63,7 +65,6 @@ mark_as_advanced(BxJsontools_INCLUDE_DIR)
 set(BxJsontools_INCLUDE_DIRS
   "${BxJsontools_INCLUDE_DIR}"
   "${BxJsontools_INCLUDE_DIR}/bayeux"
-  ${Boost_INCLUDE_DIRS}
   )
 message(STATUS "[info] BxJsontoolsConfig: BxJsontools_INCLUDE_DIRS = '${BxJsontools_INCLUDE_DIRS}'")
 

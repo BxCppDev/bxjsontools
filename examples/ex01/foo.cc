@@ -4,6 +4,7 @@
 // - Bayeux/jsontools:
 #include <jsontools/base_type_converters.h>
 #include <jsontools/std_type_converters.h>
+#include <jsontools/boost_type_converters.h>
 
 namespace jsontools_ex01 {
 
@@ -35,6 +36,12 @@ namespace jsontools_ex01 {
     return;
   }
 
+  void foo::set_timestamp(const boost::posix_time::ptime & t_)
+  {
+    _timestamp_ = t_;
+    return;
+  }
+
   void foo::append_buf(const uint8_t c_)
   {
     _buf_.push_back(c_);
@@ -63,6 +70,7 @@ namespace jsontools_ex01 {
     _buf_.clear();
     _seq_.clear();
     _bars_.clear();
+    _timestamp_ = boost::posix_time::ptime(boost::posix_time::not_a_date_time);
     return;
   }
 
@@ -95,10 +103,10 @@ namespace jsontools_ex01 {
     }
     out_ << "]\n";
 
-    out_ << indent_ << "`-- bars : \n";
+    out_ << indent_ << "|-- bars : \n";
     std::size_t barcount = 0;
     for (const auto b : _bars_ ) {
-      out_ << indent_ << "    ";
+      out_ << indent_ << "|   ";
       if (++barcount == _bars_.size()) {
         out_ << "`-- ";
       } else {
@@ -107,6 +115,10 @@ namespace jsontools_ex01 {
       out_ << '"' << b.first << "\" : " << '{' << b.second.value << ',' << b.second.label << '}';
       out_ << '\n';
     }
+
+    out_ << indent_ << "`-- timestamp : ["
+         << boost::posix_time::to_iso_string(_timestamp_) << ']'
+         << std::endl;
 
     return;
   }
@@ -122,6 +134,7 @@ namespace jsontools_ex01 {
     node_["buf"] % _buf_;
     node_["seq"] % _seq_;
     node_["bars"] % _bars_;
+    node_["timestamp"] % _timestamp_;
     return;
   }
 
