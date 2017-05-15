@@ -5,8 +5,7 @@ bxjsontools - Tools for JSON serialization (C++ library)
 The     ``bxjsontools``     library     (also   ``BxJsontools``     or
 ``Bayeux/Jsontools``) consists in  a set of C++  classes and utilities
 for JSON based serialization.  It aims to be integrated as a companion
-module  of the  Bayeux  C++  library (the  foundation  library of  the
-SuperNEMO physics experiment's software).
+module  of the  Bayeux  and Vire C++  libraries.
 
 This is a very preliminary work that needs more development and tests.
 
@@ -25,18 +24,17 @@ SuperNEMO experiment.
 
 bxjsontools makes use and is based on:
 
-* the jsoncpp C++ library (https://github.com/open-source-parsers/jsoncpp)
-  is amalgamated in bxjsontools source code.
-
-* the              JsonSerializer             C++              library
-  (https://github.com/SGSSGene/JsonSerializer)  : large  parts of  the
-  original code from  JsonSerializer has been  reused with some modifications
-  (coding style, file splitting, minor changes in the interface, addons)
+* the   [jsoncpp](https://github.com/open-source-parsers/jsoncpp)  C++
+  library is amalgamated in bxjsontools source code.
+* the [JsonSerializer](https://github.com/SGSSGene/JsonSerializer) C++
+    library : large parts of the original code from JsonSerializer has
+    been reused with some modifications (coding style, file splitting,
+    minor changes in the interface, addons)
 
 Needed tools and software (tested on Ubuntu 16.04 LTS):
-* You need CMake version >= 3.6.1 (former version may work)
+* You need [CMake](https://cmake.org/) version >= 3.6.1 (former version may work)
 * You need gcc version >= 5.4.0 (former version may work)
-* bxjsontools depends on Boost >= 1.58 (former version may work).
+* bxjsontools depends on [Boost](http://www.boost.org/) >= 1.58 (former version may work).
 
 ## License:
 
@@ -65,7 +63,7 @@ few Boost classes of interest (implies Boost >=1.58 dependency):
 In  principle  bxjsontools   can  build  both  with   a  system  Boost
 installation (version  1.58 on Ubuntu  16.04 resolved by  the standard
 ``FindBoost.cmake`` script  using the ``find_package``  *MODULE* mode)
-or with a  Boost installation provided by  Cadfaelbrew (version >=1.60).
+or with a  Boost installation provided by the user ([Linuxbrew](http://linuxbrew.sh/)).
 
 ### Download the source code from GitHub:
 
@@ -133,4 +131,4 @@ $ cmake ... -DBxJsontools_DIR="$(bxjsontools-query --cmakedir)" ...
 ```
 
 * There is  a simple example  ``ex01`` that illustrates a  very simple
-  usecase.
+  usecase with a set of dummy classes.

@@ -45,7 +45,6 @@ set(BxJsontools_BOOST_COMPONENTS @BXJSONTOOLS_BOOST_COMPONENTS@)
 #   ${BxJsontools_BOOST_COMPONENTS}
 #   )
 # message(STATUS "[info] BxJsontoolsConfig: Found Boost version ${Boost_VERSION}")
-# message(STATUS "[info] BxJsontoolsConfig: Found Boost version ${Boost_VERSION}")
 
 #-----------------------------------------------------------------------
 # Build option
