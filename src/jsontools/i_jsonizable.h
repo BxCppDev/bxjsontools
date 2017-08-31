@@ -4,10 +4,12 @@
 #define BXJSONTOOLS_I_JSONIZABLE_H
 
 // This project:
-#include <jsontools/node.h>
-#include <jsontools/serdes.h>
+// #include <jsontools/node.h>
+// #include <jsontools/serdes.h>
 
 namespace jsontools {
+
+  class node;
 
   /// \brief Abstract interface for JSON serializable class
   class i_jsonizable

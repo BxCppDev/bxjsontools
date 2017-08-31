@@ -16,5 +16,6 @@
 #include <jsontools/io.h>
 #include <jsontools/iofile.h>
 #include <jsontools/boost_type_converters.h>
+#include <jsontools/enum_converter.h>
 
 #endif // BXJSONTOOLS_JSONTOOLS_H

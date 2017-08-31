@@ -21,8 +21,16 @@
 
 namespace jsontools_ex01 {
 
+  /// \brief A dummy enumeration type
+  enum baz {
+    BZ_INVALID = 0,
+    BZ_ONE     = 1,
+    BZ_TWO     = 2
+  };
+
   /// \brief A dummy class
-  class foo : public jsontools::i_jsonizable
+  class foo
+    : public jsontools::i_jsonizable
   {
   public:
 
@@ -47,6 +55,9 @@ namespace jsontools_ex01 {
     /// Set timestamp
     void set_timestamp(const boost::posix_time::ptime &);
 
+    /// Set bz
+    void set_bz(const baz &);
+
     /// Reset attributes
     void reset();
 
@@ -68,6 +79,7 @@ namespace jsontools_ex01 {
     std::list<bar> _seq_;
     std::map<std::string, bar> _bars_;
     boost::posix_time::ptime _timestamp_;
+    baz _bz_;
 
   };
 

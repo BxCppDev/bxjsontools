@@ -17,7 +17,8 @@ namespace jsontools {
   template<typename T>
   node_value_default<T>::node_value_default(T & t_,
                                             bool need_default_value_)
-    : _t_(t_), _need_default_value_(need_default_value_)
+    : _t_(t_)
+    , _need_default_value_(need_default_value_)
   {
     return;
   }

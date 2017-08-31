@@ -3,14 +3,25 @@
 #ifndef BXJSONTOOLS_SERDES_H
 #define BXJSONTOOLS_SERDES_H
 
+// Standard library:
+#include <type_traits>
+
 // This project:
 #include <jsontools/core.h>
 #include <jsontools/node.h>
+#include <jsontools/i_jsonizable.h>
 
 namespace jsontools {
 
   template<typename T>
-  class converter<T>
+  class converter<T> //, typename std::enable_if<std::is_class<T>::value>::type>
+  /// \brief Generic converter from object of class T
+  ///        to a protobuf message wrapper node.
+  ///
+  ///        The class T is expected to inherit the
+  ///        jsontools::i_jsonizable interface.
+  // template<typename T>
+  // class converter<T, typename std::enable_if<std::is_base_of<::jsontools::i_jsonizable, T>::value>::type>
   {
   public:
 

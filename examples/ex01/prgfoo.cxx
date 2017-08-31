@@ -52,6 +52,7 @@ void ex01()
     f1.append_bar("movie", jsontools_ex01::bar(472, "Holly Grail"));
     f1.append_bar("song", jsontools_ex01::bar(666, "Sad song"));
     f1.set_timestamp(boost::posix_time::second_clock::local_time());
+    f1.set_bz(jsontools_ex01::BZ_TWO);
     std::clog << "\nf1 object to be JSON-ized: " << std::endl;
     f1.print(std::clog);
     jsontools::store("f1.json", f1);

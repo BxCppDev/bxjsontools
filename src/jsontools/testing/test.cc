@@ -10,6 +10,7 @@
 #include <jsontools/node.h>
 #include <jsontools/base_type_converters.h>
 #include <jsontools/std_type_converters.h>
+#include <jsontools/enum_converter.h>
 #include <jsontools/serdes.h>
 #include <jsontools/io.h>
 #include <jsontools/iofile.h>
@@ -100,6 +101,12 @@ namespace jsontools {
 
   namespace testing {
 
+    enum MyEnum {
+      ME_ZERO = 0,
+      ME_ONE  = 1,
+      ME_TWO  = 2
+    };
+
     class A
     {
     public:
@@ -113,6 +120,7 @@ namespace jsontools {
         _dict_["b"] = 3;
         _dict_["c"] = 2;
         _dict_["d"] = 1;
+        _dummy_ = ME_TWO;
         return;
       }
 
@@ -125,6 +133,7 @@ namespace jsontools {
 #if BXJSONTOOLS_WITH_BOOST == 1
         _maybe_ = boost::none;
 #endif // BXJSONTOOLS_WITH_BOOST == 1
+        _dummy_ = ME_ZERO;
         return;
       }
 
@@ -164,6 +173,7 @@ namespace jsontools {
 #if BXJSONTOOLS_WITH_BOOST == 1
         node_["maybe"]  % _maybe_;
 #endif // BXJSONTOOLS_WITH_BOOST == 1
+        // node_["dummy"]  % _dummy_;
         return;
       }
 
@@ -176,6 +186,7 @@ namespace jsontools {
 #if BXJSONTOOLS_WITH_BOOST == 1
       boost::optional<int32_t> _maybe_;
 #endif // BXJSONTOOLS_WITH_BOOST == 1
+      MyEnum _dummy_;
 
     };
 
