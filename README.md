@@ -2,12 +2,27 @@
 
 bxjsontools - Tools for JSON serialization (C++ library)
 
-The     ``bxjsontools``     library     (also   ``BxJsontools``     or
+The     ``bxjsontools``    library     (also    ``BxJsontools``     or
 ``Bayeux/Jsontools``) consists in  a set of C++  classes and utilities
-for JSON based serialization.  It aims to be integrated as a companion
-module  of the  https://github.com/BxCppDev/Bayeux and https://github.com/BxCppCev/Vire C++ libraries.
+for JSON based serialization.
+
+bxjsontools  typically  allows  you   to  add  JSON  (de)serialization
+functionnalities to  your classes,  as long as  they are  defined from
+supported types: C++ base type (bool, integer and real numbers), enumerations,
+commonly  used C++  template  containers (std::string,  std::vector<>, std::list<>,
+std::map<>, std::array<>...).
+
+Support for a few classes from  the Boost library is also implemented.
+It is  possible to extend the  JSON (de)serialization functionnalities
+to more (complex) types, using template specialization.
+
+bxjsontools serialization is available for standard I/O streams.
 
 This is a very preliminary work that needs more development and tests.
+
+bxjsontools  aims  to be  integrated  as  a  companion module  of  the
+https://github.com/BxCppDev/Bayeux                                 and
+https://github.com/BxCppCev/Vire C++ libraries.
 
 bxjsontools  has been  initiated  in the  framework  of the  SuperNEMO
 physics experiment software.

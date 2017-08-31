@@ -7,7 +7,7 @@
 // Bayeux/jsontools:
 #include <jsontools/jsontools.h>
 
-// A class made serializable through the jsontools::i_jsonizable interface:
+// A class made serializable through the jsontools interface:
 class A : public jsontools::i_jsonizable {
 public:
   A() {
@@ -41,7 +41,7 @@ public:
   // Main (de-)serialization interface method
   virtual void jsonize(jsontools::node & node_,
                        const unsigned long int /* version_ */ = 0) {
-    node_["name"]   % _name_;
+    node_["name"]   % _name_;  // The '%' operator works for reading *and* writing
     node_["x"]      % _x_;
     node_["values"] % _values_;
   }
