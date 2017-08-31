@@ -36,13 +36,14 @@ namespace jsontools {
 
   protected:
 
-    Json::Value & _value; ///< Embedded JSON value
-    bool _serializing;    ///< Serialize flag
+    Json::Value & _value;       ///< Embedded JSON value
+    bool          _serializing; ///< Serialize flag
 
   };
 
   /// \brief Node value
-  class node_value : public node
+  class node_value
+    : public node
   {
   public:
 
@@ -74,7 +75,7 @@ namespace jsontools {
 
   private:
 
-    T & _t_; ///< Reference to a default value
+    T &  _t_;                  ///< Reference to a default value
     bool _need_default_value_; ///< Flag set if a default value is needed
 
   };

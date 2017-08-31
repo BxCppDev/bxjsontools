@@ -1,5 +1,8 @@
 // -*- mode: c++; -*-
 
+// This project:
+#include <jsontools/core.h>
+
 namespace jsontools {
 
   template<typename T>

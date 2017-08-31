@@ -12,7 +12,8 @@
 namespace jsontools_ex01 {
 
   /// \brief A simple record
-  struct bar : public jsontools::i_jsonizable
+  struct bar
+    : public jsontools::i_jsonizable
   {
     bar();
 

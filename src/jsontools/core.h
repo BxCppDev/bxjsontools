@@ -5,11 +5,12 @@
 
 namespace jsontools {
 
-  // template<typename ...T>
-  template <typename T, typename T2 = void, typename Enable = void>
+  // template<typename ... Types>
+  template<typename T, typename T2 = void, typename ... Types>
   class converter;
 
-  // template<typename ...T>
+  // template<typename ... Types>
+  // template<typename T, typename T2 = void, typename ... Types>
   // class converter_split;
 
 } // end of namespace jsontools

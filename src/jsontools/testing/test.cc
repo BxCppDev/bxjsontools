@@ -11,10 +11,12 @@
 #include <jsontools/base_type_converters.h>
 #include <jsontools/std_type_converters.h>
 #include <jsontools/enum_converter.h>
-#include <jsontools/serdes.h>
+#include <jsontools/i_jsonizable.h>
+// #include <jsontools/jsonizable_converter.h>
 #include <jsontools/io.h>
 #include <jsontools/iofile.h>
 
+#define BXJSONTOOLS_WITH_BOOST 1
 #if BXJSONTOOLS_WITH_BOOST == 1
 // Boost:
 #include <boost/optional.hpp>
@@ -107,7 +109,7 @@ namespace jsontools {
       ME_TWO  = 2
     };
 
-    class A
+    class A : public jsontools::i_jsonizable
     {
     public:
 
@@ -116,6 +118,7 @@ namespace jsontools {
         _name_ = "foo";
         _x_ = 1234567;
         _values_ = {1.2, 3.4, 4.5};
+        _indexes_.fill(1);
         _dict_["a"] = 4;
         _dict_["b"] = 3;
         _dict_["c"] = 2;
@@ -129,6 +132,7 @@ namespace jsontools {
         _name_.clear();
         _x_ = 0;
         _values_.clear();
+        _indexes_.fill(0);
         _dict_.clear();
 #if BXJSONTOOLS_WITH_BOOST == 1
         _maybe_ = boost::none;
@@ -145,14 +149,16 @@ namespace jsontools {
       }
 #endif // BXJSONTOOLS_WITH_BOOST == 1
 
-      void print(std::ostream & out_) const
+      void print(std::ostream & out_, const std::string & indent_ = "") const
       {
-        out_ << "Class A : " << std::endl;
-        out_ << "|-- name : '" << _name_ << "'" << std::endl;
-        out_ << "|-- x : '" << _x_ << "'" << std::endl;
-        out_ << "|-- values : [" << _values_.size() << "]" << std::endl;
+        out_ << indent_ << "|-- class : A " << std::endl;
+        out_ << indent_ << "|-- name : '" << _name_ << "'" << std::endl;
+        out_ << indent_ << "|-- x : '" << _x_ << "'" << std::endl;
+        out_ << indent_ << "|-- values : [" << _values_.size() << "]" << std::endl;
+        out_ << indent_ << "|-- indexes : [" << _indexes_.size() << "]" << std::endl;
+        out_ << indent_ << "|-- dict : [" << _dict_.size() << "]" << std::endl;
 #if BXJSONTOOLS_WITH_BOOST == 1
-        out_ << "|-- maybe : ";
+        out_ << indent_ << "|-- maybe : ";
         if (_maybe_) {
           out_ << _maybe_.get();
         } else {
@@ -160,37 +166,39 @@ namespace jsontools {
         }
         out_ << std::endl;
 #endif // BXJSONTOOLS_WITH_BOOST == 1
-        out_ << "`-- dict : [" << _dict_.size() << "]" << std::endl;
+        out_ << indent_ << "`-- dummy : " << _dummy_ << std::endl;
         return;
       }
 
-      void jsonize(jsontools::node & node_, const unsigned long int version_ = 0)
+      virtual void jsonize(jsontools::node & node_, const unsigned long int version_ = 0)
       {
         node_["name"]   % _name_;
         node_["x"]      % _x_;
         node_["values"] % _values_;
+        node_["indexes"] % _indexes_;
         node_["dict"]   % _dict_;
 #if BXJSONTOOLS_WITH_BOOST == 1
         node_["maybe"]  % _maybe_;
 #endif // BXJSONTOOLS_WITH_BOOST == 1
-        // node_["dummy"]  % _dummy_;
+        node_["dummy"]  % _dummy_;
         return;
       }
 
     private:
 
-      std::string _name_;
-      uint32_t _x_;
-      std::vector<double> _values_;
+      std::string                _name_;
+      uint32_t                   _x_;
+      std::vector<double>        _values_;
+      std::array<int32_t,4>      _indexes_;
       std::map<std::string, int> _dict_;
 #if BXJSONTOOLS_WITH_BOOST == 1
-      boost::optional<int32_t> _maybe_;
+      boost::optional<int32_t>   _maybe_;
 #endif // BXJSONTOOLS_WITH_BOOST == 1
-      MyEnum _dummy_;
+      MyEnum                     _dummy_;
 
     };
 
-    class B
+    class B : public jsontools::i_jsonizable
     {
     public:
 
@@ -205,19 +213,19 @@ namespace jsontools {
         return;
       }
 
-      void jsonize(jsontools::node & node_, const unsigned long int version_ = 0)
+      virtual void jsonize(jsontools::node & node_, const unsigned long int version_ = 0)
       {
         node_["many"] % _many_;
         return;
       }
 
-      void print(std::ostream & out_) const
+      void print(std::ostream & out_, const std::string & indent_ = "") const
       {
-        out_ << "Class B : " << std::endl;
-        out_ << "`-- many : [" << _many_.size() << "]" << std::endl;
+        out_ << indent_ << "|-- class : B " << std::endl;
+        out_ << indent_ << "`-- many : [" << _many_.size() << "]" << std::endl;
         for (auto a : _many_) {
-          out_ << "   item : ";
-          a.print(out_);
+          out_ << indent_ << "    item : " << std::endl;
+          a.print(out_, indent_ + "    ");
         }
         return;
       }
@@ -325,7 +333,7 @@ namespace jsontools {
       fees["f2"] = bar::Foreign(+2.0, -1.0);
       std::clog << "fees = \n";
       for (auto f : fees) {
-        std::clog << f.first << " : " << f.second << std::endl;
+        std::clog << "   " << f.first << " : " << f.second << std::endl;
       }
       jsontools::store("test-jsontools-file_3.json", fees);
 
@@ -333,7 +341,7 @@ namespace jsontools {
       jsontools::load("test-jsontools-file_3.json", fees);
       std::clog << "fees = \n";
       for (auto f : fees) {
-        std::clog << f.first << " : " << f.second << std::endl;
+        std::clog << "   " << f.first << " : " << f.second << std::endl;
       }
 
       return;
@@ -343,7 +351,6 @@ namespace jsontools {
     void test::run_test_4()
     {
       std::clog << "\ntest::run_test_4: \n" ;
-#if BXJSONTOOLS_WITH_BOOST == 1
       std::map<std::string, boost::posix_time::ptime> times;
       for (int i = 0; i < (int) 7; i++) {
         boost::posix_time::ptime t(boost::posix_time::microsec_clock::local_time());
@@ -400,8 +407,6 @@ namespace jsontools {
         jsontools::load("test-jsontools-file_4ter.json", tp);
         std::clog << "tp : " << boost::posix_time::to_simple_string(tp) << std::endl;
       }
-
-#endif // BXJSONTOOLS_WITH_BOOST == 1
 
       return;
     }

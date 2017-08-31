@@ -240,7 +240,7 @@ namespace jsontools {
     static void dejsonize(node & node_, float & x_)
     {
       if (not node_.get_value().isDouble()) {
-        throw wrong_type(node_.get_value(), "expected float");
+        throw wrong_type(node_.get_value(), "expected double");
       }
       x_ = node_.get_value().asFloat();
       return;

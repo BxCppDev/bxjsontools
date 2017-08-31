@@ -63,12 +63,12 @@ set(BxJsontools_HEADERS
   src/jsontools/base_type_converters.h
   src/jsontools/std_type_converters.h
   src/jsontools/enum_converter.h
-  src/jsontools/serdes.h
   src/jsontools/io.h
   src/jsontools/io-inl.h
   src/jsontools/iofile.h
   src/jsontools/iofile-inl.h
   src/jsontools/i_jsonizable.h
+  #src/jsontools/jsonizable_converter.h
   src/jsontools/jsontools.h
   )
 
@@ -91,6 +91,7 @@ find_package(Boost ${BXJSONTOOLS_BOOST_MIN_VERSION}
   )
 message( STATUS "[info] Boost_VERSION      = '${Boost_VERSION}'")
 message( STATUS "[info] Boost_INCLUDE_DIRS = '${Boost_INCLUDE_DIRS}'")
+message( STATUS "[info] Boost_LIBRARY_DIRS = '${Boost_LIBRARY_DIRS}'")
 message( STATUS "[info] Boost_LIBRARIES    = '${Boost_LIBRARIES}'")
 message( STATUS "[info] Found Boost through 'MODULE' mode.")
 message( STATUS "[info] Found Boost_LIB_VERSION  = '${Boost_LIB_VERSION}'")
@@ -107,12 +108,13 @@ list(APPEND
   BxJsontools_HEADERS
   src/jsontools/boost_type_converters.h
   )
-# set(BxJsontools_BOOST_LIBRARIES
-#   ${Boost_LIBRARIES}
-#   # Boost::date_time
-#   )
-# message( STATUS "[info] BxJsontools_BOOST_LIBRARIES = '${BxJsontools_BOOST_LIBRARIES}'")
-### list(APPEND BxJsontools_OTHER_LIBS ${BxJsontools_BOOST_LIBRARIES})
+set(BxJsontools_BOOST_LIBRARIES
+  ${Boost_LIBRARIES}
+  )
+message( STATUS "[info] BxJsontools_BOOST_LIBRARIES = '${BxJsontools_BOOST_LIBRARIES}'")
+list(APPEND BxJsontools_OTHER_LIBS
+  ${BxJsontools_BOOST_LIBRARIES}
+  )
 
 message( STATUS "[info] BxJsontools_OTHER_LIBS = '${BxJsontools_OTHER_LIBS}'")
 

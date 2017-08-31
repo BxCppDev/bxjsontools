@@ -5,19 +5,12 @@ bxjsontools - Tools for JSON serialization (C++ library)
 The     ``bxjsontools``     library     (also   ``BxJsontools``     or
 ``Bayeux/Jsontools``) consists in  a set of C++  classes and utilities
 for JSON based serialization.  It aims to be integrated as a companion
-module  of the  Bayeux  and Vire C++  libraries.
+module  of the  https://github.com/BxCppDev/Bayeux and https://github.com/BxCppCev/Vire C++ libraries.
 
 This is a very preliminary work that needs more development and tests.
 
 bxjsontools  has been  initiated  in the  framework  of the  SuperNEMO
 physics experiment software.
-
-**Note for SuperNEMO users**:
-
-JSON serialization is  used by the Vire C++  library for communication
-between C++  implemented services,  Java based Control  and Monitoring
-System (CMS) servers  and external services (RabbitMQ  server) for the
-SuperNEMO experiment.
 
 
 ## Dependencies and inspiration
@@ -32,7 +25,7 @@ bxjsontools makes use and is based on:
     minor changes in the interface, addons)
 
 Needed tools and software (tested on Ubuntu 16.04 LTS):
-* You need [CMake](https://cmake.org/) version >= 3.6.1 (former version may work)
+* You need [CMake](https://cmake.org/) version >= 3.5.1 (former version may work)
 * You need gcc version >= 5.4.0 (former version may work)
 * bxjsontools depends on [Boost](http://www.boost.org/) >= 1.58 (former version may work).
 
@@ -57,15 +50,18 @@ bxjsontools implements some specific  JSON serialization support for a
 few Boost classes of interest (implies Boost >=1.58 dependency):
 
 * ``boost::optional<T>`` (for optional records in Vire message's header and/or body)
-* ``boost::posix_time::ptime`` (for Vire message timestamping)
+* ``boost::posix_time::ptime`` (for Vire message/event timestamping)
 * ``boost::posix_time::time_period`` (for Vire agenda reservation/scheduling)
 
-In  principle  bxjsontools   can  build  both  with   a  system  Boost
+In  principle  bxjsontools   can  build  both  with   a  *system*  Boost
 installation (version  1.58 on Ubuntu  16.04 resolved by  the standard
 ``FindBoost.cmake`` script  using the ``find_package``  *MODULE* mode)
-or with a  Boost installation provided by the user ([Linuxbrew](http://linuxbrew.sh/)).
+or with a  Boost installation provided by the user (example: [Linuxbrew](http://linuxbrew.sh/)).
 
 ### Download the source code from GitHub:
+
+In the following we use ``/tmp`` as the base working directory. Feel free to change it to
+somewhere else (``${HOME}``, ``/opt``...).
 
 ```sh
 $ mkdir -p /tmp/${USER}/bxjsontools/_source.d/
@@ -73,24 +69,19 @@ $ cd /tmp/${USER}/bxjsontools/_source.d/
 $ git clone https://github.com/BxCppDev/bxjsontools.git
 ```
 
-### Build the library from a dedicated directory:
+### Install dependencies:
 
 Make sure you have a proper installation of the Boost library (>=1.58)
 on your system.
 
-**Note for SuperNEMO users:**
-
-The SuperNEMO experiment data  processing and simulation software uses
-Cadfaelbrew    (https://github.com/SuperNEMO-DBD/cadfaelbrew)    which
-provides some core software tools  and libraries (C++ compiler, Boost,
-GSL,  ROOT,  XercesC  libraries...).   Before  to  build  and  install
-BxJsontools, you must switch to a ``brew`` shell before:
-
+Suggestion for Ubuntu 16.04:
 ```sh
-$ brew sh
+$ sudo apt-get install cmake
+$ sudo apt-get install g++-5
+$ sudo apt-get install libboost-all-dev
 ```
 
-Then:
+### Build the library from a dedicated directory:
 
 ```sh
 $ mkdir -p /tmp/${USER}/bxjsontools/_build.d/
@@ -102,6 +93,24 @@ $ make
 $ make test
 $ make install
 ```
+
+On Ubuntu  16.04, system Boost  1.58 is available  from "/usr/include"
+and "/usr/lib".  If  you want to use a specific  version of Boost (for
+example one provided  by Linuxbrew), you must specify  the proper path
+to help CMake to locate Boost files:
+
+```sh
+$ mkdir -p /tmp/${USER}/bxjsontools/_build.d/
+$ cd  /tmp/${USER}/bxjsontools/_build.d/
+$ cmake \
+    -DCMAKE_INSTALL_PREFIX=/tmp/${USER}/bxjsontools/_install.d \
+    -DBOOST_ROOT=/path/to/linuxbrew/installation/base/dir \
+    /tmp/${USER}/bxjsontools/_source.d/bxjsontools
+$ make
+$ make test
+$ make install
+```
+
 
 ## Using bxjsontools:
 
@@ -123,12 +132,112 @@ $ bxjsontools-query --help
 * CMake  configuration scripts  (i.e. ``BxJsontoolsConfig.cmake``  and
   ``BxJsontoolsConfigVersion.cmake``)   are    provided   for   client
   software.  The CMake  ``find_package(BxJsontools REQUIRED  CONFIG)``
-  command can be given the  following variable to find the BxJsontools
-  installation on your system:
+  command can be given the  following variable to successfully find
+  BxJsontools on your system:
 
 ```sh
 $ cmake ... -DBxJsontools_DIR="$(bxjsontools-query --cmakedir)" ...
 ```
 
-* There is  a simple example  ``ex01`` that illustrates a  very simple
-  usecase with a set of dummy classes.
+* There are  simple examples in the source repository that illustrate  very simple
+  usecases with a set of dummy classes.
+
+## Example:
+
+Extracted from example ``ex00``:
+
+```c++
+// Standard library:
+#include <iostream>
+#include <string>
+#include <vector>
+#include <map>
+
+// Bayeux/jsontools:
+#include <jsontools/jsontools.h>
+
+// A class made serializable through the jsontools interface:
+class A : public jsontools::i_jsonizable {
+public:
+  A() {
+    _x_ = 0;
+  }
+
+  void set() {
+    _name_ = "foo";
+    _x_ = 42;
+    _values_.push_back(1);
+    _values_.push_back(2);
+  }
+
+  void reset() {
+    _name_.clear();
+    _x_ = 0;
+    _values_.clear();
+  }
+
+  friend std::ostream & operator<<(std::ostream & out_, const A & a_) {
+    out_ << '{' << "name='" << a_._name_ << "';x=" << a_._x_ << ";values=[";
+    std::size_t count = 0;
+    for (auto v : a_._values_) {
+      out_ << v;
+      if (++count < a_._values_.size()) out_ << ",";
+    }
+    out_ << "]}";
+    return out_;
+  }
+
+  // Main (de-)serialization interface method
+  virtual void jsonize(jsontools::node & node_,
+                       const unsigned long int /* version_ */ = 0) {
+    node_["name"]   % _name_;
+    node_["x"]      % _x_;
+    node_["values"] % _values_;
+  }
+
+private:
+  std::string         _name_;
+  uint32_t            _x_;
+  std::vector<double> _values_;
+};
+
+int main() {
+  // (De-)Serialize a STD container of base type:
+  std::vector<double> vec{1, 2, 3, 4};
+  jsontools::store("file.json", vec);
+  vec.clear();
+  jsontools::load("file.json", vec); // It's back!
+
+  // (De-)Serialize a simple user class made JSON-izable:
+  A a1, a2;
+  a1.set();
+  std::cout << "a1=" << a1 << std::endl;
+  std::cout << "a2=" << a2 << std::endl;
+  std::cout << "serializing a1..." << std::endl;
+  jsontools::store("file2.json", a1);
+  std::cout << "deserializing a2..." << std::endl;
+  jsontools::load("file2.json", a2);
+  std::cout << "a2=" << a2 << std::endl;
+  // a1 and a2 are now the same
+
+  // (De-)Serialize a dictionary of JSON-izable user class:
+  std::map<std::string, A> dict;
+  dict["a1"] = a1;
+  a1.reset();
+  dict["a2"] = a2;
+  dict["a3"] = a1;
+  for (auto p : dict) {
+    std::cout << p.first << " : " << p.second << std::endl;
+  }
+  std::cout << "serializing dict..." << std::endl;
+  jsontools::store("file3.json", dict);
+  std::cout << "reset dict..." << std::endl;
+  dict.clear();
+  std::cout << "deserializing dict..." << std::endl;
+  jsontools::load("file3.json", dict);
+  for (auto p : dict) {
+    std::cout << p.first << " : " << p.second << std::endl;
+  }
+  return 0;
+}
+```

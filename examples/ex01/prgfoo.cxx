@@ -4,11 +4,11 @@
 #include <iostream>
 #include <fstream>
 
-// This project:
-#include <foo.h>
-
 // Bayeux/jsontools:
 #include <jsontools/iofile.h>
+
+// This project:
+#include <foo.h>
 
 void ex01();
 

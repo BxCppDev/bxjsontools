@@ -11,8 +11,8 @@ namespace jsontools {
 
   node_value node::operator[](const std::string & s_)
   {
-    bool defaultValueNeeded = not _value.isMember(s_);
-    return node_value(_value[s_], _serializing, defaultValueNeeded);
+    bool default_value_needed = not _value.isMember(s_);
+    return node_value(_value[s_], _serializing, default_value_needed);
   }
 
   bool node::is_serializing() const

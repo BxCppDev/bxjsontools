@@ -2,6 +2,7 @@
 #include <foo.h>
 
 // - Bayeux/jsontools:
+// #include <jsontools/jsonizable_converter.h>
 #include <jsontools/enum_converter.h>
 #include <jsontools/base_type_converters.h>
 #include <jsontools/std_type_converters.h>
