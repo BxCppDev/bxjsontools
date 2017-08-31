@@ -16,7 +16,7 @@ endif()
 
 # - Versioning
 set(BxJsontools_VERSION_MAJOR 0)
-set(BxJsontools_VERSION_MINOR 1)
+set(BxJsontools_VERSION_MINOR 2)
 set(BxJsontools_VERSION_PATCH 0)
 set(BxJsontools_VERSION
   "${BxJsontools_VERSION_MAJOR}.${BxJsontools_VERSION_MINOR}.${BxJsontools_VERSION_PATCH}")
@@ -68,7 +68,6 @@ set(BxJsontools_HEADERS
   src/jsontools/iofile.h
   src/jsontools/iofile-inl.h
   src/jsontools/i_jsonizable.h
-  #src/jsontools/jsonizable_converter.h
   src/jsontools/jsontools.h
   )
 
@@ -142,24 +141,6 @@ add_library(Bayeux_jsontools SHARED
   ${BxJsontools_PRIVATE_HEADERS}
   ${BxJsontools_SOURCES}
   )
-
-# Not used:
-# # -- RPATH settings --
-# # From: https://cmake.org/Wiki/CMake_RPATH_handling
-# # use, i.e. don't skip the full RPATH for the build tree
-# set(CMAKE_SKIP_BUILD_RPATH  FALSE)
-# # when building, don't use the install RPATH already
-# # (but later on when installing)
-# set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
-# set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
-# # add the automatically determined parts of the RPATH
-# # which point to directories outside the build tree to the install RPATH
-# set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-# # the RPATH to be used when installing, but only if it's not a system directory
-# list(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_FULL_LIBDIR}" isSystemDir)
-# if("${isSystemDir}" STREQUAL "-1")
-#   set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_FULL_LIBDIR}")
-# endif()
 
 target_link_libraries(Bayeux_jsontools ${BxJsontools_OTHER_LIBS})
 
