@@ -98,8 +98,14 @@ $ sudo apt-get install g++-5
 $ sudo apt-get install libboost-all-dev
 ```
 
+Boost may also be installed from brew:
+```sh
+$ brew install bxcppdev/bxtap/boost --c++11
+```
+
 ### Build the library from a dedicated directory:
 
+Instructions to build bxjsontools from a working build directory:
 ```sh
 $ mkdir -p /tmp/${USER}/bxjsontools/_build.d/
 $ cd  /tmp/${USER}/bxjsontools/_build.d/
@@ -112,7 +118,8 @@ $ make install
 ```
 
 On Ubuntu 16.04, system Boost  1.58 is available from ``/usr/include``
-and ``/usr/lib``.  If you want to use a specific version of Boost (for
+and ``/usr/lib`` and should be found automatically by CMake.
+If you want to use a specific version of Boost (for
 example one provided  by Linuxbrew), you must specify  the proper path
 to help CMake to locate Boost files:
 
@@ -128,6 +135,19 @@ $ make test
 $ make install
 ```
 
+you can also use:
+
+```sh
+$ mkdir -p /tmp/${USER}/bxjsontools/_build.d/
+$ cd  /tmp/${USER}/bxjsontools/_build.d/
+$ cmake \
+    -DCMAKE_INSTALL_PREFIX=/tmp/${USER}/bxjsontools/_install.d \
+    -DBOOST_ROOT=$(brew --prefix) \
+    /tmp/${USER}/bxjsontools/_source.d/bxjsontools
+$ make
+$ make test
+$ make install
+```
 
 ## Using bxjsontools:
 
