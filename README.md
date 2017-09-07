@@ -135,7 +135,7 @@ $ make test
 $ make install
 ```
 
-you can also use:
+You can also use:
 
 ```sh
 $ mkdir -p /tmp/${USER}/bxjsontools/_build.d/
