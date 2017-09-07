@@ -17,7 +17,7 @@ function my_usage()
 
 Options:
 
-   --help             : print help
+   --help             : print this help
    --boost-root path  : set the Boost installation base directory
 
 EOF

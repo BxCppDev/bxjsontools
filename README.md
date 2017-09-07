@@ -6,9 +6,9 @@ The     ``bxjsontools``    library     (also    ``BxJsontools``     or
 ``Bayeux/Jsontools``) consists in  a set of C++  classes and utilities
 for JSON based serialization of simple classes.
 
-bxjsontools allows you to  add JSON (de)serialization functionnalities
+bxjsontools allows you to  add JSON based (de)serialization functionnalities
 to your  classes, as  long as  they are  defined from  supported types
-(typically scalar attributes):  C++ base type (bool,  integer and real
+(typically scalar attributes):  C++ base types (bool,  integer and real
 numbers),   enumerations,  commonly   used  C++   template  containers
 (std::string,       std::vector<>,      std::list<>,       std::map<>,
 std::array<>...).  Support for a few classes from the Boost library is
@@ -78,7 +78,7 @@ or  with  a   Boost  installation  provided  by   the  user  (example:
 ### Download the source code from GitHub:
 
 In the following  we use ``/tmp`` as the base  working directory. Feel
-free to change it to somewhere else (``${HOME}``, ``/opt``...).
+free to change it to somewhere else (your ``${HOME}`` dir, ``/opt``...).
 
 ```sh
 $ mkdir -p /tmp/${USER}/bxjsontools/_source.d/
