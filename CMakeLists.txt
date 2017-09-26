@@ -14,12 +14,12 @@ if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
   message(FATAL_ERROR "in-source build detected")
 endif()
 
-# - Versioning
-set(BxJsontools_VERSION_MAJOR 0)
-set(BxJsontools_VERSION_MINOR 2)
-set(BxJsontools_VERSION_PATCH 0)
-set(BxJsontools_VERSION
-  "${BxJsontools_VERSION_MAJOR}.${BxJsontools_VERSION_MINOR}.${BxJsontools_VERSION_PATCH}")
+# - Version number management utilities:
+include(BxVersionManager)
+
+# - Versioning only giving major and minor. Patch number is
+#   automatically deduced from an external file.
+bx_version_set(BxJsontools 0 2)
 
 #-----------------------------------------------------------------------
 # - Standard UNIX Tool install paths, including relative paths for use
@@ -80,6 +80,10 @@ set(BxJsontools_SOURCES
 
 set(BxJsontools_OTHER_LIBS)
 
+# - Boost:
+if (BOOST_ROOT)
+  message( STATUS "[info] BOOST_ROOT = '${BOOST_ROOT}'")
+endif()
 set(BXJSONTOOLS_BOOST_MIN_VERSION 1.58.0)
 set(BXJSONTOOLS_BOOST_COMPONENTS date_time)
 message( STATUS "[info] Finding Boost version >=${BXJSONTOOLS_BOOST_MIN_VERSION} and components '${BXJSONTOOLS_BOOST_COMPONENTS}'")
