@@ -68,6 +68,8 @@ endif()
 
 set(BxJsontools_INCLUDE_DIR "${__bxjsontools_config_dir}/@BXJSONTOOLS_CMAKEDIR_TO_INCLUDEDIR@")
 mark_as_advanced(BxJsontools_INCLUDE_DIR)
+set(BxJsontools_LIB_DIR "${__bxjsontools_config_dir}/@BXJSONTOOLS_CMAKEDIR_TO_LIBDIR@")
+mark_as_advanced(BxJsontools_LIB_DIR)
 
 set(BxJsontools_INCLUDE_DIRS
   "${BxJsontools_INCLUDE_DIR}"
@@ -89,7 +91,9 @@ if(NOT BxJsontools_TARGETS_LOADED)
 endif()
 
 # - BxJsontools itself
-set(BxJsontools_LIBRARY Bayeux_jsontools CACHE FILE "BxJsontools library (imported)")
+set(BxJsontools_LIBRARY
+  "${BxJsontools_LIB_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}Bayeux_jsontools${CMAKE_SHARED_LIBRARY_SUFFIX}"
+  CACHE FILE "BxJsontools library (imported)")
 mark_as_advanced(BxJsontools_LIBRARY)
 
 set(BxJsontools_LIBRARIES ${BxJsontools_LIBRARY})
