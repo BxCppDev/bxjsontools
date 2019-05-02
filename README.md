@@ -38,7 +38,7 @@ bxjsontools makes use and is based on:
     been reused with some modifications (coding style, file splitting,
     minor changes in the interface, addons)
 
-Needed tools and software (tested on Ubuntu 16.04 LTS):
+Needed tools and software (tested on Ubuntu 16.04 LTS and 18.04 LTS):
 * You  need  [CMake](https://cmake.org/)   version  >=  3.5.1  (former
   version may work)
 * You need gcc version >= 5.4.0 (former version may work)
