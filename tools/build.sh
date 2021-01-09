@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# A Bash script to build and install devel BxJsontools on Ubuntu (16.04).
+# A Bash script to build and install devel BxJsontools on Ubuntu (18.04/20.04).
 
 opwd=$(pwd)
 function my_exit()

@@ -6,14 +6,14 @@ The     ``bxjsontools``    library     (also    ``BxJsontools``     or
 ``Bayeux/Jsontools``) consists in  a set of C++  classes and utilities
 for JSON based serialization of simple classes.
 
-bxjsontools allows you to  add JSON based (de)serialization functionnalities
-to your  classes, as  long as  they are  defined from  supported types
-(typically scalar attributes):  C++ base types (bool,  integer and real
-numbers),   enumerations,  commonly   used  C++   template  containers
-(std::string,       std::vector<>,      std::list<>,       std::map<>,
+bxjsontools   allows  you   to   add   JSON  based   (de)serialization
+functionalities  to your  classes, as  long as  they are  defined from
+supported types  (typically scalar attributes): C++  base types (bool,
+integer and  real numbers),  enumerations, commonly used  C++ template
+containers   (std::string,  std::vector<>,   std::list<>,  std::map<>,
 std::array<>...).  Support for a few classes from the Boost library is
 also implemented.  It is possible to extend the JSON (de)serialization
-functionnalities   to    more   (complex)   types,    using   template
+functionalities    to   more    (complex)   types,    using   template
 specialization.
 
 bxjsontools serialization is available for standard I/O streams.
@@ -21,7 +21,8 @@ bxjsontools serialization is available for standard I/O streams.
 This is a very preliminary work that needs more development and tests.
 
 bxjsontools  aims  to be  integrated  as  a  companion module  of  the
-https://github.com/BxCppDev/Bayeux and Vire C++ libraries.
+https://github.com/BxCppDev/Bayeux                                 and
+https://github.com/BxCppDev/Vire C++ libraries.
 
 bxjsontools  has been  initiated  in the  framework  of the  SuperNEMO
 physics experiment software.
@@ -38,7 +39,7 @@ bxjsontools makes use and is based on:
     been reused with some modifications (coding style, file splitting,
     minor changes in the interface, addons)
 
-Needed tools and software (tested on Ubuntu 16.04 LTS and 18.04 LTS):
+Needed tools and software (tested on Ubuntu 16.04/18.04/20.04 LTS):
 * You  need  [CMake](https://cmake.org/)   version  >=  3.5.1  (former
   version may work)
 * You need gcc version >= 5.4.0 (former version may work)
@@ -53,8 +54,8 @@ See the ``LICENSE.txt`` file and the ``licensing`` directory.
 ## Build and install:
 
 The  following  instructions  illustrate  how  to  build  and  install
-bxjsontools on a Linux system (tested:  16.04 LTS).  It should be easy
-to adapt for a MacOS X system.
+bxjsontools on a Linux  system (tested: Ubuntu 16.04/18.04/20.04 LTS).
+It should be easy to adapt for a MacOS X system.
 
 CMake option(s):
 
@@ -94,14 +95,11 @@ on your system.
 Suggestion for Ubuntu 16.04:
 ```sh
 $ sudo apt-get install cmake
-$ sudo apt-get install g++-5
+$ sudo apt-get install g++
 $ sudo apt-get install libboost-all-dev
 ```
 
-Boost may also be installed from brew:
-```sh
-$ brew install bxcppdev/bxtap/boost --c++11
-```
+Boost may also be installed from linuxbrew/homebrew or Spack.
 
 ### Build the library from a dedicated directory:
 
@@ -117,11 +115,11 @@ $ make test
 $ make install
 ```
 
-On Ubuntu 16.04, system Boost  1.58 is available from ``/usr/include``
-and ``/usr/lib`` and should be found automatically by CMake.
-If you want to use a specific version of Boost (for
-example one provided  by Linuxbrew), you must specify  the proper path
-to help CMake to locate Boost files:
+On Ubuntu 20.04, system Boost  1.71 is available from ``/usr/include``
+and ``/usr/lib`` and  should be found automatically by  CMake.  If you
+want to use  a specific version of Boost (for  example one provided by
+Linuxbrew), you must  specify the proper path to help  CMake to locate
+Boost files:
 
 ```sh
 $ mkdir -p /tmp/${USER}/bxjsontools/_build.d/
@@ -239,25 +237,27 @@ private:
 };
 
 int main() {
-  // (De-)Serialize a STD container of base type:
-  std::vector<double> vec{1, 2, 3, 4};
+
+  // Serialize/deserialize a STD container of a base type:
+  std::vector<double> vec{1.0, 2.0, 3.0, 4.0};
   jsontools::store("file.json", vec);
   vec.clear();
   jsontools::load("file.json", vec); // It's back!
 
-  // (De-)Serialize a simple user class made JSON-izable:
-  A a1, a2;
+  // Serialize/deserialize a simple user class made JSON-izable:
+  A a1;
   a1.set();
   std::cout << "a1=" << a1 << std::endl;
   std::cout << "a2=" << a2 << std::endl;
   std::cout << "serializing a1..." << std::endl;
   jsontools::store("file2.json", a1);
   std::cout << "deserializing a2..." << std::endl;
+  A  a2;
   jsontools::load("file2.json", a2);
   std::cout << "a2=" << a2 << std::endl;
   // a1 and a2 are now the same
 
-  // (De-)Serialize a dictionary of JSON-izable user class:
+  // Serialize/deserialize a dictionary of JSON-izable user class:
   std::map<std::string, A> dict;
   dict["a1"] = a1;
   a1.reset();

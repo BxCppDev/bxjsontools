@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# A Bash script to clean devel BxJsontools installation on Ubuntu (16.04).
+# A Bash script to clean devel BxJsontools installation on Ubuntu (18.04/20.04).
 #
 #
 opwd=$(pwd)
