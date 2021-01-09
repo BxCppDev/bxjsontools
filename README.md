@@ -27,6 +27,10 @@ https://github.com/BxCppDev/Vire C++ libraries.
 bxjsontools  has been  initiated  in the  framework  of the  SuperNEMO
 physics experiment software.
 
+## History
+
+* Version 1.0.0: first production release
+
 
 ## Dependencies and inspiration
 
